@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Obat Herbal</string>
+    <string name="nav_home">home</string>
+
+    <string-array name="filter_types">
+        <item>All</item>
+        <item>Jamu</item>
+        <item>Kampo</item>
+    </string-array>
+</resources>

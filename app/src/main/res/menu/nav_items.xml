@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_herbal"
+        android:icon="@drawable/herbal"
+        android:title="Herbal" />
+    <item
+        android:id="@+id/nav_crude"
+        android:icon="@drawable/leaves"
+        android:title="Crude" />
+    <item
+        android:id="@+id/nav_compound"
+        android:icon="@drawable/network"
+        android:title="Compound" />
+    <item
+        android:id="@+id/nav_analysis"
+        android:icon="@drawable/flask"
+        android:title="Analysis" />
+    <item
+        android:id="@+id/nav_database"
+        android:icon="@drawable/database"
+        android:title="Database" />
+</menu>
