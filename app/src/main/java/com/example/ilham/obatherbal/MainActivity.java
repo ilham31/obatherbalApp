@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.ilham.obatherbal.compoundJava.compound;
 import com.example.ilham.obatherbal.crudeJava.crude;
 import com.example.ilham.obatherbal.herbalJava.herbal;
 
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private com.example.ilham.obatherbal.crudeJava.crude crude;
     private database database;
     private analysis analysis;
-    private compound compound;
+    private com.example.ilham.obatherbal.compoundJava.compound compound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".herbalJava.detailHerbal" />
-        <activity android:name=".crudeJava.detailCrude"></activity>
+        <activity android:name=".crudeJava.detailCrude" />
+        <activity android:name=".compoundJava.detailCompound"></activity>
     </application>
 
 </manifest>

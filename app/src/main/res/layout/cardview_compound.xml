@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/gambar_crude"
+            android:id="@+id/gambar_compound"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_alignParentLeft="true"
@@ -25,16 +25,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/gambar_crude"
+            android:layout_toRightOf="@id/gambar_compound"
             android:orientation="vertical"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             >
             <TextView
-                android:id="@+id/nama_crude"
+                android:id="@+id/nama_compound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama Crude"
+                android:text="Nama Compound"
                 android:textStyle="bold"
                 android:textColor="#000"
                 />
