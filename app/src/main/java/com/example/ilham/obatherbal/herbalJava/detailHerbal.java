@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.R;
-import com.squareup.picasso.Picasso;
+
 
 public class detailHerbal extends AppCompatActivity {
     ImageView gambarDetailHerbal;
@@ -17,8 +18,9 @@ public class detailHerbal extends AppCompatActivity {
         setContentView(R.layout.activity_detail_herbal);
         gambarDetailHerbal = (ImageView) findViewById(R.id.detailHerbalPic);
         String url = "https://cdn.images.express.co.uk/img/dynamic/11/590x/herbal-medicines-remedies-lavender-allergy-tea-oil-health-824416.jpg";
-        Picasso.get().load(url).into(gambarDetailHerbal);
-        Picasso.get().setLoggingEnabled(true);
+        Glide.with(this)
+                .load(url)
+                .into(gambarDetailHerbal);
     }
 
 

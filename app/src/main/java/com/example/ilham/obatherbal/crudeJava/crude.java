@@ -42,18 +42,15 @@ public class crude extends Fragment {
         crudeModels = new ArrayList<>();
         getData();
         searchData(rootView);
-        startRecyclerView(rootView);
-        return rootView;
-    }
-
-    private void startRecyclerView(View rootView) {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_crude);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new crudeAdapter(getActivity(),crudeModels);
         recyclerView.setAdapter(adapter);
+        return rootView;
     }
+
 
     private void searchData(View rootView) {
         search = (EditText) rootView.findViewById(R.id.search_crude);

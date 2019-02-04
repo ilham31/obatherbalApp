@@ -40,18 +40,15 @@ public class compound extends Fragment {
         compoundModels = new ArrayList<>();
         getData();
         searchData(rootView);
-        startRecyclerView(rootView);
-        return rootView;
-    }
-
-    private void startRecyclerView(View rootView) {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_compound);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new compoundAdapter(getActivity(),compoundModels);
         recyclerView.setAdapter(adapter);
+        return rootView;
     }
+
 
     private void searchData(View rootView) {
         search = (EditText) rootView.findViewById(R.id.search_compound);

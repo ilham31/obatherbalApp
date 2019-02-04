@@ -45,7 +45,13 @@ public class herbal extends Fragment {
         getData();
 
         sortData(rootView);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+        adapter = new herbalAdapter(getActivity(),herbalModels);
+        recyclerView.setAdapter(adapter);
         return rootView ;
 
     }
@@ -64,7 +70,6 @@ public class herbal extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0)
                 {
-                    starRecyclerView(rootView);
                     searchData(rootView);
 
                 }
@@ -120,15 +125,7 @@ public class herbal extends Fragment {
     }
 
 
-    private void starRecyclerView(View rootView) {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new herbalAdapter(getActivity(),herbalModels);
-        recyclerView.setAdapter(adapter);
-
-    }
 
     private void searchData(View rootView) {
         search = (EditText) rootView.findViewById(R.id.search_herbal);

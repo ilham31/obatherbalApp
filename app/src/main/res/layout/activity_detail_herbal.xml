@@ -30,7 +30,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                android:background="@drawable/imageplaceholder"/>
+                android:background="@color/gray_500"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
