@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.ilham.obatherbal.analysisJava.analysis;
 import com.example.ilham.obatherbal.compoundJava.compound;
 import com.example.ilham.obatherbal.crudeJava.crude;
+import com.example.ilham.obatherbal.databaseJava.database;
 import com.example.ilham.obatherbal.herbalJava.herbal;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private com.example.ilham.obatherbal.herbalJava.herbal herbal;
     private com.example.ilham.obatherbal.crudeJava.crude crude;
-    private database database;
-    private analysis analysis;
+    private com.example.ilham.obatherbal.databaseJava.database database;
+    private com.example.ilham.obatherbal.analysisJava.analysis analysis;
     private com.example.ilham.obatherbal.compoundJava.compound compound;
 
     @Override

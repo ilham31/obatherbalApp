@@ -1,29 +1,43 @@
 package com.example.ilham.obatherbal.herbalJava;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.loadMore;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
+
 public class herbalAdapter extends RecyclerView.Adapter<herbalAdapter.herbalViewHolder>{
 
-    private Context mCtx;
+     private Context mCtx;
     List<herbalModel> herbalModelList;
 
     public herbalAdapter(Context mCtx, List<herbalModel> herbalModelList) {
-        this.mCtx = mCtx;
+
         this.herbalModelList = herbalModelList;
+        this.mCtx = mCtx;
     }
+
 
     @NonNull
     @Override
@@ -38,21 +52,30 @@ public class herbalAdapter extends RecyclerView.Adapter<herbalAdapter.herbalView
 
     @Override
     public void onBindViewHolder(@NonNull herbalViewHolder herbalViewHolder, int i) {
-    herbalModel detailherbal =herbalModelList.get(i);
 
-    herbalViewHolder.namaHerbal.setText(detailherbal.getNama());
-    herbalViewHolder.khasiatHerbal.setText(detailherbal.getKhasiat());
-    final String idHerbal =detailherbal.getId();
-    herbalViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(mCtx, detailHerbal.class);
-            i.putExtra("idHerbal", idHerbal);
-            mCtx.startActivity(i);
+        herbalModel detailherbal =herbalModelList.get(i);
 
-        }
-    });
+        herbalViewHolder.namaHerbal.setText(detailherbal.getNama());
+        herbalViewHolder.khasiatHerbal.setText(detailherbal.getKhasiat());
+        Glide.with(mCtx)
+                    .load(detailherbal.getThumbnail())
+                    .into(herbalViewHolder.thumbnail);
+        final String idHerbal =detailherbal.getId();
+        herbalViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mCtx, detailHerbal.class);
+                i.putExtra("idHerbal", idHerbal);
+                mCtx.startActivity(i);
+
+            }
+                });
     }
+
+
+
+
+
 
     @Override
     public int getItemCount() {
@@ -68,10 +91,14 @@ public class herbalAdapter extends RecyclerView.Adapter<herbalAdapter.herbalView
 
     class herbalViewHolder extends RecyclerView.ViewHolder{
         TextView namaHerbal,khasiatHerbal;
+        ImageView thumbnail;
         public herbalViewHolder(@NonNull View itemView) {
             super(itemView);
             namaHerbal = itemView.findViewById(R.id.nama_herbal);
             khasiatHerbal = itemView.findViewById(R.id.khasiat_herbal);
+            thumbnail = itemView.findViewById(R.id.gambar_herbal);
         }
     }
+
+
 }

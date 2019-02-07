@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.categoriesHerbal;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +40,7 @@ public class herbal extends Fragment {
     herbalAdapter adapter;
     List <herbalModel> herbalModels;
     EditText search;
+    private static final String TAG = "herbal";
     public herbal() {
         // Required empty public constructor
     }
@@ -42,9 +53,17 @@ public class herbal extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_herbal, container, false);
         herbalModels = new ArrayList<>();
 
+        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         getData();
 
         sortData(rootView);
+        StartRecyclerView(rootView);
+
+        return rootView ;
+
+    }
+
+    private void StartRecyclerView(View rootView) {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -52,32 +71,52 @@ public class herbal extends Fragment {
 
         adapter = new herbalAdapter(getActivity(),herbalModels);
         recyclerView.setAdapter(adapter);
-        return rootView ;
-
     }
 
     private void sortData(final View rootView) {
+
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.filter_herbal);
 // Create an ArrayAdapter using the string array and a default spinner layout
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.filter_types, android.R.layout.simple_spinner_item);
+        List<categoriesHerbal> itemList = new ArrayList<categoriesHerbal>();
+        itemList.add(
+                new categoriesHerbal(
+                        "1",
+                        "All"
+                )
+        );itemList.add(
+                new categoriesHerbal(
+                        "2",
+                        "Jamu"
+                )
+        );itemList.add(
+                new categoriesHerbal(
+                        "3",
+                        "Kampo"
+                )
+        );
+        ArrayAdapter<categoriesHerbal> spinnerAdapter = new ArrayAdapter<categoriesHerbal>(getActivity(), android.R.layout.simple_spinner_item, itemList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0)
                 {
+                    StartRecyclerView(rootView);
                     searchData(rootView);
 
                 }
                 else
                 {
-                    String selectedValue = (String) parent.getItemAtPosition(position);
-                    categories(selectedValue);
-                    searchOnCategories(rootView,selectedValue);
+                    categoriesHerbal selectedValue = (categoriesHerbal) parent.getItemAtPosition(position);
+                    String categories = (String)selectedValue.getCategories();
+                    String idCategories = (String )selectedValue.getIdCategories();
+                    Log.d(TAG,"selected"+categories+id);
+                    categories(idCategories);
+                    searchOnCategories(rootView,idCategories);
 
                 }
 
@@ -150,55 +189,41 @@ public class herbal extends Fragment {
     }
 
     private void getData() {
-        herbalModels.add(
-                new herbalModel(
 
-                        "jamu 1",
-                        "batuk",
-                        "jamu",
-                        "jamu1"
-                )
-        );
-        herbalModels.add(
-                new herbalModel(
-                        "jamu 2 enak",
-                        "flu",
-                        "jamu",
-                        "jamu2"
-                )
-        );
-        herbalModels.add(
-                new herbalModel(
-                        "jamu 3 pahit",
-                        "jerawat",
-                        "jamu",
-                        "jamu3"
-                )
-        );
-        herbalModels.add(
-                new herbalModel(
-                        "kampo 1 mantap",
-                        "enak",
-                        "kampo",
-                        "kampo1"
-                )
-        );
-        herbalModels.add(
-                new herbalModel(
-                        "kampo 2 pahit",
-                        "batuk",
-                        "kampo",
-                        "kampo2"
-                )
-        );
-        herbalModels.add(
-                new herbalModel(
-                        "kampo 3 enak",
-                        "flu",
-                        "kampo",
-                        "kampo3"
-                )
-        );
+        String url ="https://jsonplaceholder.typicode.com/photos";
+        JsonArrayRequest request = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
+                        Log.d(TAG,"Onresponse"+jsonArray.toString());
+                        for(int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                Log.d(TAG,"jsonobject"+jsonObject);
+                                herbalModels.add(
+                                    new herbalModel(
+                                            jsonObject.getString("title"),
+                                            "Khasiat",
+                                            jsonObject.getString("albumId"),
+                                            jsonObject.getString("id"),
+                                            jsonObject.getString("thumbnailUrl")
+                                    )
+                            );
+                            }
+                            catch(JSONException e) {
+
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.d(TAG,"Onerror"+volleyError.toString());
+                    }
+                });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
     }
 
     private void filter(String s) {
