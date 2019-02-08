@@ -1,5 +1,5 @@
 package com.example.ilham.obatherbal;
 
-public interface loadMore {
+public interface OnLoadMoreListener {
     void onLoadMore();
 }
