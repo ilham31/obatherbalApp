@@ -131,6 +131,8 @@ public class herbalAdapter extends RecyclerView.Adapter{
     }
 
 
+
+
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 
@@ -149,6 +151,11 @@ public class herbalAdapter extends RecyclerView.Adapter{
             khasiatHerbal = itemView.findViewById(R.id.khasiat_herbal);
 //            thumbnail = itemView.findViewById(R.id.gambar_herbal);
         }
+    }
+    public void filterlist (ArrayList<herbalModel> filteredList)
+    {
+        herbalModelList =filteredList;
+        notifyDataSetChanged();
     }
 
 

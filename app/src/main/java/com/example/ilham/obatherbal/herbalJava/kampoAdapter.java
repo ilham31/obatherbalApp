@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class kampoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -124,6 +125,11 @@ public class kampoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
         this.onLoadMoreListener = onLoadMoreListener;
+    }
+
+    public void filterlist(ArrayList<kampoModel> filteredList) {
+        kampoModelList =filteredList;
+        notifyDataSetChanged();
     }
 
 
