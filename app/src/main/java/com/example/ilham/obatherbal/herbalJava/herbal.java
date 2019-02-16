@@ -1,18 +1,14 @@
 package com.example.ilham.obatherbal.herbalJava;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +28,7 @@ import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.categoriesHerbal;
 
 import com.example.ilham.obatherbal.OnLoadMoreListener;
+import com.example.ilham.obatherbal.search.searchHerbs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,10 +61,6 @@ public class herbal extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,12 +70,9 @@ public class herbal extends Fragment {
         herbalModels = new ArrayList<>();
         kampoModels = new ArrayList<>();
         searchHerbal = (EditText) rootView.findViewById(R.id.search_herbal);
-        searchHerbal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchHerb();
-            }
-        });
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
+
+        kampoRecycleriew = (RecyclerView) rootView.findViewById(R.id.recyclerview_kampo);
 //        loadData = (ProgressBar) rootView.findViewById(R.id.loadRecyclerView);
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         sortData(rootView);
@@ -93,10 +83,13 @@ public class herbal extends Fragment {
 
 
 
-    private void searchHerb() {
+    private void searchHerb(String idCategories) {
+        Bundle arguments = new Bundle();
+        arguments.putString( "categories" , idCategories);
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         searchHerbs searchHerbs = new searchHerbs();
+        searchHerbs.setArguments(arguments);
         ft.replace(R.id.main_frame, searchHerbs);
         ft.addToBackStack(null);
         ft.commit();
@@ -104,7 +97,7 @@ public class herbal extends Fragment {
 
 
     private void StartRecyclerViewKampo(View rootView) {
-        kampoRecycleriew = (RecyclerView) rootView.findViewById(R.id.recyclerview_kampo);
+
         kampoRecycleriew.setHasFixedSize(true);
 
         kampoLayoutManager = new LinearLayoutManager(getActivity());
@@ -132,6 +125,7 @@ public class herbal extends Fragment {
                 }, 5000);
             }
         });
+        kampoRecycleriew.setVisibility(View.VISIBLE);
     }
 
     private void loadMoreKampo(final int start, final int end) {
@@ -214,7 +208,6 @@ public class herbal extends Fragment {
 
 
     private void StartRecyclerViewJamu(final View rootView) {
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -249,7 +242,7 @@ public class herbal extends Fragment {
 
             }
         });
-
+        mRecyclerView.setVisibility(View.VISIBLE);
 
     }
 
@@ -340,13 +333,13 @@ public class herbal extends Fragment {
         List<categoriesHerbal> itemList = new ArrayList<categoriesHerbal>();
         itemList.add(
                 new categoriesHerbal(
-                        "1",
+                        "jamu",
                         "Jamu"
                 )
         );
         itemList.add(
                 new categoriesHerbal(
-                        "2",
+                        "kampo",
                         "Kampo"
                 )
         );
@@ -362,16 +355,31 @@ public class herbal extends Fragment {
                 if (position == 0) {
                     categoriesHerbal selectedValue = (categoriesHerbal) parent.getItemAtPosition(position);
                     String categories = (String) selectedValue.getCategories();
-                    String idCategories = (String) selectedValue.getIdCategories();
+                    final String idCategories = (String) selectedValue.getIdCategories();
                     StartRecyclerViewJamu(rootView);
                     get20DataJamu();
+                    searchHerbal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            searchHerb(idCategories);
+                        }
+                    });
+                    kampoRecycleriew.setVisibility(View.GONE);
+
 
                 } else {
                     categoriesHerbal selectedValue = (categoriesHerbal) parent.getItemAtPosition(position);
                     String categories = (String) selectedValue.getCategories();
-                    String idCategories = (String) selectedValue.getIdCategories();
+                    final String idCategories = (String) selectedValue.getIdCategories();
                     StartRecyclerViewKampo(rootView);
                     get20DataKampo();
+                    searchHerbal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            searchHerb(idCategories);
+                        }
+                    });
+                    mRecyclerView.setVisibility(View.GONE);
                 }
 
             }

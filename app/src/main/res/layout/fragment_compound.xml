@@ -24,6 +24,7 @@
             android:paddingEnd="10dp"
             android:maxLines="1"
             android:ellipsize="end"
+            android:focusableInTouchMode="false"
             />
 
         <android.support.v7.widget.RecyclerView

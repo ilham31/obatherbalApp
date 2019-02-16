@@ -3,6 +3,8 @@ package com.example.ilham.obatherbal.compoundJava;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
+import com.example.ilham.obatherbal.search.searchHerbs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +55,13 @@ public class compound extends Fragment {
         compoundModels = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         getData();
-//        searchData(rootView);
+        search = (EditText) rootView.findViewById(R.id.search_compound);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchCompound();
+            }
+        });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_compound);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -62,38 +71,18 @@ public class compound extends Fragment {
         return rootView;
     }
 
-
-    private void searchData(View rootView) {
-        search = (EditText) rootView.findViewById(R.id.search_compound);
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                filter(s.toString());
-            }
-        });
+    private void searchCompound() {
+        Bundle arguments = new Bundle();
+        arguments.putString( "categories" , "compound");
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        searchHerbs searchHerbs = new searchHerbs();
+        searchHerbs.setArguments(arguments);
+        ft.replace(R.id.main_frame, searchHerbs);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
-    private void filter(String s) {
-        ArrayList<compoundModel> filteredList = new ArrayList<>();
-        for (compoundModel item : compoundModels){
-            if (item.getNama().toLowerCase().contains(s.toLowerCase()))
-            {
-                filteredList.add(item);
-            }
-        }
-        adapter.filterlist(filteredList);
-    }
 
     private void getData() {
         String url = "https://jsonplaceholder.typicode.com/photos";

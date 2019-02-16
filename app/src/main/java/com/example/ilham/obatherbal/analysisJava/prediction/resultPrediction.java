@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.herbalJava;
+package com.example.ilham.obatherbal.analysisJava.prediction;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.example.ilham.obatherbal.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class searchHerbs extends Fragment {
+public class resultPrediction extends Fragment {
 
 
-    public searchHerbs() {
+    public resultPrediction() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class searchHerbs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_herbs, container, false);
+        return inflater.inflate(R.layout.fragment_result_prediction, container, false);
     }
 
 }
