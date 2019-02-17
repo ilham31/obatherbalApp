@@ -58,23 +58,23 @@ public class chooseHerbs extends Fragment {
         view = inflater.inflate(R.layout.fragment_choose_herbs, container, false);
         herbsModels = new ArrayList<>();
         currentSelectedItems = new ArrayList<>();
-//        search=(EditText) view.findViewById(R.id.searchPredictHerb);
-//        search.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                filter(s.toString());
-//            }
-//        });
+        search=(EditText) view.findViewById(R.id.searchPredictHerb);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         getDataHerbs();
         recyclerView= (RecyclerView) view.findViewById(R.id.recyclerview_predictPlant);

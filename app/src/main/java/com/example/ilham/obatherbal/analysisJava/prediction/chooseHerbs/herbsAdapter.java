@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.ilham.obatherbal.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -25,6 +27,8 @@ public class herbsAdapter extends RecyclerView.Adapter<herbsAdapter.herbsPredict
     private Context mCtx;
     List<herbsModel> herbsModelList;
     List<herbsModel> checkedHerbs = new ArrayList<>();
+    private int checked=0;
+
 
 
     public herbsAdapter(Context mCtx, List<herbsModel> herbsModelList) {
@@ -46,35 +50,49 @@ public class herbsAdapter extends RecyclerView.Adapter<herbsAdapter.herbsPredict
     public void onBindViewHolder(@NonNull final herbsPredictViewHolder herbsPredictViewHolder, int i) {
         final herbsModel detailherbs = herbsModelList.get(i);
         herbsPredictViewHolder.name.setText(detailherbs.getNameHerbs());
-
-        if(detailherbs.getSelected()==true)
+        herbsPredictViewHolder.checkBox.setChecked(false);
+        if(checkedHerbs.size() > 0)
         {
-            herbsPredictViewHolder.checkBox.setChecked(true);
+            for (herbsModel h : checkedHerbs)
+            {
+                Log.d("adapter","id = "+h.getIdHerbs());
+                if(h.getIdHerbs().contains(detailherbs.getIdHerbs())){
+                    herbsPredictViewHolder.checkBox.setChecked(true);
+                }
+
+            }
+
         }
-        else{
-            herbsPredictViewHolder.checkBox.setChecked(false);
-            herbsPredictViewHolder.setItemClickListener(new ItemClickListener() {
+        herbsPredictViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onItemClick(View v, int pos) {
                     CheckBox checkBox = (CheckBox) v;
-                    if (checkBox.isChecked())
+                    if(checkBox.isChecked()&&checked==10)
                     {
-                        checkedHerbs.add(herbsModelList.get(pos));
-                        detailherbs.setSelected(true);
+                        herbsPredictViewHolder.checkBox.setChecked(false);
                     }
-                    else if(!checkBox.isChecked())
+                    else
                     {
-                        checkedHerbs.remove(herbsModelList.get(pos));
-                        detailherbs.setSelected(false);
+                        if (checkBox.isChecked())
+                        {
+                            checkedHerbs.add(herbsModelList.get(pos));
+                            checked++;
+
+                        }
+                        else
+                        {
+                            checkedHerbs.remove(herbsModelList.get(pos));
+                            checked--;
+                        }
                     }
+
 
                 }
             });
+
         }
 
 
-
-    }
 
     @Override
     public int getItemCount() {
