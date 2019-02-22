@@ -24,7 +24,13 @@
         <activity android:name=".herbalJava.detailHerbal" />
         <activity android:name=".crudeJava.detailCrude" />
         <activity android:name=".compoundJava.detailCompound" />
-        <activity android:name=".analysisJava.prediction.steppersPrediction"></activity>
+        <activity android:name=".analysisJava.prediction.steppersPrediction"
+            android:windowSoftInputMode="adjustNothing"
+            />
+        <activity android:name=".analysisJava.comparison.steppersComparison">
+            android:windowSoftInputMode="adjustNothing"
+
+        </activity>
     </application>
 
 </manifest>

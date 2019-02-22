@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
 
+import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class analysis extends Fragment {
-    private CardView analysis;
+    private CardView analysis,comparison;
     private View rootview;
 
     public analysis() {
@@ -36,6 +38,14 @@ public class analysis extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),steppersPrediction.class);
                 startActivity(intent);
+            }
+        });
+        comparison = (CardView) rootview.findViewById(R.id.cardComparison);
+        comparison.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentComparison = new Intent(getActivity(),steppersComparison.class);
+                startActivity(intentComparison);
             }
         });
         return rootview;

@@ -48,7 +48,7 @@ public class herbsAdapter extends RecyclerView.Adapter<herbsAdapter.herbsPredict
 
     @Override
     public void onBindViewHolder(@NonNull final herbsPredictViewHolder herbsPredictViewHolder, int i) {
-        final herbsModel detailherbs = herbsModelList.get(i);
+         final herbsModel detailherbs = herbsModelList.get(i);
         herbsPredictViewHolder.name.setText(detailherbs.getNameHerbs());
         herbsPredictViewHolder.checkBox.setChecked(false);
         if(checkedHerbs.size() > 0)

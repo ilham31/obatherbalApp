@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".analysisJava.prediction.chooseMethod.chooseMethod">
+    tools:context=".analysisJava.comparison.chooseMethod.chooseMethodComparison">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -12,16 +12,15 @@
         android:layout_margin="7dp">
 
         <TextView
-            android:id="@+id/textPilihjenis"
-            android:layout_below="@id/search_herbal"
-            android:layout_width="match_parent"
+            android:id="@+id/textPilihjenisMetodeComparison"
+             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pilih metode :"
+            android:text="Choose Method :"
             />
 
         <Spinner
-            android:layout_below="@id/textPilihjenis"
-            android:id="@+id/pilihMetode"
+            android:layout_below="@id/textPilihjenisMetodeComparison"
+            android:id="@+id/pilihMetodeComparison"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
@@ -31,7 +30,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/button_next_fragment_step_2"
+            android:id="@+id/button_next_fragment_step_2_comparison"
             android:text="Next"
             android:layout_alignParentBottom="true"
             android:textAllCaps="false"
@@ -45,5 +44,4 @@
             android:textColor="@android:color/white"
             />
     </RelativeLayout>
-
 </FrameLayout>

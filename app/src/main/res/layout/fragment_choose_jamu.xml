@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".analysisJava.comparison.chooseJamu.chooseJamu">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jamu1text"
+            android:text="Chose jamu 1:"
+            />
+
+        <AutoCompleteTextView
+            android:id="@+id/jamu1"
+            android:layout_below="@id/jamu1text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:hint="Type a jamu">
+            <requestFocus />
+
+        </AutoCompleteTextView>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/jamu2text"
+            android:text="Chose jamu 2:"
+            android:layout_below="@id/jamu1"
+            android:layout_marginTop="20dp"
+            />
+
+        <AutoCompleteTextView
+            android:id="@+id/jamu2"
+            android:layout_below="@id/jamu2text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:hint="Type a jamu"
+            />
+
+
+
+        <Button
+            android:id="@+id/button_next_fragment_step_1_comparison"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button"
+            android:layout_alignParentBottom="true"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </RelativeLayout>
+
+</FrameLayout>

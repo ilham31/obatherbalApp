@@ -21,14 +21,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethod;
+import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethod.chooseMethod;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
-import com.example.ilham.obatherbal.crudeJava.crudeModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +45,7 @@ public class chooseHerbs extends Fragment {
     private List<herbsModel> currentSelectedItems ;
     StringBuffer sb = null;
     EditText search;
+    List<herbsModel> idPlant;
 
     public chooseHerbs() {
         // Required empty public constructor
@@ -57,7 +58,13 @@ public class chooseHerbs extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_choose_herbs, container, false);
         herbsModels = new ArrayList<>();
+        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
+        recyclerView= (RecyclerView) view.findViewById(R.id.recyclerview_predictPlant);
+        startRecyclerView();
+        getDataHerbs();
+        idPlant = new ArrayList<>();
         currentSelectedItems = new ArrayList<>();
+
         search=(EditText) view.findViewById(R.id.searchPredictHerb);
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -75,36 +82,39 @@ public class chooseHerbs extends Fragment {
                 filter(s.toString());
             }
         });
-        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
-        getDataHerbs();
-        recyclerView= (RecyclerView) view.findViewById(R.id.recyclerview_predictPlant);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new herbsAdapter(getActivity(),herbsModels);
-        recyclerView.setAdapter(adapter);
+
+
+
+
         buttonNext = (Button) view.findViewById(R.id.button_next_fragment_step_1);
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                steppersPrediction.goToStepMethod();
-//                chooseMethod step2Fragment = new chooseMethod();
-////            step2Fragment.setArguments(bundle);
-//                getFragmentManager().beginTransaction()
-//                        .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
-//                        .replace(R.id.frame_layoutstepper, step2Fragment)
-//                        .addToBackStack(null)
-//                        .commit();
+//
                     sb = new StringBuffer();
                     for (herbsModel h : adapter.checkedHerbs)
                     {
-                        sb.append(h.getNameHerbs());
-                        sb.append("\n");
+                        idPlant.add(
+                                new herbsModel(
+                                        h.getIdHerbs(),
+                                        h.getNameHerbs()
+                                )
+                        );
 
                     }
 
                     if (adapter.checkedHerbs.size()>0)
                     {
-                        Toast.makeText(getActivity(),sb.toString(),Toast.LENGTH_SHORT).show();
+                        steppersPrediction.goToStepMethod();
+                        chooseMethod step2Fragment = new chooseMethod();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("idPlant", (Serializable) idPlant);
+                        step2Fragment.setArguments(bundle);
+                        getFragmentManager().beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
+                                .replace(R.id.frame_layoutstepper, step2Fragment)
+                                .addToBackStack(null)
+                                .commit();
                     }
                     else
                     {
@@ -116,6 +126,16 @@ public class chooseHerbs extends Fragment {
 
         return view;
     }
+
+    private void startRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new herbsAdapter(getActivity(),herbsModels);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+
 
     private void filter(String s) {
         ArrayList<herbsModel> filteredlist =  new ArrayList<>();
@@ -150,14 +170,17 @@ public class chooseHerbs extends Fragment {
                                                 jsonObject.getString("title")
 
                                         )
+
                                 );
-                                adapter.notifyDataSetChanged();
+                              adapter = new herbsAdapter(getActivity(),herbsModels);
+                              recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
 
                             }
                         }
 
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override
