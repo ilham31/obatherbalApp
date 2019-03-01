@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -30,6 +31,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +44,9 @@ public class chooseJamu extends Fragment {
     private View view;
     private KeyListener listener1,listener2;
     private jamuModelComparison selected;
-    private String idJamu;
-    List<String> chosenJamu;
+    private String idJamu1,idJamu2;
+    List<jamuModelComparison> chosenJamu;
+    AutoCompleteTextView jamu1,jamu2;
 
 
     List<jamuModelComparison> jamuModelComparisonList;
@@ -56,18 +59,19 @@ public class chooseJamu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         jamuModelComparisonList = new ArrayList<>();
-        chosenJamu = new ArrayList<String>();
+        chosenJamu = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         getDataJamuComparison();
 
 
         view =  inflater.inflate(R.layout.fragment_choose_jamu, container, false);
-        final AutoCompleteTextView jamu1 = view.findViewById(R.id.jamu1);
+        jamu1 = view.findViewById(R.id.jamu1);
         ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
                 getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
         jamu1.setAdapter(jamuSuggest);
-        final AutoCompleteTextView jamu2 = view.findViewById(R.id.jamu2);
+        jamu2 = view.findViewById(R.id.jamu2);
         jamu2.setAdapter(jamuSuggest);
 
         listener1 = jamu1.getKeyListener();
@@ -80,15 +84,15 @@ public class chooseJamu extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             selected = (jamuModelComparison) parent.getAdapter().getItem(position);
-                            idJamu = selected.getId();
+                            idJamu1 = selected.getId();
                             jamu1.setKeyListener(null);
-                            chosenJamu.add(idJamu);
+                            chosenJamu.add(selected);
                         }
                     });
                 }
                 else {
-                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu);
-                    if (idJamu==null)
+                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu1);
+                    if (idJamu1==null)
                     {
                         jamu1.setError("invalid jamu");
                     }
@@ -106,15 +110,15 @@ public class chooseJamu extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             selected = (jamuModelComparison) parent.getAdapter().getItem(position);
-                            idJamu = selected.getId();
+                            idJamu2 = selected.getId();
                             jamu2.setKeyListener(null);
-                            chosenJamu.add(idJamu);
+                            chosenJamu.add(selected);
                         }
                     });
                 }
                 else {
-                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu);
-                    if (idJamu==null)
+                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu2);
+                    if (idJamu2==null)
                     {
                         jamu2.setError("invalid jamu");
                     }
@@ -130,18 +134,36 @@ public class chooseJamu extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("choose jamu","length arraylist "+chosenJamu.size());
-//                    Log.d("choose jamu","idjamu1 = "+chosenJamu.get(0)+", idJamu2 ="+chosenJamu.get(1));
+                    Log.d("choose jamu","size  = "+chosenJamu.size());
 
 
                     if (chosenJamu.size() == 2 )
                     {
-                        steppersComparison.goToStepMethodComparison();
-                        chooseMethodComparison step2fragment = new chooseMethodComparison();
-                        getFragmentManager().beginTransaction()
-                                .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
-                                .replace(R.id.frame_layoutstepperComparison, step2fragment)
-                                .addToBackStack(null)
-                                .commit();
+                        if (idJamu1==idJamu2)
+                        {
+                            Toast.makeText(getActivity(),"Please Select 2 different Jamu",Toast.LENGTH_SHORT).show();
+                            jamu1.setKeyListener(listener1);
+                            jamu2.setKeyListener(listener2);
+                            chosenJamu.clear();
+                            jamu1.setError("choose different jamu");
+                            jamu2.setError("choose different jamu");
+                        }
+                        else
+                        {
+                            jamu1.setText("");
+                            jamu2.setText("");
+                            steppersComparison.goToStepMethodComparison();
+                            chooseMethodComparison step2fragment = new chooseMethodComparison();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("idJamu", (Serializable) chosenJamu);
+                            step2fragment.setArguments(bundle);
+                            getFragmentManager().beginTransaction()
+                                    .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
+                                    .replace(R.id.frame_layoutstepperComparison, step2fragment)
+                                    .addToBackStack(null)
+                                    .commit();
+                        }
+
                     }
                     else
                     {
@@ -173,6 +195,10 @@ public class chooseJamu extends Fragment {
 
                                         )
                                 );
+                                ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
+                                        getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
+                                jamu1.setAdapter(jamuSuggest);
+                                jamu2.setAdapter(jamuSuggest);
                             } catch (JSONException e) {
 
                             }

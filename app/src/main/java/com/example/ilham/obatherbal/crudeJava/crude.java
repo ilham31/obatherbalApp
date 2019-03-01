@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,6 +39,7 @@ public class crude extends Fragment {
     crudeAdapter adapter;
     List<crudeModel> crudeModels;
     EditText search;
+    ProgressBar loadCrude;
     private static final String TAG = "crude";
     public crude() {
         // Required empty public constructor
@@ -54,6 +56,8 @@ public class crude extends Fragment {
         getData();
 
         search=(EditText) rootView.findViewById(R.id.search_crude);
+        loadCrude = (ProgressBar) rootView.findViewById(R.id.loadCrude);
+        loadCrude.setVisibility(View.VISIBLE);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +92,7 @@ public class crude extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                        loadCrude.setVisibility(View.GONE);
                         Log.d(TAG, "Onresponsecrude" + jsonArray.toString());
                         Log.d(TAG, "lengthonresponse" + jsonArray.length());
 

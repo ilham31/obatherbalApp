@@ -138,7 +138,7 @@
                         android:layout_below="@id/thumbnailGIS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GIS (coming soon)"
+                        android:text="The use of Herbal Medicine"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -149,7 +149,7 @@
                         android:layout_below="@id/titleGIS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="coming soon"
+                        android:text="Based on ethnicity in Indonesia"
                         android:layout_marginTop="3dp"
                         android:layout_marginLeft="10dp"
                         android:textAppearance="?android:attr/textAppearanceSmall" />

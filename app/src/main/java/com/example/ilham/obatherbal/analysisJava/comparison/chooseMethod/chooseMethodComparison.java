@@ -3,6 +3,7 @@ package com.example.ilham.obatherbal.analysisJava.comparison.chooseMethod;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
 import com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison.confirmComparison;
 
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu.jamuModelComparison;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +31,11 @@ public class chooseMethodComparison extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final ArrayList<jamuModelComparison> idJamu =  (ArrayList<jamuModelComparison>)getArguments().getSerializable("idJamu");
+        for (jamuModelComparison h : idJamu)
+        {
+            Log.d("choose methodcomp","nama jamu = "+h.getNama());
+        }
         view = inflater.inflate(R.layout.fragment_choose_method2, container, false);
         buttonNext =(Button) view.findViewById(R.id.button_next_fragment_step_2_comparison);
         buttonNext.setOnClickListener(new View.OnClickListener() {

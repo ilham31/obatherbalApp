@@ -6,36 +6,49 @@
     tools:context=".compoundJava.compound">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        >
-        <EditText
-            android:id="@+id/search_compound"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_search_black_24dp"
-            android:hint="Search"
-            android:background="@drawable/edittext"
-            android:layout_marginBottom="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:focusableInTouchMode="false"
-            />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_compound"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:scrollbars="vertical"
+            android:padding="5dp"
             >
-        </android.support.v7.widget.RecyclerView>
+            <EditText
+                android:id="@+id/search_compound"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:hint="Search"
+                android:background="@drawable/edittext"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:focusableInTouchMode="false"
+                />
 
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_compound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="7dp"
+                android:scrollbars="vertical"
+                >
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/loadCompound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
 
 </FrameLayout>

@@ -5,7 +5,8 @@
     <item
         android:id="@+id/nav_herbal"
         android:icon="@drawable/herbal"
-        android:title="Herbal" />
+        android:title="Herbal"
+        />
     <item
         android:id="@+id/nav_crude"
         android:icon="@drawable/leaves"

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,6 +41,7 @@ public class compound extends Fragment {
     compoundAdapter adapter;
     List<compoundModel> compoundModels;
     EditText search;
+    ProgressBar loadCompound;
     private static final String TAG = "compound";
 
     public compound() {
@@ -56,6 +58,8 @@ public class compound extends Fragment {
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         getData();
         search = (EditText) rootView.findViewById(R.id.search_compound);
+        loadCompound = (ProgressBar) rootView.findViewById(R.id.loadCompound);
+        loadCompound.setVisibility(View.VISIBLE);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +94,7 @@ public class compound extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                        loadCompound.setVisibility(View.GONE);
                         Log.d(TAG, "Onresponsecompound" + jsonArray.toString());
                         Log.d(TAG, "lengthonresponse" + jsonArray.length());
 

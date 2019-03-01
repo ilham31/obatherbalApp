@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:hint="Type a jamu">
-            <requestFocus />
+
 
         </AutoCompleteTextView>
 

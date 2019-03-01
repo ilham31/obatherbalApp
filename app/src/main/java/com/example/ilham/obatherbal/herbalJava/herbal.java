@@ -49,7 +49,7 @@ public class herbal extends Fragment {
     kampoAdapter kampoAdapter;
     List<herbalModel> herbalModels;
     List<kampoModel> kampoModels;
-    ProgressBar loadData;
+    ProgressBar loadHerb;
     View rootView;
     EditText searchHerbal;
     private LinearLayoutManager mLayoutManager,kampoLayoutManager;
@@ -73,7 +73,8 @@ public class herbal extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
 
         kampoRecycleriew = (RecyclerView) rootView.findViewById(R.id.recyclerview_kampo);
-//        loadData = (ProgressBar) rootView.findViewById(R.id.loadRecyclerView);
+        loadHerb = (ProgressBar) rootView.findViewById(R.id.loadHerb);
+        loadHerb.setVisibility(View.VISIBLE);
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         sortData(rootView);
 
@@ -173,6 +174,7 @@ public class herbal extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                        loadHerb.setVisibility(View.GONE);
                         Log.d(TAG, "Onresponsekampo" + jsonArray.toString());
                         Log.d(TAG, "lengthresponse" + jsonArray.length());
                         for (int i = 0; i < 20; i++) {
@@ -253,6 +255,7 @@ public class herbal extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray jsonArray) {
+                        loadHerb.setVisibility(View.GONE);
                         Log.d(TAG, "Onresponse" + jsonArray.toString());
                         Log.d(TAG, "lengthonresponse" + jsonArray.length());
 

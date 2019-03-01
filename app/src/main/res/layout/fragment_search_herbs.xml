@@ -13,7 +13,7 @@
         <EditText
             android:id="@+id/search_herbs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:drawableLeft="@drawable/ic_search_black_24dp"
             android:background="@drawable/edittext"
             android:layout_marginBottom="15dp"

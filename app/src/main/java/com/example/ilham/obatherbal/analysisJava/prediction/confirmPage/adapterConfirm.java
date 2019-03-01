@@ -35,12 +35,22 @@ List<herbsModel> herbsModelList;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull adapterConfirmViewHolder adapterConfirmViewHolder, int i) {
+    public void onBindViewHolder(@NonNull adapterConfirmViewHolder adapterConfirmViewHolder, final int i) {
         herbsModel detailherb = herbsModelList.get(i);
         adapterConfirmViewHolder.plantName.setText(detailherb.getNameHerbs());
+        adapterConfirmViewHolder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeAt(i);
+            }
+        });
 
     }
-
+    public void removeAt(int position) {
+        herbsModelList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, herbsModelList.size());
+    }
     @Override
     public int getItemCount() {
         return herbsModelList.size();
