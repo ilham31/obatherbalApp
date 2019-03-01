@@ -87,6 +87,7 @@ public class analysis extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent ethnic = new Intent(getActivity(),MapsActivity.class);
+                ethnic.putExtra("daerah","Jawa Tengah");
                 startActivity(ethnic);
             }
         });
