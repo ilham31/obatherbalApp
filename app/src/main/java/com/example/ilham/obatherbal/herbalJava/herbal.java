@@ -19,10 +19,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.categoriesHerbal;
@@ -44,15 +46,13 @@ import java.util.List;
 public class herbal extends Fragment {
 
     private static final String JAMU = "datajamu";
-    RecyclerView mRecyclerView,kampoRecycleriew;
+    RecyclerView mRecyclerView;
     herbalAdapter mAdapter;
-    kampoAdapter kampoAdapter;
     List<herbalModel> herbalModels;
-    List<kampoModel> kampoModels;
     ProgressBar loadHerb;
     View rootView;
     EditText searchHerbal;
-    private LinearLayoutManager mLayoutManager,kampoLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     private Handler handler;
 
     private static final String TAG = "herbal";
@@ -68,11 +68,9 @@ public class herbal extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_herbal, container, false);
         herbalModels = new ArrayList<>();
-        kampoModels = new ArrayList<>();
+//        getActivity().getActionBar().setDisplayShowTitleEnabled(false);
         searchHerbal = (EditText) rootView.findViewById(R.id.search_herbal);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
-
-        kampoRecycleriew = (RecyclerView) rootView.findViewById(R.id.recyclerview_kampo);
         loadHerb = (ProgressBar) rootView.findViewById(R.id.loadHerb);
         loadHerb.setVisibility(View.VISIBLE);
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
@@ -92,121 +90,10 @@ public class herbal extends Fragment {
         searchHerbs searchHerbs = new searchHerbs();
         searchHerbs.setArguments(arguments);
         ft.replace(R.id.main_frame, searchHerbs);
-        ft.addToBackStack(null);
+//        ft.addToBackStack(null);
         ft.commit();
     }
 
-
-    private void StartRecyclerViewKampo(View rootView) {
-
-        kampoRecycleriew.setHasFixedSize(true);
-
-        kampoLayoutManager = new LinearLayoutManager(getActivity());
-
-        // use a linear layout manager
-        kampoRecycleriew.setLayoutManager(kampoLayoutManager);
-        kampoAdapter = new kampoAdapter(kampoRecycleriew, getActivity(), kampoModels);
-        kampoRecycleriew.setAdapter(kampoAdapter);
-        kampoAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                kampoModels.add(null);
-                kampoAdapter.notifyItemInserted(kampoModels.size() - 1);
-                handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        kampoModels.remove(kampoModels.size() - 1);
-                        kampoAdapter.notifyItemRemoved(kampoModels.size());
-                        //add items one by one
-                        int start = kampoModels.size();
-                        int end = start + 20;
-                        loadMoreKampo(start, end);
-                    }
-                }, 5000);
-            }
-        });
-        kampoRecycleriew.setVisibility(View.VISIBLE);
-    }
-
-    private void loadMoreKampo(final int start, final int end) {
-        String url = "https://jsonplaceholder.typicode.com/photos";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, "Onresponse" + jsonArray.toString());
-                        for (int i = start; i < end; i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
-                                kampoModels.add(
-                                        new kampoModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("albumId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("thumbnailUrl")
-                                        )
-                                );
-                                kampoAdapter.notifyItemInserted(kampoModels.size());
-
-                            } catch (JSONException e) {
-
-                            }
-                        }
-                        kampoAdapter.setLoaded();
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
-                    }
-                });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
-    }
-
-    private void get20DataKampo() {
-        String url = "https://jsonplaceholder.typicode.com/photos";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        loadHerb.setVisibility(View.GONE);
-                        Log.d(TAG, "Onresponsekampo" + jsonArray.toString());
-                        Log.d(TAG, "lengthresponse" + jsonArray.length());
-                        for (int i = 0; i < 20; i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
-                                kampoModels.add(
-                                        new kampoModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("albumId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("thumbnailUrl")
-                                        )
-                                );
-                                kampoAdapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-
-                            }
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerrorkampo" + volleyError.toString());
-                    }
-                });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
-
-    }
 
 
     private void StartRecyclerViewJamu(final View rootView) {
@@ -235,97 +122,104 @@ public class herbal extends Fragment {
                         herbalModels.remove(herbalModels.size() - 1);
                         mAdapter.notifyItemRemoved(herbalModels.size());
                         //add items one by one
-                        int start = herbalModels.size();
-                        int end = start + 20;
-                        loadMoreJamu(start, end);
+                        int page = (herbalModels.size()/10)+1;
+                        Log.d(TAG, "pagejamu" + page +"size = " +herbalModels.size());
+                        loadMoreJamu(page);
 
                     }
-                }, 5000);
+                }, 2000);
 
             }
         });
-        mRecyclerView.setVisibility(View.VISIBLE);
 
     }
 
-    private void get20DataJamu() {
+    private void get10DataJamu() {
 
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        loadHerb.setVisibility(View.GONE);
-                        Log.d(TAG, "Onresponse" + jsonArray.toString());
-                        Log.d(TAG, "lengthonresponse" + jsonArray.length());
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/index";
+       JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+               (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < 20; i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
-                                herbalModels.add(
-                                        new herbalModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("userId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("body")
-                                        )
-                                );
-                                mAdapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
+                   @Override
+                   public void onResponse(JSONObject response) {
+                       loadHerb.setVisibility(View.GONE);
+                       Log.d(TAG, "OnresponseHerbal" + response.toString());
+                       try {
 
-                            }
-                        }
+                           JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                           Log.d(TAG,"herbsmeds"+herbsmeds.toString());
+                           for (int i = 0; i < herbsmeds.length() ; i++)
+                           {
+                               JSONObject jsonObject = herbsmeds.getJSONObject(i);
+                               herbalModels.add(
+                                       new herbalModel(
+                                               jsonObject.getString("name"),
+                                               jsonObject.getString("efficacy"),
+                                               jsonObject.getString("idherb"),
+                                               jsonObject.getString("_id"),
+                                               jsonObject.getString("img")
+                                       )
+                               );
+                               mAdapter.notifyDataSetChanged();
+                           }
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
-                    }
-                });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+                   }
+               }, new Response.ErrorListener() {
+
+                   @Override
+                   public void onErrorResponse(VolleyError error) {
+                       // TODO: Handle error
+                       Log.d(TAG, "Onerror" + error.toString());
+                   }
+               });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
 
-    private void loadMoreJamu(final int start, final int end) {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+    private void loadMoreJamu(final int page) {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/index/"+page;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, "Onresponse" + jsonArray.toString());
-                        for (int i = start; i < end; i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    public void onResponse(JSONObject response) {
+
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                            Log.d(TAG,"herbsmeds"+herbsmeds.toString());
+                            for (int i = 0; i < herbsmeds.length() ; i++)
+                            {
+                                JSONObject jsonObject = herbsmeds.getJSONObject(i);
                                 herbalModels.add(
                                         new herbalModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("userId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("body")
+                                                jsonObject.getString("name"),
+                                                jsonObject.getString("efficacy"),
+                                                jsonObject.getString("idherb"),
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("img")
                                         )
                                 );
                                 mAdapter.notifyItemInserted(herbalModels.size());
-                            } catch (JSONException e) {
-
                             }
+                            mAdapter.setLoaded();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        mAdapter.setLoaded();
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 
@@ -360,29 +254,27 @@ public class herbal extends Fragment {
                     String categories = (String) selectedValue.getCategories();
                     final String idCategories = (String) selectedValue.getIdCategories();
                     StartRecyclerViewJamu(rootView);
-                    get20DataJamu();
+                    get10DataJamu();
                     searchHerbal.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             searchHerb(idCategories);
                         }
                     });
-                    kampoRecycleriew.setVisibility(View.GONE);
-
-
-                } else {
+                }
+                    else {
                     categoriesHerbal selectedValue = (categoriesHerbal) parent.getItemAtPosition(position);
                     String categories = (String) selectedValue.getCategories();
                     final String idCategories = (String) selectedValue.getIdCategories();
-                    StartRecyclerViewKampo(rootView);
-                    get20DataKampo();
-                    searchHerbal.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            searchHerb(idCategories);
-                        }
-                    });
-                    mRecyclerView.setVisibility(View.GONE);
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    kampo kampoFragment = new kampo();
+
+                    ft.replace(R.id.main_frame, kampoFragment);
+//        ft.addToBackStack(null);
+                    ft.commit();
+
+
                 }
 
             }

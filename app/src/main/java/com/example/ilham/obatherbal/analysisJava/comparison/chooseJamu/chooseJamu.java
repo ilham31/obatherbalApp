@@ -47,6 +47,8 @@ public class chooseJamu extends Fragment {
     private String idJamu1,idJamu2;
     List<jamuModelComparison> chosenJamu;
     AutoCompleteTextView jamu1,jamu2;
+    public int match1 = 0,match2 = 0;
+
 
 
     List<jamuModelComparison> jamuModelComparisonList;
@@ -91,11 +93,30 @@ public class chooseJamu extends Fragment {
                     });
                 }
                 else {
-                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu1);
-                    if (idJamu1==null)
+                    if (idJamu1 == null)
                     {
-                        jamu1.setError("invalid jamu");
+                        Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu1);
+                        for (jamuModelComparison item : jamuModelComparisonList)
+                        {
+                            String jamu1Database = item.getNama();
+                            if (jamu1.getText().toString().equals(jamu1Database))
+                            {
+                                jamu1.setKeyListener(null);
+                                match1 = 1;
+                                idJamu1=item.getId();
+                                chosenJamu.add(item);
+                            }
+                        }
+                        if (match1 != 1)
+                        {
+                            jamu1.setError("invalid jamu");
+                        }
                     }
+
+//                    if (idJamu1==null)
+//                    {
+//                        jamu1.setError("invalid jamu");
+//                    }
                 }
             }
         });
@@ -117,11 +138,30 @@ public class chooseJamu extends Fragment {
                     });
                 }
                 else {
-                    Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu2);
-                    if (idJamu2==null)
+                    if (idJamu2 == null)
                     {
-                        jamu2.setError("invalid jamu");
+                        Log.d("choose jamu","focus"+hasFocus+ "idJamu = "+idJamu2);
+                        for (jamuModelComparison item : jamuModelComparisonList)
+                        {
+                            String jamu2Database = item.getNama();
+                            if (jamu2.getText().toString().equals(jamu2Database))
+                            {
+                                jamu2.setKeyListener(null);
+                                match2 = 1;
+                                idJamu2=item.getId();
+                                chosenJamu.add(item);
+                            }
+                        }
+                        if (match2 != 1)
+                        {
+                            jamu2.setError("invalid jamu");
+                        }
                     }
+
+//                    if (idJamu2==null)
+//                    {
+//                        jamu2.setError("invalid jamu");
+//                    }
                 }
             }
         });
@@ -139,14 +179,11 @@ public class chooseJamu extends Fragment {
 
                     if (chosenJamu.size() == 2 )
                     {
-                        if (idJamu1==idJamu2)
+                        if (idJamu1.equals(idJamu2))
                         {
                             Toast.makeText(getActivity(),"Please Select 2 different Jamu",Toast.LENGTH_SHORT).show();
-                            jamu1.setKeyListener(listener1);
-                            jamu2.setKeyListener(listener2);
-                            chosenJamu.clear();
-                            jamu1.setError("choose different jamu");
-                            jamu2.setError("choose different jamu");
+                            chooseJamu refreshFragment = new chooseJamu();
+                            getFragmentManager().beginTransaction().replace(R.id.frame_layoutstepperComparison,refreshFragment).commit();
                         }
                         else
                         {
@@ -168,6 +205,8 @@ public class chooseJamu extends Fragment {
                     else
                     {
                         Toast.makeText(getActivity(),"Please Select 2 Jamu",Toast.LENGTH_SHORT).show();
+                        chooseJamu refreshFragment = new chooseJamu();
+                        getFragmentManager().beginTransaction().replace(R.id.frame_layoutstepperComparison,refreshFragment).commit();
                     }
 
             }

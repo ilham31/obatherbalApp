@@ -2,6 +2,7 @@ package com.example.ilham.obatherbal.crudeJava;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,11 +15,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
+import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.search.searchHerbs;
 
@@ -41,6 +45,8 @@ public class crude extends Fragment {
     EditText search;
     ProgressBar loadCrude;
     private static final String TAG = "crude";
+    private LinearLayoutManager mLayoutManager;
+    private Handler handler;
     public crude() {
         // Required empty public constructor
     }
@@ -51,10 +57,9 @@ public class crude extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_crude, container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_crude);
         crudeModels = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
-        getData();
-
         search=(EditText) rootView.findViewById(R.id.search_crude);
         loadCrude = (ProgressBar) rootView.findViewById(R.id.loadCrude);
         loadCrude.setVisibility(View.VISIBLE);
@@ -64,13 +69,84 @@ public class crude extends Fragment {
                 searchCrude();
             }
         });
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_crude);
+        get10DataCrude();
+        startRecyclerviewCrude();
+
+
+        return rootView;
+    }
+
+    private void loadMoreDataCrude(int page) {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/index/"+page;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray plant = response.getJSONArray("plant");
+                            Log.d(TAG,"plant"+plant.toString());
+                            for (int i = 0; i < plant.length() ; i++)
+                            {
+                                JSONObject jsonObject = plant.getJSONObject(i);
+                                crudeModels.add(
+                                        new crudeModel(
+                                                jsonObject.getString("idplant"),
+                                                jsonObject.getString("sname"),
+                                                jsonObject.getString("refimg")
+                                        )
+                                );
+                                adapter.notifyItemInserted(crudeModels.size());
+                            }
+                            adapter.setLoaded();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
+                    }
+                });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+
+    }
+
+    private void startRecyclerviewCrude() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new crudeAdapter(getActivity(),crudeModels);
+        adapter = new crudeAdapter(recyclerView,getActivity(),crudeModels);
         recyclerView.setAdapter(adapter);
-        return rootView;
+        adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                //add null , so the adapter will check view_type and show progress bar at bottom
+                crudeModels.add(null);
+                adapter.notifyItemInserted(crudeModels.size() - 1);
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //   remove progress item
+                        crudeModels.remove(crudeModels.size() - 1);
+                        adapter.notifyItemRemoved(crudeModels.size());
+                        //add items one by one
+                        int page = (crudeModels.size()/10)+1;
+                        Log.d(TAG, "pagecrude" + page +"size = " +crudeModels.size());
+                        loadMoreDataCrude(page);
+
+                    }
+                }, 2000);
+
+            }
+        });
     }
 
     private void searchCrude() {
@@ -81,48 +157,50 @@ public class crude extends Fragment {
         searchHerbs searchHerbs = new searchHerbs();
         searchHerbs.setArguments(arguments);
         ft.replace(R.id.main_frame, searchHerbs);
-        ft.addToBackStack(null);
+//        ft.addToBackStack(null);
         ft.commit();
     }
 
-    private void getData() {
+    private void get10DataCrude() {
 
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/index/";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(JSONArray jsonArray) {
+                    public void onResponse(JSONObject response) {
                         loadCrude.setVisibility(View.GONE);
-                        Log.d(TAG, "Onresponsecrude" + jsonArray.toString());
-                        Log.d(TAG, "lengthonresponse" + jsonArray.length());
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray plant = response.getJSONArray("plant");
+                            Log.d(TAG,"plant"+plant.toString());
+                            for (int i = 0; i < plant.length() ; i++)
+                            {
+                                JSONObject jsonObject = plant.getJSONObject(i);
                                 crudeModels.add(
                                         new crudeModel(
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("title")
-
+                                                jsonObject.getString("idplant"),
+                                                jsonObject.getString("sname"),
+                                                jsonObject.getString("refimg")
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
 
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 

@@ -3,6 +3,8 @@ package com.example.ilham.obatherbal.search;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -57,6 +59,8 @@ public class searchHerbs extends Fragment {
         Log.d(TAG,"kategori yang dipilih :"+idCategories );
         rootView = inflater.inflate(R.layout.fragment_search_herbs, container, false);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
+
+
         switch (idCategories)
         {
             case "jamu":
@@ -74,7 +78,7 @@ public class searchHerbs extends Fragment {
                 startRecyclerViewKampo();
                 break;
             case "crude":
-                searchHerbs.setHint("Search Crude");
+                searchHerbs.setHint("Search Plant");
                 getDataCrude();
                 searchCrude();
                 break;

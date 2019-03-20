@@ -1,8 +1,8 @@
 package com.example.ilham.obatherbal.herbalJava;
 
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +12,8 @@ import com.example.ilham.obatherbal.R;
 
 public class detailHerbal extends AppCompatActivity {
     ImageView gambarDetailHerbal;
+    TextView reference;
+    String urlRef = "www.google.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,10 @@ public class detailHerbal extends AppCompatActivity {
         Glide.with(this)
                 .load(url)
                 .into(gambarDetailHerbal);
+
+        reference = (TextView) findViewById(R.id.reference);
+        reference.setText(urlRef);
+        Linkify.addLinks(reference,Linkify.WEB_URLS);
     }
 
 

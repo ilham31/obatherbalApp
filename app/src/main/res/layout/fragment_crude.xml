@@ -3,44 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".crudeJava.crude">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
+        android:layout_height="match_parent"
+
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarCrude"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            >
+            <EditText
+                android:id="@+id/search_crude"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp"
-                >
-                <EditText
-                    android:id="@+id/search_crude"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:drawableLeft="@drawable/ic_search_black_24dp"
-                    android:hint="Search"
-                    android:background="@drawable/edittext"
-                    android:layout_marginBottom="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:focusableInTouchMode="false"
-                    />
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview_crude"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="7dp"
-                    android:scrollbars="vertical"
-                    >
-                </android.support.v7.widget.RecyclerView>
-
-             </LinearLayout>
-
-
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:hint="Search"
+                android:background="@drawable/edittext"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:focusableInTouchMode="false"
+                />
+        </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_crude"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:scrollbars="vertical"
+            android:layout_below="@id/toolbarCrude"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+        </android.support.v7.widget.RecyclerView>
         <ProgressBar
             android:id="@+id/loadCrude"
             android:layout_width="wrap_content"

@@ -48,6 +48,9 @@
                     android:layout_height="wrap_content"
                     android:text="Khasiat Herbal"
                     android:textColor="#000"
+                    android:maxLines="1"
+                    android:maxLength="40"
+                    android:ellipsize="end"
                     />
 
             </LinearLayout>

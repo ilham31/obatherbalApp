@@ -5,17 +5,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
-
+import com.example.ilham.obatherbal.analysisJava.prediction.steppersPredictionCompound;
 import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
 import com.example.ilham.obatherbal.analysisJava.ethnics.MapsActivity;
 
@@ -60,7 +58,8 @@ public class analysis extends Fragment {
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(getActivity(), "select apa ni "+ selection, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(),steppersPredictionCompound.class);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -87,12 +86,11 @@ public class analysis extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent ethnic = new Intent(getActivity(),MapsActivity.class);
-                ethnic.putExtra("daerah","Jawa Tengah");
+                ethnic.putExtra("daerah","Sumatra utara");
                 startActivity(ethnic);
             }
         });
         return rootview;
     }
-
 
 }

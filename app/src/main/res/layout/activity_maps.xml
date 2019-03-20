@@ -14,11 +14,10 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingtoolbar"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@android:color/transparent"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
 
             >
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,12 +33,36 @@
                 android:background="@color/gray_500"
                 />
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                app:layout_collapseMode="pin"
+                android:id="@+id/toolbarEthnic"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:contentInsetLeft="0dp"
+                android:contentInsetStart="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                android:contentInsetRight="0dp"
+                android:contentInsetEnd="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetEnd="0dp"
                 >
-
+                <EditText
+                    android:id="@+id/search_disease"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                    android:hint="Search Disease"
+                    android:background="@drawable/edittext"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColorHint="@android:color/black"
+                    android:textColor="@android:color/black"
+                    />
             </android.support.v7.widget.Toolbar>
 
 

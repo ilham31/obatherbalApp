@@ -2,11 +2,12 @@ package com.example.ilham.obatherbal.crudeJava;
 
 public class crudeModel {
 
-    private String id,nama;
+    private String id,nama,refimgplant;
 
-    public crudeModel(String id, String nama) {
+    public crudeModel(String id, String nama, String refimgplant) {
         this.id = id;
         this.nama = nama;
+        this.refimgplant = refimgplant;
     }
 
     public String getId() {
@@ -16,4 +17,6 @@ public class crudeModel {
     public String getNama() {
         return nama;
     }
+
+    public String getRefimgplant(){return refimgplant;}
 }

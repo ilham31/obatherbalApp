@@ -152,11 +152,11 @@ public class herbalAdapter extends RecyclerView.Adapter{
 //            thumbnail = itemView.findViewById(R.id.gambar_herbal);
         }
     }
-    public void filterlist (ArrayList<herbalModel> filteredList)
-    {
-        herbalModelList =filteredList;
-        notifyDataSetChanged();
-    }
+//    public void filterlist (ArrayList<herbalModel> filteredList)
+//    {
+//        herbalModelList =filteredList;
+//        notifyDataSetChanged();
+//    }
 
 
 }

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".herbalJava.kampo">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarKampo"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            >
+            <EditText
+                android:id="@+id/search_kampo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:hint="Search"
+                android:background="@drawable/edittext"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:ellipsize="end"
+                android:focusableInTouchMode="false"
+                android:inputType="none"
+                android:layout_below="@id/toolbarHerbs"
+                />
+        </android.support.v7.widget.Toolbar>
+
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/textPilihjenis"
+            android:layout_below="@id/toolbarKampo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pilih jenis"
+            />
+        <Spinner
+
+            android:layout_below="@id/textPilihjenis"
+            android:id="@+id/filter_kampo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/filter_kampo"
+            android:id="@+id/recyclerview_kampo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:scrollbars="vertical"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+        <ProgressBar
+            android:id="@+id/loadKampo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>

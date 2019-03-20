@@ -1,5 +1,6 @@
 package com.example.ilham.obatherbal.analysisJava.ethnics;
 
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.design.widget.AppBarLayout;
@@ -27,6 +28,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.data.geojson.GeoJsonLayer;
+import com.google.maps.android.data.geojson.GeoJsonPolygonStyle;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -145,7 +148,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 final LatLng user = new LatLng(lat, lon);
                 /*used marker for show the location */
                 mMap.addMarker(new MarkerOptions().position(user));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,10));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,9));
+//                try {
+//                    GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.indonesia_province, getApplicationContext());
+//
+//                    GeoJsonPolygonStyle style = layer.getDefaultPolygonStyle();
+//                    style.setFillColor(Color.MAGENTA);
+//                    style.setStrokeColor(Color.MAGENTA);
+//                    style.setStrokeWidth(1F);
+//
+//                    layer.addLayerToMap();
+//
+//                } catch (IOException ex) {
+//                    Log.e("IOException", ex.getLocalizedMessage());
+//                } catch (JSONException ex) {
+//                    Log.e("JSONException", ex.getLocalizedMessage());
+//                }
             }
             else
             {

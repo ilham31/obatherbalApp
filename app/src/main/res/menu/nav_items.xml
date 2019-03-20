@@ -10,7 +10,7 @@
     <item
         android:id="@+id/nav_crude"
         android:icon="@drawable/leaves"
-        android:title="Crude" />
+        android:title="Plant" />
     <item
         android:id="@+id/nav_compound"
         android:icon="@drawable/network"
@@ -21,6 +21,6 @@
         android:title="Analysis" />
     <item
         android:id="@+id/nav_database"
-        android:icon="@drawable/database"
-        android:title="Database" />
+        android:icon="@drawable/info"
+        android:title="Info" />
 </menu>
