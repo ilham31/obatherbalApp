@@ -15,15 +15,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.ilham.obatherbal.crudeJava.crudeModel;
+import com.example.ilham.obatherbal.crudeJava.detailCrude;
+
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.herbalJava.herbalModel;
 import com.example.ilham.obatherbal.herbalJava.kampoModel;
 import com.example.ilham.obatherbal.search.Adapter.adapterKampo;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchJamu;
+import com.example.ilham.obatherbal.search.Adapter.adapterSearchPlant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +48,10 @@ public class searchHerbs extends Fragment {
     View rootView;
     List<herbalModel> herbalModels;
     List<kampoModel> kampoModels;
+    List<crudeModel> crudeModels;
     adapterSearchJamu adapterJamu;
     adapterKampo adapterKampo;
+    adapterSearchPlant adapterSearchPlant;
     RecyclerView recyclerView;
 
     public searchHerbs() {
@@ -79,8 +87,10 @@ public class searchHerbs extends Fragment {
                 break;
             case "crude":
                 searchHerbs.setHint("Search Plant");
+                crudeModels = new ArrayList<>();
                 getDataCrude();
                 searchCrude();
+                startRecyclerViewPlant();
                 break;
             case "compound":
                 searchHerbs.setHint("Search Compound");
@@ -91,7 +101,15 @@ public class searchHerbs extends Fragment {
           return rootView;
     }
 
+    private void startRecyclerViewPlant() {
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        adapterSearchPlant = new adapterSearchPlant(getActivity(),crudeModels);
+        recyclerView.setAdapter(adapterSearchPlant);
+        recyclerView.setVisibility(View.GONE);
+    }
 
 
     private void searchCompound() {
@@ -101,10 +119,84 @@ public class searchHerbs extends Fragment {
     }
 
     private void searchCrude() {
-        
+        searchHerbs.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(recyclerView.getVisibility()!= View.VISIBLE)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                filterPlant(s.toString());
+                if(s.toString().length() == 0)
+                {
+                    recyclerView.setVisibility(View.GONE);
+                }
+
+            }
+        });
+    }
+
+    private void filterPlant(String s) {
+        Log.d(TAG,"string filter" + s);
+        ArrayList<crudeModel> filteredList = new ArrayList<>();
+        for (crudeModel item : crudeModels){
+            if (item.getNama().toLowerCase().contains(s.toLowerCase()))
+            {
+                filteredList.add(item);
+            }
+        }
+        adapterSearchPlant.filterlist(filteredList);
     }
 
     private void getDataCrude() {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/list";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray plant = response.getJSONArray("plant");
+                            Log.d(TAG,"plant"+plant.toString());
+                            for (int i = 0; i < plant.length() ; i++)
+                            {
+                                JSONObject jsonObject = plant.getJSONObject(i);
+                                crudeModels.add(
+                                        new crudeModel(
+                                                jsonObject.getString("idplant"),
+                                                jsonObject.getString("sname"),
+                                                ""
+
+                                        )
+                                );
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerrorplant" + error.toString());
+                    }
+                });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void searchKampo() {
@@ -196,41 +288,45 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataJamu() {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, "OnresponseSearch" + jsonArray.toString());
-                        Log.d(TAG, "lengthonresponse" + jsonArray.length());
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/list";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                            Log.d(TAG,"herbsmeds"+herbsmeds.toString());
+                            for (int i = 0; i < herbsmeds.length() ; i++)
+                            {
+                                JSONObject jsonObject = herbsmeds.getJSONObject(i);
                                 herbalModels.add(
                                         new herbalModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("userId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("body")
+                                                jsonObject.getString("name"),
+                                                "",
+                                                "",
+                                                jsonObject.getString("idherbsmed"),
+                                                ""
                                         )
                                 );
-                            } catch (JSONException e) {
-
-                            }
+                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+
     }
 
     private void searhJamu() {
