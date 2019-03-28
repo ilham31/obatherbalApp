@@ -302,15 +302,23 @@ public class searchHerbs extends Fragment {
                             for (int i = 0; i < herbsmeds.length() ; i++)
                             {
                                 JSONObject jsonObject = herbsmeds.getJSONObject(i);
-                                herbalModels.add(
-                                        new herbalModel(
-                                                jsonObject.getString("name"),
-                                                "",
-                                                "",
-                                                jsonObject.getString("idherbsmed"),
-                                                ""
-                                        )
-                                );
+                                String check = jsonObject.getString("idherbsmed");
+                                Character id = check.charAt(0);
+                                Log.d(TAG,"huruf pertama"+id);
+                                if (id == 'J')
+                                {
+                                    Log.d(TAG,"masuk if"+id);
+                                    herbalModels.add(
+                                            new herbalModel(
+                                                    jsonObject.getString("name"),
+                                                    "",
+                                                    "",
+                                                    jsonObject.getString("idherbsmed"),
+                                                    ""
+                                            )
+                                    );
+                                }
+
                              }
                         } catch (JSONException e) {
                             e.printStackTrace();

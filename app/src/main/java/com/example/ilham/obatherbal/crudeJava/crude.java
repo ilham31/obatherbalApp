@@ -176,6 +176,7 @@ public class crude extends Fragment {
                             Log.d(TAG,"plant"+plant.toString());
                             for (int i = 0; i < plant.length() ; i++)
                             {
+
                                 JSONObject jsonObject = plant.getJSONObject(i);
                                 crudeModels.add(
                                         new crudeModel(

@@ -32,7 +32,7 @@ public class adapterSearchJamu extends RecyclerView.Adapter<adapterSearchJamu.he
     public herbalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater inflater =LayoutInflater.from(mCtx);
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_herbal, parent,false);
+                .inflate(R.layout.searchlayoutherbal, parent,false);
 //        View view =inflater.inflate(R.layout.cardview_herbal,null);
         herbalViewHolder holder = new herbalViewHolder(v);
         return holder;
@@ -43,11 +43,12 @@ public class adapterSearchJamu extends RecyclerView.Adapter<adapterSearchJamu.he
         herbalModel detailherbal =herbalModelList.get(i);
 
         herbalViewHolder.namaHerbal.setText(detailherbal.getNama());
-        herbalViewHolder.khasiatHerbal.setText(detailherbal.getKhasiat());
+        final String idHerbal = detailherbal.getId();
         herbalViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mCtx, detailHerbal.class);
+                i.putExtra("idHerbal", idHerbal);
                 mCtx.startActivity(i);
 
             }
@@ -70,8 +71,7 @@ public class adapterSearchJamu extends RecyclerView.Adapter<adapterSearchJamu.he
         TextView namaHerbal,khasiatHerbal;
         public herbalViewHolder(@NonNull View itemView) {
             super(itemView);
-            namaHerbal = itemView.findViewById(R.id.nama_herbal);
-            khasiatHerbal = itemView.findViewById(R.id.khasiat_herbal);
-        }
+            namaHerbal = itemView.findViewById(R.id.nama_herbal_search);
+           }
     }
 }

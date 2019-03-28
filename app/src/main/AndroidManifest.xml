@@ -55,7 +55,7 @@
         <activity
             android:name=".analysisJava.ethnics.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".analysisJava.prediction.steppersPredictionCompound"></activity>
+        <activity android:name=".analysisJava.prediction.steppersPredictionCompound" />
     </application>
 
 </manifest>

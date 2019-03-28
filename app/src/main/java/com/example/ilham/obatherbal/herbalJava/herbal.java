@@ -151,16 +151,21 @@ public class herbal extends Fragment {
                            for (int i = 0; i < herbsmeds.length() ; i++)
                            {
                                JSONObject jsonObject = herbsmeds.getJSONObject(i);
-                               herbalModels.add(
-                                       new herbalModel(
-                                               jsonObject.getString("name"),
-                                               jsonObject.getString("efficacy"),
-                                               jsonObject.getString("idherb"),
-                                               jsonObject.getString("_id"),
-                                               jsonObject.getString("img")
-                                       )
-                               );
-                               mAdapter.notifyDataSetChanged();
+                               if (jsonObject.getString("idtype").equals("2"))
+                               {
+                                   herbalModels.add(
+                                           new herbalModel(
+                                                   jsonObject.getString("name"),
+                                                   jsonObject.getString("efficacy"),
+                                                   jsonObject.getString("idherb"),
+                                                   jsonObject.getString("idherbsmed"),
+                                                   jsonObject.getString("img")
+
+                                           )
+                                   );
+                                   mAdapter.notifyDataSetChanged();
+                               }
+
                            }
                        } catch (JSONException e) {
                            e.printStackTrace();
@@ -194,16 +199,20 @@ public class herbal extends Fragment {
                             for (int i = 0; i < herbsmeds.length() ; i++)
                             {
                                 JSONObject jsonObject = herbsmeds.getJSONObject(i);
-                                herbalModels.add(
-                                        new herbalModel(
-                                                jsonObject.getString("name"),
-                                                jsonObject.getString("efficacy"),
-                                                jsonObject.getString("idherb"),
-                                                jsonObject.getString("_id"),
-                                                jsonObject.getString("img")
-                                        )
-                                );
-                                mAdapter.notifyItemInserted(herbalModels.size());
+                                if (jsonObject.getString("idtype").equals("2"))
+                                {
+                                    herbalModels.add(
+                                            new herbalModel(
+                                                    jsonObject.getString("name"),
+                                                    jsonObject.getString("efficacy"),
+                                                    jsonObject.getString("idherb"),
+                                                    jsonObject.getString("idherbsmed"),
+                                                    jsonObject.getString("img")
+                                            )
+                                    );
+                                    mAdapter.notifyItemInserted(herbalModels.size());
+                                }
+
                             }
                             mAdapter.setLoaded();
                         } catch (JSONException e) {
