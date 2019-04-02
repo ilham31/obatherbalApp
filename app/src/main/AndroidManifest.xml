@@ -36,9 +36,8 @@
         <activity
             android:name=".analysisJava.prediction.steppersPrediction"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".analysisJava.comparison.steppersComparison">
-            android:windowSoftInputMode="adjustNothing"
-        </activity>
+        <activity android:name=".analysisJava.comparison.steppersComparison"/>
+
         <activity android:name=".login" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

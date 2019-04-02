@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.ilham.obatherbal.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseViewHolder>{
@@ -43,6 +44,12 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseV
     @Override
     public int getItemCount() {
         return diseaseModelList.size();
+    }
+
+    public void filterlist (ArrayList<diseaseModel> filteredList)
+    {
+        diseaseModelList =filteredList;
+        notifyDataSetChanged();
     }
 
     class diseaseViewHolder extends RecyclerView.ViewHolder{

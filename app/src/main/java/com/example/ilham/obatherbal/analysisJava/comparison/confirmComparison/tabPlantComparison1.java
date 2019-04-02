@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,14 +31,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class tabPlantComparisonJamu1 extends Fragment {
+public class tabPlantComparison1 extends Fragment {
     View view;
     String idHerbal;
     showsPlantAdapter adapter;
     List<crudeModel> crudeModels;
     RecyclerView recyclerView;
+    TextView namaJamu;
+    ProgressBar loading;
 
-    public tabPlantComparisonJamu1() {
+    public tabPlantComparison1() {
         // Required empty public constructor
     }
 
@@ -47,18 +51,20 @@ public class tabPlantComparisonJamu1 extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tab_plant_comparison_jamu1, container, false);
         crudeModels = new ArrayList<>();
+        Bundle bundle = this.getArguments();
+        idHerbal = bundle.getString("idjamu1");
+        getArguments().remove("idjamu1");
+        Log.d("plantTab","idplant = "+ idHerbal);
+        Log.d("tab 1 comparison","tab called = " + idHerbal);
+        namaJamu = (TextView) view.findViewById(R.id.namaJamuComparison1);
+        loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamu1);
+        loading.setVisibility(View.VISIBLE);
+        getIdCrude(idHerbal);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_plant_comparison_jamu1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         adapter = new showsPlantAdapter(crudeModels,getActivity());
         recyclerView.setAdapter(adapter);
-        Bundle bundle = this.getArguments();
-        idHerbal = bundle.getString("idjamu");
-        Log.d("plantTab","idherbal = "+ idHerbal);
-        getArguments().remove("idjamu");
-        Log.d("tab 1 comparison","tab called = " + idHerbal);
-        getIdCrude(idHerbal);
         return view;
     }
 
@@ -74,6 +80,7 @@ public class tabPlantComparisonJamu1 extends Fragment {
                         try {
                             JSONObject herbsmed = response.getJSONObject("herbsmed");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
+                            namaJamu.setText(herbsmed.getString("name"));
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
@@ -107,6 +114,7 @@ public class tabPlantComparisonJamu1 extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
                             JSONObject crudeDrug = response.getJSONObject("crudedrug");

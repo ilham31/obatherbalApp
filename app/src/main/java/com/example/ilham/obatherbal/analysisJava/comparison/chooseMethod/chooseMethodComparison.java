@@ -17,13 +17,15 @@ import com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison.co
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu.jamuModelComparison;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class chooseMethodComparison extends Fragment {
+public class chooseMethodComparison extends Fragment implements Serializable {
 
     private View view;
     private Button buttonNext;

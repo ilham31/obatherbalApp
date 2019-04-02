@@ -6,59 +6,72 @@
     tools:context=".herbalJava.tabDiseaseHerbal">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            >
-            <TextView
-                android:id="@+id/detailNameHerbal"
+            android:layout_height="match_parent">
+            <ScrollView
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    >
+                    <TextView
+                        android:id="@+id/detailNameHerbal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/detailEfficacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/detailRefHerbal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/descriptionDclassHerbal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/diseaseDclassHerbal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/refDiseaseDclassHerbal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        />
+                </LinearLayout>
+            </ScrollView>
+            <ProgressBar
+                android:id="@+id/loadDiseaseDetailJamu"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 />
 
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/detailEfficacy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+        </RelativeLayout>
 
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/detailRefHerbal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
 
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/descriptionDclassHerbal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/diseaseDclassHerbal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-            <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/refDiseaseDclassHerbal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                />
-        </LinearLayout>
-
-    </ScrollView>
 
 
 </FrameLayout>

@@ -1,6 +1,6 @@
 package com.example.ilham.obatherbal.crudeJava;
 
-public class crudeModel {
+public class crudeModel  {
 
     private String id,nama,refimgplant;
 

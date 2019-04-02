@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class chooseJamu extends Fragment {
+public class chooseJamu extends Fragment implements Serializable{
 
     private Button buttonNext;
     private View view;
@@ -220,7 +220,6 @@ public class chooseJamu extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-
                         Log.d("comparison", "Onresponse" + response.toString());
                         try {
                             JSONArray herbsmeds = response.getJSONArray("herbsmed");

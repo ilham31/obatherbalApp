@@ -37,16 +37,18 @@ public class confirmComparison extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewPagerComparisonJamu);
 
         viewPagerComparisonJamu adapter = new viewPagerComparisonJamu(getChildFragmentManager());
-        tabPlantComparisonJamu1 comparisonJamu1 = new tabPlantComparisonJamu1();
+
+        tabPlantComparison1 comparisonJamu1 = new tabPlantComparison1();
         tabPlantComparisonJamu2 comparisonJamu2 = new tabPlantComparisonJamu2();
 
-        Bundle bundle1 = new Bundle();
-        bundle1.putString("idjamu",idjamu1);
-        Bundle bundle2 = new Bundle();
-        bundle2.putString("idjamu",idjamu2);
+        Bundle bundle = new Bundle();
+        bundle.putString("idjamu1",idjamu1);
+        bundle.putString("idjamu2",idjamu2);
 
-        comparisonJamu1.setArguments(bundle1);
-        comparisonJamu2.setArguments(bundle2);
+
+
+        comparisonJamu1.setArguments(bundle);
+        comparisonJamu2.setArguments(bundle);
 
         adapter.addFragment(comparisonJamu1,"Jamu 1");
         adapter.addFragment(comparisonJamu2,"Jamu 2");

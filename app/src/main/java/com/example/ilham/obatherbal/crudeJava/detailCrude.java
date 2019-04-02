@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -28,18 +30,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class detailCrude extends AppCompatActivity {
+public class detailCrude extends AppCompatActivity  {
     private static final String TAG = "detailCrude";
     ImageView detailPic;
     List<detailCrudeModel> detailCrudeModels;
     detailCrudeAdapter adapter;
     RecyclerView recyclerView;
+    ProgressBar loading;
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_crude);
         detailCrudeModels = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_detailCrude);
+        loading = (ProgressBar) findViewById(R.id.loadDetailPlant);
+        loading.setVisibility(View.VISIBLE);
          recyclerView.setHasFixedSize(true);
          recyclerView.setLayoutManager(new LinearLayoutManager(this));
          adapter = new detailCrudeAdapter(this,detailCrudeModels);
@@ -48,6 +53,7 @@ public class detailCrude extends AppCompatActivity {
 
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         String idPlant = getIntent().getStringExtra("idPlant");
+        Log.d(TAG,"idplant = "+idPlant);
         getIntent().removeExtra("idPlant");
         getDataPlant(idPlant);
 
@@ -103,6 +109,7 @@ public class detailCrude extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Onresponsegetdetailcrude" + response.toString());
+                        loading.setVisibility(View.GONE);
                         try {
                             JSONObject crudeDrug = response.getJSONObject("crudedrug");
                             detailCrudeModels.add(

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ public class tabCrudeHerbal extends Fragment {
     List<detailCrudeModel> detailCrudeModels;
     detailCrudeAdapter adapter;
     RecyclerView recyclerView;
+    ProgressBar loading;
 
     public tabCrudeHerbal() {
         // Required empty public constructor
@@ -48,6 +50,8 @@ public class tabCrudeHerbal extends Fragment {
         rootview = inflater.inflate(R.layout.fragment_tab_crude_herbal, container, false);
         detailCrudeModels = new ArrayList<>();
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recyclerview_crude_in_herbal);
+        loading = (ProgressBar) rootview.findViewById(R.id.loadCrudeDetailJamu);
+        loading.setVisibility(View.VISIBLE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new detailCrudeAdapter(getActivity(),detailCrudeModels);
@@ -104,6 +108,7 @@ public class tabCrudeHerbal extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
                             JSONObject crudeDrug = response.getJSONObject("crudedrug");

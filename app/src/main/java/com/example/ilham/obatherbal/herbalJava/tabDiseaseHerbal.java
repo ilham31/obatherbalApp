@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -33,6 +34,7 @@ public class tabDiseaseHerbal extends Fragment {
     String idHerbal;
     View rootview;
     TextView nameDetailHerbal,efficacyDetailHerbal,refDetailHerbal,descriptionDclassHerbal,diseaseDclassHerbal,refDiseaseDclassHerbal;
+    ProgressBar loading;
 
     public tabDiseaseHerbal() {
         // Required empty public constructor
@@ -54,7 +56,8 @@ public class tabDiseaseHerbal extends Fragment {
         descriptionDclassHerbal = (TextView) rootview.findViewById(R.id.descriptionDclassHerbal);
         diseaseDclassHerbal = (TextView) rootview.findViewById(R.id.diseaseDclassHerbal);
         refDiseaseDclassHerbal = (TextView) rootview.findViewById(R.id.refDiseaseDclassHerbal);
-
+        loading = (ProgressBar) rootview.findViewById(R.id.loadDiseaseDetailJamu);
+        loading.setVisibility(View.VISIBLE);
         getDetailHerbal(idHerbal);
         return rootview;
     }
@@ -67,6 +70,7 @@ public class tabDiseaseHerbal extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
                             JSONObject herbsmed = response.getJSONObject("herbsmed");

@@ -9,8 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -58,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_disease);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        EditText searchDisease = (EditText) findViewById(R.id.search_disease);
         adapter = new diseaseAdapter(this,diseaseModels);
         recyclerView.setAdapter(adapter);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -76,6 +79,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         params.setBehavior(behavior);
+
+        searchDisease.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(recyclerView.getVisibility()!= View.VISIBLE)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                filterDisease(s.toString());
+
+            }
+        });
+
+    }
+
+    private void filterDisease(String s) {
+        Log.d("disease","string filter" + s);
+        ArrayList<diseaseModel> filteredList = new ArrayList<>();
+        for (diseaseModel item : diseaseModels){
+            if (item.getDiseaseName().toLowerCase().contains(s.toLowerCase()))
+            {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterlist(filteredList);
 
     }
 

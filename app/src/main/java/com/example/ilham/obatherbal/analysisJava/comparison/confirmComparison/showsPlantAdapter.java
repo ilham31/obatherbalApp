@@ -46,6 +46,16 @@ public class showsPlantAdapter extends RecyclerView.Adapter<showsPlantAdapter.cr
         crudeModel detailCrude= (crudeModel) crudeModelList.get(i);
 
         crudeViewHolderComparison.namaCrude.setText(detailCrude.getNama());
+        final String idPlant = detailCrude.getId();
+        crudeViewHolderComparison.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mCtx, detailCrude.class);
+                i.putExtra("idPlant",idPlant);
+                mCtx.startActivity(i);
+
+            }
+        });
         Glide.with(mCtx)
                 .load(detailCrude.getRefimgplant())
                 .apply(new RequestOptions().error(R.drawable.imageplaceholder).diskCacheStrategy(DiskCacheStrategy.ALL))

@@ -39,31 +39,44 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/linearLayout"
-            android:layout_margin="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crude"
-                />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_detailCrude"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp">
+                android:id="@+id/linearLayout"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crude"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_detailCrude"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
 
 
-            </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+            <ProgressBar
+                android:id="@+id/loadDetailPlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
