@@ -2,21 +2,25 @@ package com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison;
 
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.crudeJava.detailCrudeAdapter;
+import com.example.ilham.obatherbal.crudeJava.detailCrudeModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,13 +33,17 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class confirmComparison extends Fragment {
+public class tabComparisonBoth extends Fragment {
     View view;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    String idHerbal1,idHerbal2;
+    List<detailCrudeModel> detailCrudeModels;
+    detailCrudeAdapter adapter;
+    RecyclerView recyclerView;
+    TextView nothingBoth;
+    ProgressBar loading;
     List<String> idCrudeResponse1,idCrudeResponse2;
 
-    public confirmComparison() {
+    public tabComparisonBoth() {
         // Required empty public constructor
     }
 
@@ -44,49 +52,96 @@ public class confirmComparison extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_confirm_comparison, container, false);
-        final String idjamu1 = getArguments().getString("idjamu1");
-        final String idjamu2 = getArguments().getString("idjamu2");
-        Log.d("result","getdata idjamu 1 = "+idjamu1+", idjamu2 = "+idjamu2);
-
+        view = inflater.inflate(R.layout.fragment_tab_comparison_both, container, false);
+        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
+        detailCrudeModels = new ArrayList<>();
         idCrudeResponse1 = new ArrayList<>();
         idCrudeResponse2 = new ArrayList<>();
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tablayoutComparisonJamu);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPagerComparisonJamu);
+        Bundle bundle = this.getArguments();
+        idHerbal1 = bundle.getString("idjamu1");
+        idHerbal2 = bundle.getString("idjamu2");
+        Log.d("intent","masuk sini = " +idHerbal1 +idHerbal2);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview_plant_comparison_jamu_both);
+        nothingBoth = (TextView) view.findViewById(R.id.nothingBoth);
+        loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamuBoth);
 
-        getDataJamuCrude1(idjamu1);
-        getDataJamuCrude2(idjamu2);
-        viewPagerComparisonJamu adapter = new viewPagerComparisonJamu(getChildFragmentManager());
+        nothingBoth.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
 
-        tabPlantComparison1 comparisonJamu1 = new tabPlantComparison1();
-        tabPlantComparisonJamu2 comparisonJamu2 = new tabPlantComparisonJamu2();
-        tabComparisonBoth comparisonBoth = new tabComparisonBoth();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("idjamu1",idjamu1);
-        bundle.putString("idjamu2",idjamu2);
-
-        Bundle bundleBoth = new Bundle();
-        bundleBoth.putStringArrayList("idCrude1", (ArrayList<String>) idCrudeResponse1);
-        bundleBoth.putStringArrayList("idCrude2", (ArrayList<String>)idCrudeResponse2);
-
-        comparisonJamu1.setArguments(bundle);
-        comparisonJamu2.setArguments(bundle);
-        comparisonBoth.setArguments(bundle);
-
-        adapter.addFragment(comparisonJamu1,"Jamu 1");
-        adapter.addFragment(comparisonJamu2,"Jamu 2");
-        adapter.addFragment(comparisonBoth,"Both");
+        getDataJamuCrude1(idHerbal1);
 
 
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new detailCrudeAdapter(getActivity(),detailCrudeModels);
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
+    private void checkSimilarity(List<String> idCrudeResponse1, List<String> idCrudeResponse2) {
+        Log.d("tabBoth","masuk sini");
+        List<String> common = new ArrayList<String>(idCrudeResponse1);
+        common.retainAll(idCrudeResponse2);
+        Log.d("tabBoth","size common = "+common.size());
+        if (common.size() == 0)
+        {
+            nothingBoth.setVisibility(View.VISIBLE);
+            loading.setVisibility(View.GONE);
+        }
+        else
+        {
+            for (int counter = 0; counter < common.size(); counter++) {
+                getDetailCrude(common.get(counter));
+            }
+        }
+    }
+
+    private void getDetailCrude(String s) {
+        Log.d("tab 1 comparison","id crude masuk sini" +s);
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+s;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
+                        Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
+                        try {
+                            JSONObject crudeDrug = response.getJSONObject("crudedrug");
+                            detailCrudeModels.add(
+                                    new detailCrudeModel(
+                                            crudeDrug.getString("sname"),
+                                            crudeDrug.getString("name_en"),
+                                            crudeDrug.getString("name_loc1"),
+                                            crudeDrug.getString("gname"),
+                                            crudeDrug.getString("position"),
+                                            crudeDrug.getString("effect"),
+                                            crudeDrug.getString("ref")
+                                    )
+                            );
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d("getCrude", "Onerror" + error.toString());
+                    }
+                });
+
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+    }
+
     private void getDataJamuCrude2(String idHerbal2) {
-        Log.d("tab 1 comparison","id crude = " + idHerbal2);
+        Log.d("getdatajamu 2","masuk sini = " + idHerbal2);
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal2;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -105,6 +160,7 @@ public class confirmComparison extends Fragment {
 //                                getDetailCrude(idCrude);
                             }
                             checkSameItem2(idCrudeResponse2);
+                            checkSimilarity(idCrudeResponse1,idCrudeResponse2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -130,7 +186,7 @@ public class confirmComparison extends Fragment {
     }
 
     private void getDataJamuCrude1(String idHerbal1) {
-        Log.d("tab 1 comparison","id crude = " + idHerbal1);
+        Log.d("getDatajamu 1","masuk sini = " + idHerbal1);
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal1;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -141,7 +197,7 @@ public class confirmComparison extends Fragment {
                         try {
                             JSONObject herbsmed = response.getJSONObject("herbsmed");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
-                            for (int i = 0; i < refCrude.length() ; i++)
+                             for (int i = 0; i < refCrude.length() ; i++)
                             {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
                                 String idCrude = jsonObject.getString("idcrude");
@@ -149,6 +205,7 @@ public class confirmComparison extends Fragment {
 //                                getDetailCrude(idCrude);
                             }
                             checkSameItem1(idCrudeResponse1);
+                            getDataJamuCrude2(idHerbal2);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -171,6 +228,7 @@ public class confirmComparison extends Fragment {
         hashet1.addAll(idCrudeResponse1);
         idCrudeResponse1.clear();
         idCrudeResponse1.addAll(hashet1);
-        }
+
+    }
 
 }

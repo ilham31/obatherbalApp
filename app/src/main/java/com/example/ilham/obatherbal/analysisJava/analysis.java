@@ -15,7 +15,7 @@ import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPredictionCompound;
 import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
-import com.example.ilham.obatherbal.analysisJava.ethnics.MapsActivity;
+import com.example.ilham.obatherbal.analysisJava.ethnics.searchEthnic;
 
 
 /**
@@ -85,8 +85,8 @@ public class analysis extends Fragment {
         ethnics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ethnic = new Intent(getActivity(),MapsActivity.class);
-                ethnic.putExtra("daerah","Sumatra utara");
+                Intent ethnic = new Intent(getActivity(),searchEthnic.class);
+//                ethnic.putExtra("daerah","Sumatra utara");
                 startActivity(ethnic);
             }
         });

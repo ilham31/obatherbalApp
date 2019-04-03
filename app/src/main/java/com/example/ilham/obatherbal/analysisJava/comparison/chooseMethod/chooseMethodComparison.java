@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
 import com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison.confirmComparison;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu.jamuModelComparison;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +40,7 @@ public class chooseMethodComparison extends Fragment implements Serializable {
     private Button buttonNext;
     private RecyclerView recyclerView;
     private adapterComparisonJamuConfirm adapterComparisonJamuConfirm;
+    List<jamuModelComparison> detailjamu;
     public chooseMethodComparison() {
         // Required empty public constructor
     }
@@ -43,8 +53,10 @@ public class chooseMethodComparison extends Fragment implements Serializable {
         final ArrayList<jamuModelComparison> idJamu =  (ArrayList<jamuModelComparison>)getArguments().getSerializable("idJamu");
         for (jamuModelComparison h : idJamu)
         {
-            Log.d("choose methodcomp","nama jamu = "+h.getNama());
+            Log.d("choose methodcomp","nama jamu = "+h.getId());
+
         }
+        detailjamu = new ArrayList<>();
         view = inflater.inflate(R.layout.fragment_choose_method2, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.jamuComparison);
         recyclerView.setHasFixedSize(true);

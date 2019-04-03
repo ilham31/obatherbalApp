@@ -228,6 +228,7 @@ public class chooseJamu extends Fragment implements Serializable{
                             {
                                 JSONObject jsonObject = herbsmeds.getJSONObject(i);
                                 String check = jsonObject.getString("idherbsmed");
+
                                 Character id = check.charAt(0);
                                 Log.d("comparison","huruf pertama"+id);
                                 Log.d("comparison","masuk if"+id);

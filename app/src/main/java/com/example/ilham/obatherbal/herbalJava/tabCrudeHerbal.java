@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -37,6 +38,7 @@ public class tabCrudeHerbal extends Fragment {
     detailCrudeAdapter adapter;
     RecyclerView recyclerView;
     ProgressBar loading;
+    List<String> idCrudeResponse;
 
     public tabCrudeHerbal() {
         // Required empty public constructor
@@ -49,6 +51,7 @@ public class tabCrudeHerbal extends Fragment {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_tab_crude_herbal, container, false);
         detailCrudeModels = new ArrayList<>();
+        idCrudeResponse = new ArrayList<>();
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recyclerview_crude_in_herbal);
         loading = (ProgressBar) rootview.findViewById(R.id.loadCrudeDetailJamu);
         loading.setVisibility(View.VISIBLE);
@@ -79,9 +82,10 @@ public class tabCrudeHerbal extends Fragment {
                             {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
                                 String idCrude = jsonObject.getString("idcrude");
-                                getDetailCrude(idCrude);
+                                idCrudeResponse.add(idCrude);
+//                                getDetailCrude(idCrude);
                             }
-
+                            checkSameItem(idCrudeResponse);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -98,6 +102,16 @@ public class tabCrudeHerbal extends Fragment {
                 });
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void checkSameItem(List<String> idCrudeResponse) {
+        HashSet<String> hashet = new HashSet<String>();
+        hashet.addAll(idCrudeResponse);
+        idCrudeResponse.clear();
+        idCrudeResponse.addAll(hashet);
+        for (int counter = 0; counter < idCrudeResponse.size(); counter++) {
+            getDetailCrude(idCrudeResponse.get(counter));
+        }
     }
 
     private void getDetailCrude(String idCrude) {

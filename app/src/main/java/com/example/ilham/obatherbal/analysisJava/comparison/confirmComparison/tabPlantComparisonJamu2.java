@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -20,12 +21,15 @@ import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeAdapter;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
+import com.example.ilham.obatherbal.crudeJava.detailCrudeAdapter;
+import com.example.ilham.obatherbal.crudeJava.detailCrudeModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -34,11 +38,12 @@ import java.util.List;
 public class tabPlantComparisonJamu2 extends Fragment {
     View view;
     String idHerbal;
-    showsPlantAdapter adapter;
-    List<crudeModel> crudeModels;
+    List<detailCrudeModel> detailCrudeModels;
+    detailCrudeAdapter adapter;
     RecyclerView recyclerView;
-    TextView namaJamu;
+    TextView namaJamu,khasiatJamu;
     ProgressBar loading;
+    List<String> idCrudeResponse;
 
     public tabPlantComparisonJamu2() {
         // Required empty public constructor
@@ -50,13 +55,15 @@ public class tabPlantComparisonJamu2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tab_plant_comparison_jamu2, container, false);
-        crudeModels = new ArrayList<>();
+        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
+        detailCrudeModels = new ArrayList<>();
+        idCrudeResponse = new ArrayList<>();
         Bundle bundle = this.getArguments();
         idHerbal = bundle.getString("idjamu2");
-        getArguments().remove("idjamu2");
         Log.d("plantTab","idplant = "+ idHerbal);
         Log.d("tab 2 comparison","tab called = " + idHerbal);
         namaJamu = (TextView) view.findViewById(R.id.namaJamuComparison2);
+        khasiatJamu = (TextView) view.findViewById(R.id.khasiatJamuComparison2);
         loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamu2);
         loading.setVisibility(View.VISIBLE);
         getIdCrude(idHerbal);
@@ -64,7 +71,7 @@ public class tabPlantComparisonJamu2 extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new showsPlantAdapter(crudeModels,getActivity());
+        adapter = new detailCrudeAdapter(getActivity(),detailCrudeModels);
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -83,14 +90,16 @@ public class tabPlantComparisonJamu2 extends Fragment {
                             JSONObject herbsmed = response.getJSONObject("herbsmed");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
                             namaJamu.setText(herbsmed.getString("name"));
+                            khasiatJamu.setText(herbsmed.getString("efficacy"));
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
                                 String idCrude = jsonObject.getString("idcrude");
-                                getDetailCrude(idCrude);
+                                idCrudeResponse.add(idCrude);
+
+//                                getDetailCrude(idCrude);
                             }
-
-
+                            checkSameItem(idCrudeResponse);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -108,9 +117,21 @@ public class tabPlantComparisonJamu2 extends Fragment {
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
+    private void checkSameItem(List<String> idCrudeResponse) {
+        HashSet<String> hashet = new HashSet<String>();
+        hashet.addAll(idCrudeResponse);
+        idCrudeResponse.clear();
+        idCrudeResponse.addAll(hashet);
+        for (int counter = 0; counter < idCrudeResponse.size(); counter++) {
+            getDetailCrude(idCrudeResponse.get(counter));
+        }
+        Log.d("tab 2 comparison","sudah bedaa" +idCrudeResponse);
+    }
+
     private void getDetailCrude(String idCrude) {
         Log.d("tab 2 comparison","masuk sini" +idCrude);
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+idCrude;
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -120,20 +141,18 @@ public class tabPlantComparisonJamu2 extends Fragment {
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
                             JSONObject crudeDrug = response.getJSONObject("crudedrug");
-                            JSONArray refPlant = crudeDrug.getJSONArray("refPlant");
-                            for(int i = 0 ; i <refPlant.length();i++ )
-                            {
-                                JSONObject jsonObject = refPlant.getJSONObject(i);
-                                crudeModels.add(
-                                        new crudeModel(
-                                                jsonObject.getString("idplant"),
-                                                jsonObject.getString("sname"),
-                                                jsonObject.getString("refimg")
-                                        )
-                                );
-                                Log.d("tabplantHerbal","datanih : "+jsonObject.getString("idplant")+jsonObject.getString("sname"));
-                                adapter.notifyDataSetChanged();
-                            }
+                            detailCrudeModels.add(
+                                    new detailCrudeModel(
+                                            crudeDrug.getString("sname"),
+                                            crudeDrug.getString("name_en"),
+                                            crudeDrug.getString("name_loc1"),
+                                            crudeDrug.getString("gname"),
+                                            crudeDrug.getString("position"),
+                                            crudeDrug.getString("effect"),
+                                            crudeDrug.getString("ref")
+                                    )
+                            );
+                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -3,25 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".analysisJava.comparison.confirmComparison.tabPlantComparisonJamu2">
+    tools:context=".analysisJava.comparison.confirmComparison.tabComparisonBoth">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
             <TextView
-                android:id="@+id/namaJamuComparison2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                />
-            <TextView
-                android:id="@+id/khasiatJamuComparison2"
+                android:text="Both Crude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -30,16 +25,23 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recyclerview_plant_comparison_jamu2"
+                android:id="@+id/recyclerview_plant_comparison_jamu_both"
                 android:layout_margin="10dp"
                 >
 
             </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/nothingBoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Not found similar crude in both jamu"
+            />
         <ProgressBar
-            android:id="@+id/loadtabComparisonJamu2"
+            android:id="@+id/loadtabComparisonJamuBoth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
