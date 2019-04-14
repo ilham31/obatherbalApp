@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".analysisJava.ethnics.searchEthnic"></activity>
+        <activity android:name=".databaseJava.explicit"></activity>
+        <activity android:name=".databaseJava.tacit" />
+        <activity android:name=".analysisJava.ethnics.searchEthnic" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">

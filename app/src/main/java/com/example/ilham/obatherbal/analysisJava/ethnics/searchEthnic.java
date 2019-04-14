@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 
@@ -80,41 +82,46 @@ public class searchEthnic extends AppCompatActivity {
     }
 
     private void getDataEthnic() {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        loading.setVisibility(View.GONE);
-                        Log.d("maps", "Onresponsecrude" + jsonArray.toString());
-                        Log.d("maps", "lengthonresponse" + jsonArray.length());
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/ethnic/index";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
+                        Log.d("ethnic", "OnresponseHerbal" + response.toString());
+                        try {
+
+                            JSONArray ethnic = response.getJSONArray("ethnic");
+                            Log.d("ethnic","ethnic"+ethnic.toString());
+                            for (int i = 0; i < ethnic.length() ; i++)
+                            {
+                                JSONObject jsonObject = ethnic.getJSONObject(i);
+
                                 ethnicModelList.add(
                                         new ethnicModel(
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("title")
-
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("name"),
+                                                jsonObject.getString("province")
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
+
 
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d("maps", "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d("ethnic", "Onerror" + error.toString());
                     }
                 });
-
-        MySingleton.getInstance(this).addToRequestQueue(request);
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 }

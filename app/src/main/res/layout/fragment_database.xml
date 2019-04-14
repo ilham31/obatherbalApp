@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <android.support.v7.widget.CardView
-                android:id="@+id/cardAnalysis"
+                android:id="@+id/knowledgeCard"
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
                 android:layout_marginLeft="10dp"

@@ -75,6 +75,7 @@ public class tabDiseaseHerbal extends Fragment {
                         try {
                             JSONObject herbsmed = response.getJSONObject("herbsmed");
                             nameDetailHerbal.setText("Name : " + herbsmed.getString("name"));
+
                             efficacyDetailHerbal.setText("Efficacy : " + herbsmed.getString("efficacy"));
                             String idDclass = herbsmed.getString("idclass");
                             getDetailDisease(idDclass);

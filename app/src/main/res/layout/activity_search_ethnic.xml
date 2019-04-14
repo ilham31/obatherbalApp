@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:drawableLeft="@drawable/ic_search_black_24dp"
-            android:hint="Search"
+            android:hint="Search Ethnic"
             android:background="@drawable/edittext"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

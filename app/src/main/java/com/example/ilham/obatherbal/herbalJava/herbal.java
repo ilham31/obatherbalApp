@@ -135,9 +135,8 @@ public class herbal extends Fragment {
     }
 
     private void get10DataJamu() {
-
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/index";
-       JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                    @Override
