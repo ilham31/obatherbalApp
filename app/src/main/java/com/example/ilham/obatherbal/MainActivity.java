@@ -3,6 +3,7 @@ package com.example.ilham.obatherbal;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -29,20 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private com.example.ilham.obatherbal.analysisJava.analysis analysis;
     private com.example.ilham.obatherbal.compoundJava.compound compound;
 
-//    final Fragment fragmentHerbal = new herbal();
-//    final Fragment fragmentCrude = new crude();
-//    final Fragment fragmentCompound = new compound();
-//    final Fragment fragmentAnalysis = new analysis();
-//    final Fragment fragmentDataBase = new database();
-//    final FragmentManager fm = getSupportFragmentManager();
-//    Fragment active = fragmentHerbal;
-//final Fragment fragmentherbal = new herbal();
-//    final Fragment fragmentCrude = new crude();
-//    final Fragment fragmentCompound = new compound();
-//    final Fragment fragmentAnalysis = new analysis();
-//    final Fragment fragmentDataBase = new database();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +38,6 @@ public class MainActivity extends AppCompatActivity {
         if(isNetworkStatusAvialable (getApplicationContext())) {
             bottomNavigationView=(BottomNavigationView)findViewById(R.id.main_nav);
             frameLayout=(FrameLayout) findViewById(R.id.main_frame);
-//            bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//            fm.beginTransaction().add(R.id.main_frame,fragmentHerbal, "1").commit();
-//            fm.beginTransaction().add(R.id.main_frame, fragmentCrude, "2").hide(fragmentCrude).commit();
-//            fm.beginTransaction().add(R.id.main_frame, fragmentCompound, "3").hide(fragmentCompound).commit();
-//            fm.beginTransaction().add(R.id.main_frame, fragmentAnalysis, "4").hide(fragmentAnalysis).commit();
-//            fm.beginTransaction().add(R.id.main_frame, fragmentDataBase, "5").hide(fragmentDataBase).commit();
-
             herbal= new herbal();
             crude = new crude();
             database=new database();
@@ -119,40 +99,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.nav_herbal:
-//                    fm.beginTransaction().hide(active).show(fragmentHerbal).commit();
-//                    active = fragmentHerbal;
-//                    return true;
-//
-//                case R.id.nav_crude:
-//                    fm.beginTransaction().hide(active).show(fragmentCrude).commit();
-//                    active = fragmentCrude;
-//                    return true;
-//
-//                case R.id.nav_compound:
-//                    fm.beginTransaction().hide(active).show(fragmentCompound).commit();
-//                    active = fragmentCompound;
-//                    return true;
-//
-//                case R.id.nav_analysis:
-//                    fm.beginTransaction().hide(active).show(fragmentAnalysis).commit();
-//                    active = fragmentAnalysis;
-//                    return true;
-//
-//                case R.id.nav_database:
-//                    fm.beginTransaction().hide(active).show(fragmentDataBase).commit();
-//                    active = fragmentDataBase;
-//                    return true;
-//            }
-//            return false;
-//        }
-//    };
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -160,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+    
 }

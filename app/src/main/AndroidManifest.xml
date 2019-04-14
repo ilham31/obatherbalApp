@@ -20,25 +20,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".databaseJava.explicit"></activity>
-        <activity android:name=".databaseJava.tacit" />
-        <activity android:name=".analysisJava.ethnics.searchEthnic" />
+        <activity android:name=".databaseJava.explicit"
+            android:screenOrientation="portrait"
+            >
+
+        </activity>
+        <activity android:name=".databaseJava.tacit"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".analysisJava.ethnics.searchEthnic"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".herbalJava.detailHerbal" />
-        <activity android:name=".crudeJava.detailCrude" />
-        <activity android:name=".compoundJava.detailCompound" />
+        <activity android:name=".herbalJava.detailHerbal"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".crudeJava.detailCrude"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".compoundJava.detailCompound"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".analysisJava.prediction.steppersPrediction"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".analysisJava.comparison.steppersComparison" />
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".analysisJava.comparison.steppersComparison"
+            android:screenOrientation="portrait"/>
         <activity android:name=".login" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -54,8 +69,10 @@
 
         <activity
             android:name=".analysisJava.ethnics.MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".analysisJava.prediction.steppersPredictionCompound" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".analysisJava.prediction.steppersPredictionCompound"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -37,11 +38,14 @@ public class detailCrude extends AppCompatActivity  {
     detailCrudeAdapter adapter;
     RecyclerView recyclerView;
     ProgressBar loading;
+    List<String> idCrudeResponse;
+
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_crude);
         detailCrudeModels = new ArrayList<>();
+        idCrudeResponse = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_detailCrude);
         loading = (ProgressBar) findViewById(R.id.loadDetailPlant);
         loading.setVisibility(View.VISIBLE);
@@ -73,15 +77,17 @@ public class detailCrude extends AppCompatActivity  {
                             JSONObject plant = response.getJSONObject("plant");
                             Glide.with(detailCrude.this)
                                     .load(plant.getString("refimg"))
-                                    .apply(new RequestOptions().error(R.drawable.imageplaceholder).diskCacheStrategy(DiskCacheStrategy.ALL))
+                                    .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                                     .into(detailPic);
                             JSONArray refCrude = plant.getJSONArray("refCrude");
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
                                 String idCrude = jsonObject.getString("idcrude");
-                                getDetailCrude(idCrude);
+                                idCrudeResponse.add(idCrude);
+//                                getDetailCrude(idCrude);
                             }
+                            checkSameItem(idCrudeResponse);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,6 +104,16 @@ public class detailCrude extends AppCompatActivity  {
 
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
+    }
+
+    private void checkSameItem(List<String> idCrudeResponse) {
+        HashSet<String> hashet = new HashSet<String>();
+        hashet.addAll(idCrudeResponse);
+        idCrudeResponse.clear();
+        idCrudeResponse.addAll(hashet);
+        for (int counter = 0; counter < idCrudeResponse.size(); counter++) {
+            getDetailCrude(idCrudeResponse.get(counter));
+        }
     }
 
     private void getDetailCrude(String idCrude) {

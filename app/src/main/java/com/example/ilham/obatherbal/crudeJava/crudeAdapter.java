@@ -95,7 +95,7 @@ public class crudeAdapter extends RecyclerView.Adapter{
             ((crudeViewHolder) holder).namaCrude.setText(detailCrude.getNama());
             Glide.with(mCtx)
                     .load(detailCrude.getRefimgplant())
-                    .apply(new RequestOptions().error(R.drawable.imageplaceholder).diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(((crudeViewHolder)holder).crudePic);
             final String idPlant = detailCrude.getId();
             ((crudeViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
