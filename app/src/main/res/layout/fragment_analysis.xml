@@ -21,7 +21,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cardAnalysis"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="7dp"
@@ -33,34 +33,25 @@
                     <ImageView
                         android:id="@+id/thumbnailAnalysis"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
+                        android:scaleType="fitXY"
                         android:src="@drawable/analysis"
                         />
 
                     <TextView
                         android:id="@+id/titleAnalysis"
-                        android:layout_below="@id/thumbnailAnalysis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:text="Prediction"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="22sp"
+                        android:background="#4f0e0d0e"
+                        android:textColor="@color/white"
+                        android:gravity="center"
                         />
 
-                    <TextView
-                        android:id="@+id/subtitlePrediction"
-                        android:layout_below="@id/titleAnalysis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Make prediction of herbal medicine or compound"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                        />
 
                 </RelativeLayout>
 
@@ -70,10 +61,10 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cardComparison"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="7dp">
+                android:layout_marginTop="15dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -84,32 +75,21 @@
                         android:layout_height="150dp"
                         android:layout_alignParentTop="true"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         android:src="@drawable/jamu" />
 
                     <TextView
                         android:id="@+id/titleComparison"
-                        android:layout_below="@id/thumbnailComparison"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:text="Comparison"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="22sp"
+                        android:background="#4f0e0d0e"
+                        android:textColor="@color/white"
+                        android:gravity="center"
                         />
 
-                    <TextView
-                        android:id="@+id/subtitleComparison"
-                        android:layout_below="@id/titleComparison"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Comparison about formula between 2 jamu"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                    />
-
-                </RelativeLayout>
+                   </RelativeLayout>
 
 
             </android.support.v7.widget.CardView>
@@ -117,10 +97,10 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cardGIS"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="7dp">
+                android:layout_marginTop="15dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -130,32 +110,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_alignParentTop="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/map" />
-
-                    <TextView
-                        android:id="@+id/titleGIS"
-                        android:layout_below="@id/thumbnailGIS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="The use of Herbal Medicine"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/map"
+                        android:adjustViewBounds="true"
                         />
 
                     <TextView
-                        android:id="@+id/subtitleGIS"
-                        android:layout_below="@id/titleGIS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Based on ethnicity in Indonesia"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                    />
+                        android:id="@+id/titleGIS"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Ethnic"
+                        android:textSize="22sp"
+                        android:background="#4f0e0d0e"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        />
 
-                </RelativeLayout>
+                   </RelativeLayout>
 
 
             </android.support.v7.widget.CardView>

@@ -187,7 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 final LatLng user = new LatLng(lat, lon);
                 /*used marker for show the location */
                 mMap.addMarker(new MarkerOptions().position(user));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,9));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,6));
 //                try {
 //                    GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.indonesia_province, getApplicationContext());
 //

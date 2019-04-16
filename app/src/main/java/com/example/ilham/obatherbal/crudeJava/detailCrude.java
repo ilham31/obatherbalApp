@@ -25,9 +25,11 @@ import com.example.ilham.obatherbal.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -39,6 +41,8 @@ public class detailCrude extends AppCompatActivity  {
     RecyclerView recyclerView;
     ProgressBar loading;
     List<String> idCrudeResponse;
+    TextView describe;
+    String plantName;
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class detailCrude extends AppCompatActivity  {
          adapter = new detailCrudeAdapter(this,detailCrudeModels);
          recyclerView.setAdapter(adapter);
         detailPic = (ImageView) findViewById(R.id.detailCrudePic);
+        describe = (TextView) findViewById(R.id.descriptivePlant);
 
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         String idPlant = getIntent().getStringExtra("idPlant");
@@ -66,7 +71,7 @@ public class detailCrude extends AppCompatActivity  {
 
 
     private void getDataPlant(String idPlant) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/detailplant/"+idPlant;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/get/"+idPlant;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -74,11 +79,13 @@ public class detailCrude extends AppCompatActivity  {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONObject plant = response.getJSONObject("plant");
+                            JSONObject plant = response.getJSONObject("data");
                             Glide.with(detailCrude.this)
                                     .load(plant.getString("refimg"))
                                     .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                                     .into(detailPic);
+                            plantName = plant.getString("sname");
+                            getDescribeWiki(plantName);
                             JSONArray refCrude = plant.getJSONArray("refCrude");
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
@@ -106,6 +113,41 @@ public class detailCrude extends AppCompatActivity  {
 
     }
 
+    private void getDescribeWiki(String plantName) {
+       String url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="+plantName;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "Onresponsegetdetailcrude" + response.toString());
+                        try {
+                            JSONObject query = response.getJSONObject("query");
+                            JSONObject pages = query.getJSONObject("pages");
+                            Iterator keys = pages.keys();
+                            String key = (String)keys.next();
+                            JSONObject value = pages.getJSONObject(key);
+                            String extract = value.getString("extract");
+                            describe.setText(extract);
+                            Log.d("detail","isi respon"+extract);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
+                    }
+                });
+
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
     private void checkSameItem(List<String> idCrudeResponse) {
         HashSet<String> hashet = new HashSet<String>();
         hashet.addAll(idCrudeResponse);
@@ -118,7 +160,7 @@ public class detailCrude extends AppCompatActivity  {
 
     private void getDetailCrude(String idCrude) {
          Log.d(TAG,"masuk sini" +idCrude);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+idCrude;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+idCrude;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -127,7 +169,7 @@ public class detailCrude extends AppCompatActivity  {
                         Log.d(TAG, "Onresponsegetdetailcrude" + response.toString());
                         loading.setVisibility(View.GONE);
                         try {
-                            JSONObject crudeDrug = response.getJSONObject("crudedrug");
+                            JSONObject crudeDrug = response.getJSONObject("data");
                             detailCrudeModels.add(
                                     new detailCrudeModel(
                                             crudeDrug.getString("sname"),

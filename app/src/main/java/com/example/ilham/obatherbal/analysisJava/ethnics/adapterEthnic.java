@@ -62,7 +62,7 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
 
     private void getDataProvince(final String provinceId) {
         RequestQueue queue = MySingleton.getInstance(mCtx.getApplicationContext()).getRequestQueue();
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/province/detail/"+provinceId;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/province/get/"+provinceId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -70,7 +70,7 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
                     public void onResponse(JSONObject response) {
                         try {
 
-                            JSONObject province = response.getJSONObject("province");
+                            JSONObject province = response.getJSONObject("data");
                             String address = province.getString("province_name");
                             Intent ethnic = new Intent(mCtx,MapsActivity.class);
                             ethnic.putExtra("daerah",address);

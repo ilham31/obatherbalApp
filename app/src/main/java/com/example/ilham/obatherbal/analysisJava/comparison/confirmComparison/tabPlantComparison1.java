@@ -78,7 +78,7 @@ public class tabPlantComparison1 extends Fragment {
 
     private void getIdCrude(String idHerbal) {
         Log.d("tab 1 comparison","id crude = " + idHerbal);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -86,7 +86,7 @@ public class tabPlantComparison1 extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
-                            JSONObject herbsmed = response.getJSONObject("herbsmed");
+                            JSONObject herbsmed = response.getJSONObject("data");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
                             namaJamu.setText(herbsmed.getString("name"));
                             khasiatJamu.setText(herbsmed.getString("efficacy"));
@@ -127,7 +127,7 @@ public class tabPlantComparison1 extends Fragment {
 
     private void getDetailCrude(String idCrude) {
         Log.d("tab 1 comparison","id crude masuk sini" +idCrude);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+idCrude;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+idCrude;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -136,7 +136,7 @@ public class tabPlantComparison1 extends Fragment {
                         loading.setVisibility(View.GONE);
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
-                            JSONObject crudeDrug = response.getJSONObject("crudedrug");
+                            JSONObject crudeDrug = response.getJSONObject("data");
                             detailCrudeModels.add(
                                     new detailCrudeModel(
                                             crudeDrug.getString("sname"),

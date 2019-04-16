@@ -77,7 +77,7 @@ public class crude extends Fragment {
     }
 
     private void loadMoreDataCrude(int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/index/"+page;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -86,7 +86,7 @@ public class crude extends Fragment {
 
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray plant = response.getJSONArray("plant");
+                            JSONArray plant = response.getJSONArray("data");
                             Log.d(TAG,"plant"+plant.toString());
                             for (int i = 0; i < plant.length() ; i++)
                             {
@@ -163,7 +163,7 @@ public class crude extends Fragment {
 
     private void get10DataCrude() {
 
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/index/";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -172,7 +172,7 @@ public class crude extends Fragment {
                         loadCrude.setVisibility(View.GONE);
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray plant = response.getJSONArray("plant");
+                            JSONArray plant = response.getJSONArray("data");
                             Log.d(TAG,"plant"+plant.toString());
                             for (int i = 0; i < plant.length() ; i++)
                             {

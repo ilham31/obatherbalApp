@@ -64,7 +64,7 @@ public class tabDiseaseHerbal extends Fragment {
 
     private void getDetailHerbal(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -73,7 +73,7 @@ public class tabDiseaseHerbal extends Fragment {
                         loading.setVisibility(View.GONE);
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
-                            JSONObject herbsmed = response.getJSONObject("herbsmed");
+                            JSONObject herbsmed = response.getJSONObject("data");
                             nameDetailHerbal.setText("Name : " + herbsmed.getString("name"));
 
                             efficacyDetailHerbal.setText("Efficacy : " + herbsmed.getString("efficacy"));
@@ -102,7 +102,7 @@ public class tabDiseaseHerbal extends Fragment {
 
     private void getDetailDisease(String idDclass) {
         Log.d("disease","Call data disease and disease" + idDclass);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/dclass/detailDclass/"+idDclass;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/dclass/get/"+idDclass;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -110,7 +110,7 @@ public class tabDiseaseHerbal extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("diseaseTab", "Onresponse" + response.toString());
                         try {
-                            JSONObject Dclass = response.getJSONObject("dclass");
+                            JSONObject Dclass = response.getJSONObject("data");
                             descriptionDclassHerbal.setText("Description : " + Dclass.getString("description"));
                             diseaseDclassHerbal.setText("Disease : " + Dclass.getString("diseases"));
                             refDiseaseDclassHerbal.setText("Reference disease : "+ Dclass.getString("ref"));

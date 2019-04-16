@@ -44,8 +44,8 @@ public class detailHerbal extends AppCompatActivity {
         plantHerbal.setArguments(bundle);
 
         adapter.addFragment(diseaseHerbal,"Detail");
-        adapter.addFragment(crudeHerbal,"Crude");
         adapter.addFragment(plantHerbal,"Plant");
+        adapter.addFragment(crudeHerbal,"Crude");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         String url = "https://cdn.images.express.co.uk/img/dynamic/11/590x/herbal-medicines-remedies-lavender-allergy-tea-oil-health-824416.jpg";

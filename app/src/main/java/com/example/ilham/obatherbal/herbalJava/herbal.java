@@ -135,7 +135,7 @@ public class herbal extends Fragment {
     }
 
     private void get10DataJamu() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/index";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/pages";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -145,7 +145,7 @@ public class herbal extends Fragment {
                        Log.d(TAG, "OnresponseHerbal" + response.toString());
                        try {
 
-                           JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                           JSONArray herbsmeds = response.getJSONArray("data");
                            Log.d(TAG,"herbsmeds"+herbsmeds.toString());
                            for (int i = 0; i < herbsmeds.length() ; i++)
                            {
@@ -182,9 +182,8 @@ public class herbal extends Fragment {
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
-
-    private void loadMoreJamu(final int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/index/"+page;
+private void loadMoreJamu(final int page) {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -193,7 +192,7 @@ public class herbal extends Fragment {
 
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                            JSONArray herbsmeds = response.getJSONArray("data");
                             Log.d(TAG,"herbsmeds"+herbsmeds.toString());
                             for (int i = 0; i < herbsmeds.length() ; i++)
                             {

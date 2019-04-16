@@ -67,8 +67,6 @@ public class searchHerbs extends Fragment {
         Log.d(TAG,"kategori yang dipilih :"+idCategories );
         rootView = inflater.inflate(R.layout.fragment_search_herbs, container, false);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
-
-
         switch (idCategories)
         {
             case "jamu":
@@ -160,7 +158,7 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataCrude() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/list";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -169,7 +167,7 @@ public class searchHerbs extends Fragment {
 
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray plant = response.getJSONArray("plant");
+                            JSONArray plant = response.getJSONArray("data");
                             Log.d(TAG,"plant"+plant.toString());
                             for (int i = 0; i < plant.length() ; i++)
                             {
@@ -288,7 +286,7 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataJamu() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/list";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -297,7 +295,7 @@ public class searchHerbs extends Fragment {
 
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                            JSONArray herbsmeds = response.getJSONArray("data");
                             Log.d(TAG,"herbsmeds"+herbsmeds.toString());
                             for (int i = 0; i < herbsmeds.length() ; i++)
                             {

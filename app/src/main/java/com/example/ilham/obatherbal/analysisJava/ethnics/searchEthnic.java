@@ -82,7 +82,7 @@ public class searchEthnic extends AppCompatActivity {
     }
 
     private void getDataEthnic() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/ethnic/index";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/ethnic/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -92,7 +92,7 @@ public class searchEthnic extends AppCompatActivity {
                         Log.d("ethnic", "OnresponseHerbal" + response.toString());
                         try {
 
-                            JSONArray ethnic = response.getJSONArray("ethnic");
+                            JSONArray ethnic = response.getJSONArray("data");
                             Log.d("ethnic","ethnic"+ethnic.toString());
                             for (int i = 0; i < ethnic.length() ; i++)
                             {

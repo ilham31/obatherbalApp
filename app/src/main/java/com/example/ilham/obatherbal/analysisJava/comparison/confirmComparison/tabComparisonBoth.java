@@ -101,7 +101,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDetailCrude(String s) {
         Log.d("tab 1 comparison","id crude masuk sini" +s);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+s;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+s;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -110,7 +110,7 @@ public class tabComparisonBoth extends Fragment {
                         loading.setVisibility(View.GONE);
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
-                            JSONObject crudeDrug = response.getJSONObject("crudedrug");
+                            JSONObject crudeDrug = response.getJSONObject("data");
                             detailCrudeModels.add(
                                     new detailCrudeModel(
                                             crudeDrug.getString("sname"),
@@ -142,7 +142,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDataJamuCrude2(String idHerbal2) {
         Log.d("getdatajamu 2","masuk sini = " + idHerbal2);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal2;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal2;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -150,7 +150,7 @@ public class tabComparisonBoth extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
-                            JSONObject herbsmed = response.getJSONObject("herbsmed");
+                            JSONObject herbsmed = response.getJSONObject("data");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
@@ -187,7 +187,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDataJamuCrude1(String idHerbal1) {
         Log.d("getDatajamu 1","masuk sini = " + idHerbal1);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal1;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal1;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -195,7 +195,7 @@ public class tabComparisonBoth extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
-                            JSONObject herbsmed = response.getJSONObject("herbsmed");
+                            JSONObject herbsmed = response.getJSONObject("data");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
                              for (int i = 0; i < refCrude.length() ; i++)
                             {

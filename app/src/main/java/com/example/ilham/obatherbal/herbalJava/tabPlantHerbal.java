@@ -68,7 +68,7 @@ public class tabPlantHerbal extends Fragment {
 
     private void getIdCrude(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/detail/"+idHerbal;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -76,7 +76,7 @@ public class tabPlantHerbal extends Fragment {
                     public void onResponse(JSONObject response) {
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
-                            JSONObject herbsmed = response.getJSONObject("herbsmed");
+                            JSONObject herbsmed = response.getJSONObject("data");
                             JSONArray refCrude = herbsmed.getJSONArray("refCrude");
                             for (int i = 0; i < refCrude.length() ; i++)
                             {
@@ -116,7 +116,7 @@ public class tabPlantHerbal extends Fragment {
 
     private void getDetailCrude(String idCrude) {
         Log.d("getCrude","masuk sini" +idCrude);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/detail/"+idCrude;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+idCrude;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -125,7 +125,7 @@ public class tabPlantHerbal extends Fragment {
                         loading.setVisibility(View.GONE);
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
-                            JSONObject crudeDrug = response.getJSONObject("crudedrug");
+                            JSONObject crudeDrug = response.getJSONObject("data");
                             JSONArray refPlant = crudeDrug.getJSONArray("refPlant");
                             for(int i = 0 ; i <refPlant.length();i++ )
                             {

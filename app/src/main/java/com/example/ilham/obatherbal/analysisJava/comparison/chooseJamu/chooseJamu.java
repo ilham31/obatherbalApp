@@ -214,7 +214,7 @@ public class chooseJamu extends Fragment implements Serializable{
     }
 
     private void getDataJamuComparison() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/list";
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -222,7 +222,7 @@ public class chooseJamu extends Fragment implements Serializable{
                     public void onResponse(JSONObject response) {
                         Log.d("comparison", "Onresponse" + response.toString());
                         try {
-                            JSONArray herbsmeds = response.getJSONArray("herbsmed");
+                            JSONArray herbsmeds = response.getJSONArray("data");
                             Log.d("comparison","herbsmeds"+herbsmeds.toString());
                             for (int i = 0; i < herbsmeds.length() ; i++)
                             {

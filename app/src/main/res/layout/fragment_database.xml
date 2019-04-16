@@ -19,7 +19,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/knowledgeCard"
                 android:layout_width="match_parent"
-                android:layout_height="225dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="7dp"
@@ -34,30 +34,21 @@
                         android:layout_height="150dp"
                         android:layout_alignParentTop="true"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitXY"
                         android:background="@color/gray_500"
                         />
 
                     <TextView
                         android:id="@+id/titleKnowledge"
-                        android:layout_below="@id/thumbnailKnowledge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:text="Knowledge"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="22sp"
+                        android:background="#4f0e0d0e"
+                        android:textColor="@color/white"
+                        android:gravity="center"
                         />
 
-                    <TextView
-                        android:id="@+id/subtitleKnowledge"
-                        android:layout_below="@id/titleKnowledge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="See information about herbal medicine."
-                        android:layout_marginTop="3dp"
-                        android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
                  </RelativeLayout>
             </android.support.v7.widget.CardView>
 
