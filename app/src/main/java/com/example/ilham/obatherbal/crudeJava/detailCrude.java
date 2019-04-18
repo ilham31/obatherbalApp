@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -121,6 +123,7 @@ public class detailCrude extends AppCompatActivity  {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Onresponsegetdetailcrude" + response.toString());
+                        loading.setVisibility(View.GONE);
                         try {
                             JSONObject query = response.getJSONObject("query");
                             JSONObject pages = query.getJSONObject("pages");
@@ -128,7 +131,10 @@ public class detailCrude extends AppCompatActivity  {
                             String key = (String)keys.next();
                             JSONObject value = pages.getJSONObject(key);
                             String extract = value.getString("extract");
-                            describe.setText(extract);
+
+                            SpannableStringBuilder strDetailWiki = new SpannableStringBuilder("Detail : \n"+ extract);
+                            strDetailWiki.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            describe.setText(strDetailWiki);
                             Log.d("detail","isi respon"+extract);
 
                         } catch (JSONException e) {
@@ -167,7 +173,7 @@ public class detailCrude extends AppCompatActivity  {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Onresponsegetdetailcrude" + response.toString());
-                        loading.setVisibility(View.GONE);
+
                         try {
                             JSONObject crudeDrug = response.getJSONObject("data");
                             detailCrudeModels.add(

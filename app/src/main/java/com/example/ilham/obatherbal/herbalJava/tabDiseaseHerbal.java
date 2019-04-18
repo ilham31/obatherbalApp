@@ -3,6 +3,8 @@ package com.example.ilham.obatherbal.herbalJava;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,12 +76,20 @@ public class tabDiseaseHerbal extends Fragment {
                         Log.d("diseaseTab", "Onresponsedetail" + response.toString());
                         try {
                             JSONObject herbsmed = response.getJSONObject("data");
-                            nameDetailHerbal.setText("Name : " + herbsmed.getString("name"));
 
-                            efficacyDetailHerbal.setText("Efficacy : " + herbsmed.getString("efficacy"));
+                            SpannableStringBuilder strNameDetailHerb = new SpannableStringBuilder("Name : \n" + herbsmed.getString("name"));
+                            strNameDetailHerb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            nameDetailHerbal.setText(strNameDetailHerb);
+
+                            SpannableStringBuilder strEfficacyDetailHerb = new SpannableStringBuilder("Efficacy : \n" + herbsmed.getString("efficacy"));
+                            strEfficacyDetailHerb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            efficacyDetailHerbal.setText(strEfficacyDetailHerb);
                             String idDclass = herbsmed.getString("idclass");
                             getDetailDisease(idDclass);
-                            refDetailHerbal.setText( "Reference Herbal : "+ herbsmed.getString("ref"));
+
+                            SpannableStringBuilder strRefDetailHerb = new SpannableStringBuilder("Reference Herbal : \n"+ herbsmed.getString("ref"));
+                            strRefDetailHerb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 16, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            refDetailHerbal.setText(strRefDetailHerb);
                             Linkify.addLinks(refDetailHerbal,Linkify.WEB_URLS);
 
                         } catch (JSONException e) {
@@ -111,9 +121,17 @@ public class tabDiseaseHerbal extends Fragment {
                         Log.d("diseaseTab", "Onresponse" + response.toString());
                         try {
                             JSONObject Dclass = response.getJSONObject("data");
-                            descriptionDclassHerbal.setText("Description : " + Dclass.getString("description"));
-                            diseaseDclassHerbal.setText("Disease : " + Dclass.getString("diseases"));
-                            refDiseaseDclassHerbal.setText("Reference disease : "+ Dclass.getString("ref"));
+                            SpannableStringBuilder strDesDclass = new SpannableStringBuilder("Description : \n" + Dclass.getString("description"));
+                            strDesDclass.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            descriptionDclassHerbal.setText(strDesDclass);
+
+                            SpannableStringBuilder strdisease = new SpannableStringBuilder("Disease : \n" + Dclass.getString("diseases"));
+                            strdisease.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            diseaseDclassHerbal.setText(strdisease);
+
+                            SpannableStringBuilder strRefDisease = new SpannableStringBuilder("Reference disease : \n"+ Dclass.getString("ref"));
+                            strRefDisease.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 17, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            refDiseaseDclassHerbal.setText(strRefDisease);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

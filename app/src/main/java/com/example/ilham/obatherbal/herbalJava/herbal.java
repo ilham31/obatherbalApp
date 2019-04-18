@@ -134,6 +134,9 @@ public class herbal extends Fragment {
 
     }
 
+
+    //AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ
+    //https://www.googleapis.com/customsearch/v1?key=AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ&cx=008499053186876385122:rpuxtfhy9bq&q=jamu gadung klingsir
     private void get10DataJamu() {
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/pages";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
