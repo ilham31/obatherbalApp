@@ -57,7 +57,7 @@
             android:layout_below="@id/toolbarHerbs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pilih jenis"
+            android:text="Categories"
             />
         <Spinner
 

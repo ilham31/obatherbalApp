@@ -20,40 +20,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".databaseJava.explicit"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
-        <activity android:name=".databaseJava.tacit"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".analysisJava.ethnics.searchEthnic"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".databaseJava.explicit.detailExplicit"></activity>
+        <activity
+            android:name=".databaseJava.explicit.explicit"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".databaseJava.tacit.tacit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".analysisJava.ethnics.searchEthnic"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".herbalJava.detailHerbal"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".crudeJava.detailCrude"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".compoundJava.detailCompound"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".herbalJava.detailHerbal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".crudeJava.detailCrude"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".compoundJava.detailCompound"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".analysisJava.prediction.steppersPrediction"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".analysisJava.comparison.steppersComparison"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".analysisJava.comparison.steppersComparison"
+            android:screenOrientation="portrait" />
         <activity android:name=".login" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -70,9 +72,10 @@
         <activity
             android:name=".analysisJava.ethnics.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".analysisJava.prediction.steppersPredictionCompound"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".analysisJava.prediction.steppersPredictionCompound"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

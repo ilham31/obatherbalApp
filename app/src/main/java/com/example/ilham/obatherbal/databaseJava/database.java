@@ -4,10 +4,6 @@ package com.example.ilham.obatherbal.databaseJava;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -18,6 +14,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.databaseJava.explicit.explicit;
+import com.example.ilham.obatherbal.databaseJava.tacit.tacit;
 
 
 /**
@@ -63,11 +61,11 @@ public class database extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (selection.equals("Tacit")){
-                            Intent intent = new Intent(getActivity(),tacit.class);
+                            Intent intent = new Intent(getActivity(), tacit.class);
                             startActivity(intent);
                         }
                         else{
-                            Intent intent = new Intent(getActivity(),explicit.class);
+                            Intent intent = new Intent(getActivity(), explicit.class);
                             startActivity(intent);
                         }
                     }
