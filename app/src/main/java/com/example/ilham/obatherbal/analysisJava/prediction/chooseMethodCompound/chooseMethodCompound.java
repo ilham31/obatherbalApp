@@ -3,21 +3,35 @@ package com.example.ilham.obatherbal.analysisJava.prediction.chooseMethodCompoun
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.ilham.obatherbal.R;
+import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethod.methodModel;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPredictionCompound;
 import com.example.ilham.obatherbal.analysisJava.prediction.confirmPageCompound.confirmPageCompound;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.ilham.obatherbal.analysisJava.prediction.chooseCompound.compoundPredictModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class chooseMethodCompound extends Fragment {
+    private static final String TAG = "choose";
     private Button buttonNext;
     View view;
+    private String categories;
+    private String idCategories;
 
     public chooseMethodCompound() {
         // Required empty public constructor
@@ -29,6 +43,14 @@ public class chooseMethodCompound extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_choose_method_compound, container, false);
+        Spinner spinner = (Spinner) view.findViewById(R.id.pilihMetodeCompound);
+        final ArrayList<compoundPredictModel> idCompound= (ArrayList<compoundPredictModel>)getArguments().getSerializable("idCompound");
+        for (compoundPredictModel h : idCompound)
+        {
+            Log.d("method compound","id plant = "+h.getIdCompound() +" name = "+h.getNameCompound());
+        }
+        selectMethod();
+
         buttonNext = (Button) view.findViewById(R.id.button_next_fragment_step_2_compound);
 
         buttonNext.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +58,10 @@ public class chooseMethodCompound extends Fragment {
             public void onClick(View v) {
                 steppersPredictionCompound.goToStepResult();
                 confirmPageCompound step3Fragment = new confirmPageCompound();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("idCompound", (Serializable) idCompound);
+                bundle.putString("idCategories",idCategories);
+                step3Fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
                         .replace(R.id.frame_layoutstepperCompound, step3Fragment)
@@ -44,6 +70,50 @@ public class chooseMethodCompound extends Fragment {
             }
         });
         return view;
+    }
+
+    private void selectMethod() {
+        Spinner spinner = (Spinner) view.findViewById(R.id.pilihMetodeCompound);
+        List<methodModel> methodModels = new ArrayList<>();
+        methodModels.add(
+                new methodModel(
+                        "1",
+                        "metode 1"
+                )
+        );
+        methodModels.add(
+                new methodModel(
+                        "2",
+                        "metode 2"
+                )
+        );
+        ArrayAdapter<methodModel> spinnerAdapter = new ArrayAdapter<methodModel>(getActivity(), android.R.layout.simple_spinner_item, methodModels);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0)
+                {
+                    methodModel selectedValue = (methodModel) parent.getItemAtPosition(position);
+                    categories = (String) selectedValue.getCategories();
+                    idCategories = (String) selectedValue.getIdCategories();
+                    Log.d("method compound","selected item"+idCategories);
+                }
+                else
+                {
+                    methodModel selectedValue = (methodModel) parent.getItemAtPosition(position);
+                    categories = (String) selectedValue.getCategories();
+                    idCategories = (String) selectedValue.getIdCategories();
+                    Log.d("method compound","selected item"+idCategories);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 }

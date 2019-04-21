@@ -46,11 +46,11 @@ public class resultPrediction extends Fragment {
         recyclerView.setAdapter(adapterConfirm);
 
 
-//        for (herbsModel h : idPlant)
-//        {
-//            Log.d("confirm","id plant = "+h.getNameHerbs());
-//        }
-//        Log.d("confirm","idcategories" + idCategories);
+        for (herbsModel h : idPlant)
+        {
+            Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
+        }
+        Log.d("confirm","idcategories" + idCategories);
         return view;
     }
 

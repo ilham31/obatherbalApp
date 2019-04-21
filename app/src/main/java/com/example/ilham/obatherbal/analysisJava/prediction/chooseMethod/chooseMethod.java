@@ -47,7 +47,7 @@ public class chooseMethod extends Fragment {
         final ArrayList<herbsModel> idPlant= (ArrayList<herbsModel>)getArguments().getSerializable("idPlant");
         for (herbsModel h : idPlant)
         {
-            Log.d("method","id plant = "+h.getNameHerbs());
+            Log.d("method","id plant = "+h.getIdPlant() +" name = "+h.getNameHerbs());
         }
         selectMethod();
 

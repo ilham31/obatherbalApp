@@ -8,7 +8,47 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="7dp">
+
+        <EditText
+            android:id="@+id/searchPredictCompound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
+            android:background="@drawable/edittext"
+            android:layout_marginBottom="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:inputType="none"
+            android:layout_alignParentTop="true"
+
+            />
+
+        <TextView
+            android:id="@+id/chooseCompound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchPredictCompound"
+            android:text="Choose Compound :"
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/chooseCompound"
+            android:id="@+id/recyclerview_predictCompound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+
+
         <Button
             android:id="@+id/button_next_fragment_step_1_compound"
             android:layout_width="match_parent"

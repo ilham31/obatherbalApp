@@ -15,10 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethod.chooseMethod;
@@ -97,7 +99,8 @@ public class chooseHerbs extends Fragment {
                         idPlant.add(
                                 new herbsModel(
                                         h.getIdHerbs(),
-                                        h.getNameHerbs()
+                                        h.getNameHerbs(),
+                                        h.getIdPlant()
                                 )
                         );
 
@@ -152,44 +155,46 @@ public class chooseHerbs extends Fragment {
 
 
     private void getDataHerbs() {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, "Onresponsecrude" + jsonArray.toString());
-                        Log.d(TAG, "lengthonresponse" + jsonArray.length());
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/getlist";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray plant = response.getJSONArray("data");
+                            Log.d(TAG,"plant"+plant.toString());
+                            for (int i = 0; i < plant.length() ; i++)
+                            {
+                                JSONObject jsonObject = plant.getJSONObject(i);
                                 herbsModels.add(
                                         new herbsModel(
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("title")
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("sname"),
+                                                jsonObject.getString("idplant")
 
                                         )
 
                                 );
-                              adapter = new herbsAdapter(getActivity(),herbsModels);
-                              recyclerView.setAdapter(adapter);
-                            } catch (JSONException e) {
-
+                                adapter = new herbsAdapter(getActivity(),herbsModels);
+                                recyclerView.setAdapter(adapter);
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
+                }, new Response.ErrorListener() {
 
-                },
-                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerrorplant" + error.toString());
                     }
                 });
-
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 
