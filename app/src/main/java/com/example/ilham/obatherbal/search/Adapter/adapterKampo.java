@@ -35,7 +35,7 @@ public class adapterKampo extends RecyclerView.Adapter<adapterKampo.kampoViewHol
     public kampoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater inflater =LayoutInflater.from(mCtx);
         CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cardview_herbal, parent,false);
+                .inflate(R.layout.searchlayoutherbal, parent,false);
         kampoViewHolder holder = new kampoViewHolder(v);
         return holder;
     }
@@ -43,15 +43,14 @@ public class adapterKampo extends RecyclerView.Adapter<adapterKampo.kampoViewHol
     @Override
     public void onBindViewHolder(@NonNull kampoViewHolder kampoViewHolder, int i) {
         kampoModel detailkampo = (kampoModel) kampoModelList.get(i);
-        kampoViewHolder.namaHerbalKampo.setText(detailkampo.getNamaKampo());
-        kampoViewHolder.khasiatHerbalKampo.setText(detailkampo.getNamaKampo());
-        Glide.with(mCtx)
-                .load(detailkampo.getThumbnailKampo())
-                .into(kampoViewHolder.thumbnailKampo);
+        kampoViewHolder.namaHerbal.setText(detailkampo.getNamaKampo());
+
+        final String idHerbal =detailkampo.getIdKampo();
         kampoViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mCtx, detailHerbal.class);
+                i.putExtra("idHerbal", idHerbal);
                 mCtx.startActivity(i);
 
             }
@@ -71,13 +70,11 @@ public class adapterKampo extends RecyclerView.Adapter<adapterKampo.kampoViewHol
     }
 
     class kampoViewHolder extends RecyclerView.ViewHolder{
-        TextView namaHerbalKampo,khasiatHerbalKampo;
+        TextView namaHerbal;
         ImageView thumbnailKampo;
         public kampoViewHolder(@NonNull View itemView) {
             super(itemView);
-            namaHerbalKampo = itemView.findViewById(R.id.nama_herbal);
-            khasiatHerbalKampo = itemView.findViewById(R.id.khasiat_herbal);
-            thumbnailKampo = itemView.findViewById(R.id.gambar_herbal);
+            namaHerbal = itemView.findViewById(R.id.nama_herbal_search);
         }
     }
 }

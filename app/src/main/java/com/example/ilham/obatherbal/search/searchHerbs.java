@@ -239,40 +239,51 @@ public class searchHerbs extends Fragment {
 
 
     private void getDataKampo() {
-        String url = "https://jsonplaceholder.typicode.com/photos";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        Log.d(TAG, "Onresponsekampo" + jsonArray.toString());
-                        Log.d(TAG, "lengthresponse" + jsonArray.length());
-                        for (int i = 0; i < 20; i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
-                                kampoModels.add(
-                                        new kampoModel(
-                                                jsonObject.getString("title"),
-                                                "Khasiat",
-                                                jsonObject.getString("albumId"),
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("thumbnailUrl")
-                                        )
-                                );
-                            } catch (JSONException e) {
+                    public void onResponse(JSONObject response) {
+                       Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray herbsmeds = response.getJSONArray("data");
+                            Log.d(TAG,"herbsmeds"+herbsmeds.toString());
+                            for (int i = 0; i < herbsmeds.length() ; i++)
+                            {
+                                JSONObject jsonObject = herbsmeds.getJSONObject(i);
+                                String check = jsonObject.getString("idherbsmed");
+                                Character id = check.charAt(0);
+                                Log.d(TAG,"huruf pertama"+id);
+                                if (id == 'K')
+                                {
+                                    Log.d(TAG,"masuk if"+id);
+                                    kampoModels.add(
+                                            new kampoModel(
+                                                    jsonObject.getString("name"),
+                                                    "",
+                                                    "",
+                                                    jsonObject.getString("idherbsmed"),
+                                                    ""
+                                            )
+                                    );
+                                }
 
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerrorkampo" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 
