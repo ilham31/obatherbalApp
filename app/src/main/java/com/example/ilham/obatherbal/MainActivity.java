@@ -1,5 +1,6 @@
 package com.example.ilham.obatherbal;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +21,9 @@ import com.example.ilham.obatherbal.compoundJava.compound;
 import com.example.ilham.obatherbal.crudeJava.crude;
 import com.example.ilham.obatherbal.databaseJava.database;
 import com.example.ilham.obatherbal.herbalJava.herbal;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -43,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             database=new database();
             analysis=new analysis();
             compound=new compound();
-
             setFragment(herbal);
 
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             setFragment(crude);
                             return true;
 
-                        case R.id.nav_database:
+                        case R.id.nav_database:;
                             setFragment(database);
                             return true;
 
@@ -103,8 +106,13 @@ public class MainActivity extends AppCompatActivity {
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
+        getSupportFragmentManager().popBackStack();
         fragmentTransaction.commit();
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

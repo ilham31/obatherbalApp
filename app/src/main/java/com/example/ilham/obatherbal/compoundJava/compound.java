@@ -83,7 +83,7 @@ public class compound extends Fragment {
         searchHerbs searchHerbs = new searchHerbs();
         searchHerbs.setArguments(arguments);
         ft.replace(R.id.main_frame, searchHerbs);
-//        ft.addToBackStack(null);
+        ft.addToBackStack(null);
         ft.commit();
     }
 

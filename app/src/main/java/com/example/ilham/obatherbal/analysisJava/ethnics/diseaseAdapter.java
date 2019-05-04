@@ -1,6 +1,7 @@
 package com.example.ilham.obatherbal.analysisJava.ethnics;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -36,8 +37,16 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseV
 
     @Override
     public void onBindViewHolder(@NonNull diseaseViewHolder diseaseViewHolder, int i) {
-        diseaseModel detailDisease = diseaseModelList.get(i);
+        final diseaseModel detailDisease = diseaseModelList.get(i);
         diseaseViewHolder.diseaseName.setText(detailDisease.getDiseaseName());
+        diseaseViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ethnic = new Intent(mCtx,detailDisease.class);
+                ethnic.putExtra("daerahPenyakit",detailDisease.getDiseaseName());
+                mCtx.startActivity(ethnic);
+            }
+        });
 
     }
 

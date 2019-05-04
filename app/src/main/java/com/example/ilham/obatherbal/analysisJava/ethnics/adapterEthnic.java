@@ -54,7 +54,10 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
         ethnicViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataProvince(detailEthnic.getProvinceId());
+//                getDataProvince(detailEthnic.getProvinceId());
+                Intent ethnic = new Intent(mCtx,MapsActivity.class);
+                ethnic.putExtra("daerah","sumatera utara");
+                mCtx.startActivity(ethnic);
 
             }
         });

@@ -16,10 +16,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -119,45 +121,80 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void getDataApi() {
-        String url = "https://jsonplaceholder.typicode.com/posts";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-//                        loadCrude.setVisibility(View.GONE);
-                        Log.d("maps", "Onresponsecrude" + jsonArray.toString());
-                        Log.d("maps", "lengthonresponse" + jsonArray.length());
+        String url = "https://my-json-server.typicode.com/ilham31/jsonobatherbal/db";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("ethnic", "OnresponseHerbal" + response.toString());
+                        try {
+                            JSONArray disease = response.getJSONArray("disease");
+                            for(int i =0;i<disease.length();i++) {
+                                JSONObject jsonObject = disease.getJSONObject(i);
                                 diseaseModels.add(
                                         new diseaseModel(
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("title")
+                                                "0",
+                                                jsonObject.getString("Penyakit")
 
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-
                             }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d("maps", "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d("ethnic", "Onerror" + error.toString());
                     }
                 });
-
-        MySingleton.getInstance(this).addToRequestQueue(request);
-
-
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
+//        JsonArrayRequest request = new JsonArrayRequest(url,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray jsonArray) {
+////                        loadCrude.setVisibility(View.GONE);
+//                        Log.d("maps", "Onresponsecrude" + jsonArray.toString());
+//                        Log.d("maps", "lengthonresponse" + jsonArray.length());
+//
+//                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            try {
+//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+////                                Log.d(TAG,"jsonobject"+jsonObject);
+//                                diseaseModels.add(
+//                                        new diseaseModel(
+//                                                jsonObject.getString("id"),
+//                                                jsonObject.getString("title")
+//
+//                                        )
+//                                );
+//                                adapter.notifyDataSetChanged();
+//                            } catch (JSONException e) {
+//
+//                            }
+//                        }
+//
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        Log.d("maps", "Onerror" + volleyError.toString());
+//                    }
+//                });
+//
+//        MySingleton.getInstance(this).addToRequestQueue(request);
+
+
+
 
 
     /**

@@ -60,12 +60,12 @@ public class searchHerbs extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         String idCategories = arguments.getString("categories");
         Log.d(TAG,"kategori yang dipilih :"+idCategories );
-        rootView = inflater.inflate(R.layout.fragment_search_herbs, container, false);
+        rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
         switch (idCategories)
         {
@@ -75,6 +75,7 @@ public class searchHerbs extends Fragment {
                 getDataJamu();
                 searhJamu();
                 startRecyclerViewJamu();
+
                 break;
             case "kampo":
                 searchHerbs.setHint("Search Kampo");

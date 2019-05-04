@@ -41,7 +41,7 @@ public class analysis extends Fragment {
         analysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type = new String[]{"Jamu","Compound"};
+                type = new String[]{"Plant","Compound"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Choose ");
                 builder.setSingleChoiceItems(type, -1, new DialogInterface.OnClickListener() {
@@ -53,7 +53,7 @@ public class analysis extends Fragment {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (selection.equals("Jamu")){
+                        if (selection.equals("Plant")){
                             Intent intent = new Intent(getActivity(),steppersPrediction.class);
                             startActivity(intent);
                         }

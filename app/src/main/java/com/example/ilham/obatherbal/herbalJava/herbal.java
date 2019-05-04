@@ -90,8 +90,9 @@ public class herbal extends Fragment {
         searchHerbs searchHerbs = new searchHerbs();
         searchHerbs.setArguments(arguments);
         ft.replace(R.id.main_frame, searchHerbs);
-//        ft.addToBackStack(null);
+        ft.addToBackStack(null);
         ft.commit();
+
     }
 
 
@@ -159,7 +160,7 @@ public class herbal extends Fragment {
                                            new herbalModel(
                                                    jsonObject.getString("name"),
                                                    jsonObject.getString("efficacy"),
-                                                   jsonObject.getString("idherb"),
+                                                   jsonObject.getString("_id"),
                                                    jsonObject.getString("idherbsmed"),
                                                    jsonObject.getString("img")
 
@@ -206,7 +207,7 @@ private void loadMoreJamu(final int page) {
                                             new herbalModel(
                                                     jsonObject.getString("name"),
                                                     jsonObject.getString("efficacy"),
-                                                    jsonObject.getString("idherb"),
+                                                    jsonObject.getString("_id"),
                                                     jsonObject.getString("idherbsmed"),
                                                     jsonObject.getString("img")
                                             )

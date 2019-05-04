@@ -220,34 +220,33 @@ public class chooseJamu extends Fragment implements Serializable{
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("comparison", "Onresponse" + response.toString());
                         try {
-                            JSONArray herbsmeds = response.getJSONArray("data");
-                            Log.d("comparison","herbsmeds"+herbsmeds.toString());
-                            for (int i = 0; i < herbsmeds.length() ; i++)
-                            {
-                                JSONObject jsonObject = herbsmeds.getJSONObject(i);
-                                String check = jsonObject.getString("idherbsmed");
+                            Boolean responseStatus = response.getBoolean("success");
+                            if(responseStatus) {
+                                JSONArray herbsmeds = response.getJSONArray("data");
+                                Log.d("comparison", "herbsmeds" + herbsmeds.toString());
+                                for (int i = 0; i < herbsmeds.length(); i++) {
+                                    JSONObject jsonObject = herbsmeds.getJSONObject(i);
+                                    String check = jsonObject.getString("idherbsmed");
+                                    Character id = check.charAt(0);
+                                    Log.d("comparison", "huruf pertama" + id);
+                                    Log.d("comparison", "masuk if" + id);
+                                    jamuModelComparisonList.add(
+                                            new jamuModelComparison(
+                                                    jsonObject.getString("idherbsmed"),
+                                                    jsonObject.getString("name")
 
-                                Character id = check.charAt(0);
-                                Log.d("comparison","huruf pertama"+id);
-                                Log.d("comparison","masuk if"+id);
-                                jamuModelComparisonList.add(
-                                        new jamuModelComparison(
-                                                jsonObject.getString("idherbsmed"),
-                                                jsonObject.getString("name")
-
-                                        )
-                                );
-                                ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
-                                        getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
-                                jamu1.setAdapter(jamuSuggest);
-                                jamu2.setAdapter(jamuSuggest);
+                                            )
+                                    );
+                                    ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
+                                            getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
+                                    jamu1.setAdapter(jamuSuggest);
+                                    jamu2.setAdapter(jamuSuggest);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, new Response.ErrorListener() {
 
