@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +34,7 @@ public class explicit extends AppCompatActivity {
     List<explicitModel> explicitModels;
     ProgressBar loadExplicit;
     EditText searchExplicit;
+    TextView notfounddoc;
     private LinearLayoutManager mLayoutManager;
     private Handler handler;
     @Override
@@ -43,6 +45,8 @@ public class explicit extends AppCompatActivity {
         searchExplicit = (EditText) findViewById(R.id.search_explicit);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_explicit);
         loadExplicit = (ProgressBar) findViewById(R.id.loadExplicit);
+        notfounddoc = (TextView) findViewById(R.id.notfoundDocumentExplicit);
+        notfounddoc.setVisibility(View.GONE);
         loadExplicit.setVisibility(View.VISIBLE);
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         get10DataExplicit();
@@ -134,27 +138,33 @@ public class explicit extends AppCompatActivity {
                         loadExplicit.setVisibility(View.GONE);
                         Log.d("explicit", "Onresponse" + response.toString());
                         try {
-                            JSONArray explicit = response.getJSONArray("data");
-                            Log.d("explicit","explicit"+explicit.toString());
-                            for (int i = 0; i < explicit.length() ; i++)
+                            if (Integer.valueOf(response.getString("lenght")) ==  0)
                             {
-
-                                JSONObject jsonObject = explicit.getJSONObject(i);
-                                explicitModels.add(
-                                        new explicitModel(
-                                                jsonObject.getString("_id"),
-                                                jsonObject.getString("firstName"),
-                                                jsonObject.getString("lastName"),
-                                                jsonObject.getString("title"),
-                                                jsonObject.getString("datePublish"),
-                                                jsonObject.getString("citation"),
-                                                jsonObject.getString("language"),
-                                                jsonObject.getString("abstract"),
-                                                jsonObject.getString("description"),
-                                                jsonObject.getString("doc")
-                                        )
-                                );
-                                mAdapter.notifyDataSetChanged();
+                                notfounddoc.setVisibility(View.VISIBLE);
+                            }
+                            else
+                            {
+                                JSONArray explicit = response.getJSONArray("data");
+                                Log.d("explicit","explicit"+explicit.toString());
+                                for (int i = 0; i < explicit.length() ; i++)
+                                {
+                                    JSONObject jsonObject = explicit.getJSONObject(i);
+                                    explicitModels.add(
+                                            new explicitModel(
+                                                    jsonObject.getString("_id"),
+                                                    jsonObject.getString("firstName"),
+                                                    jsonObject.getString("lastName"),
+                                                    jsonObject.getString("title"),
+                                                    jsonObject.getString("datePublish"),
+                                                    jsonObject.getString("citation"),
+                                                    jsonObject.getString("language"),
+                                                    jsonObject.getString("abstract"),
+                                                    jsonObject.getString("description"),
+                                                    jsonObject.getString("doc")
+                                            )
+                                    );
+                                    mAdapter.notifyDataSetChanged();
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

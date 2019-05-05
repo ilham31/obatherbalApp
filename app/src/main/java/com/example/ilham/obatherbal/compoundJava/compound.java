@@ -16,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
@@ -89,41 +91,45 @@ public class compound extends Fragment {
 
 
     private void getData() {
-        String url = "https://jsonplaceholder.typicode.com/photos";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray jsonArray) {
-                        loadCompound.setVisibility(View.GONE);
-                        Log.d(TAG, "Onresponsecompound" + jsonArray.toString());
-                        Log.d(TAG, "lengthonresponse" + jsonArray.length());
+        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            try {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                Log.d(TAG,"jsonobject"+jsonObject);
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadCompound.setVisibility(View.GONE);
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length() ; i++)
+                            {
+                                JSONObject jsonObject = data.getJSONObject(i);
                                 compoundModels.add(
                                         new compoundModel(
-                                                jsonObject.getString("id"),
-                                                jsonObject.getString("title")
-
-                                        )
+                                                "0",
+                                                jsonObject.getString("Compounds"),
+                                                jsonObject.getString("Part of Plant"),
+                                                jsonObject.getString("Plant Species"),
+                                                jsonObject.getString("Molecular Formula"),
+                                                jsonObject.getString("References")
+                                               )
                                 );
-                                adapter.notifyDataSetChanged();
-                            } catch (JSONException e) {
-
                             }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.d(TAG, "Onerror" + volleyError.toString());
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
-        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 

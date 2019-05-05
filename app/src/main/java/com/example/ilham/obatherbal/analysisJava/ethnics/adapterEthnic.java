@@ -76,7 +76,7 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
                             JSONObject province = response.getJSONObject("data");
                             String address = province.getString("province_name");
                             Intent ethnic = new Intent(mCtx,MapsActivity.class);
-                            ethnic.putExtra("daerah",address);
+                            ethnic.putExtra("daerah","Sumatera utara");
                             mCtx.startActivity(ethnic);
 
                         } catch (JSONException e) {

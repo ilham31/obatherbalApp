@@ -1,14 +1,11 @@
 package com.example.ilham.obatherbal;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,9 +18,6 @@ import com.example.ilham.obatherbal.compoundJava.compound;
 import com.example.ilham.obatherbal.crudeJava.crude;
 import com.example.ilham.obatherbal.databaseJava.database;
 import com.example.ilham.obatherbal.herbalJava.herbal;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;

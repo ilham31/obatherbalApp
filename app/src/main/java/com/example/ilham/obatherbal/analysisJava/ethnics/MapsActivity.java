@@ -210,13 +210,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         String address;
-        address = extras.getString("daerah");
+        address = "Jakarta";
         // Add a marker in Sydney and move the camera
-
+        Log.d("ethnic", "masuk onmapready" + address);
         Geocoder geocoder = new Geocoder(this);
-        MarkerOptions userMarkerOptions = new MarkerOptions();
         try {
+            Log.d("ethnic", "masuk geocoder");
             addresses = geocoder.getFromLocationName(address, 2);
+            Log.d("ethnic", "alamatmaps" + address);
+            Log.d("ethnic", "alamatmapsmaps" + addresses);
             if (addresses.size()>0)
             {
                 Double lat = (double) (addresses.get(0).getLatitude());

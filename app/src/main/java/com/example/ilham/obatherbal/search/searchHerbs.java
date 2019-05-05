@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
 import com.example.ilham.obatherbal.crudeJava.detailCrude;
@@ -53,6 +54,7 @@ public class searchHerbs extends Fragment {
     adapterKampo adapterKampo;
     adapterSearchPlant adapterSearchPlant;
     RecyclerView recyclerView;
+    TextView notfoundsearch,notfoundfilter;
 
     public searchHerbs() {
         // Required empty public constructor
@@ -66,6 +68,10 @@ public class searchHerbs extends Fragment {
         String idCategories = arguments.getString("categories");
         Log.d(TAG,"kategori yang dipilih :"+idCategories );
         rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
+        notfoundsearch = (TextView) rootView.findViewById(R.id.startSearch);
+        notfoundfilter =(TextView)rootView.findViewById(R.id.notfoundfilter);
+        notfoundfilter.setVisibility(View.GONE);
+        notfoundsearch.setVisibility(View.VISIBLE);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
         switch (idCategories)
         {
@@ -135,11 +141,13 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
+                    notfoundsearch.setVisibility(View.GONE);
                 }
                 filterPlant(s.toString());
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -156,6 +164,14 @@ public class searchHerbs extends Fragment {
             }
         }
         adapterSearchPlant.filterlist(filteredList);
+        if (filteredList.size() == 0)
+        {
+            notfoundfilter.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            notfoundfilter.setVisibility(View.GONE);
+        }
     }
 
     private void getDataCrude() {
@@ -216,11 +232,13 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
+                    notfoundsearch.setVisibility(View.GONE);
                 }
                 filterKampo(s.toString());
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -236,6 +254,14 @@ public class searchHerbs extends Fragment {
             }
         }
         adapterKampo.filterlist(filteredList);
+        if (filteredList.size() == 0)
+        {
+            notfoundfilter.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            notfoundfilter.setVisibility(View.GONE);
+        }
     }
 
 
@@ -365,11 +391,13 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
+                    notfoundsearch.setVisibility(View.GONE);
                 }
                 filterJamu(s.toString());
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -395,6 +423,15 @@ public class searchHerbs extends Fragment {
             }
         }
         adapterJamu.filterlist(filteredList);
+        Log.d("searchJamu","size filter ="+filteredList.size());
+        if (filteredList.size() == 0)
+        {
+            notfoundfilter.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            notfoundfilter.setVisibility(View.GONE);
+        }
     }
 
 }
