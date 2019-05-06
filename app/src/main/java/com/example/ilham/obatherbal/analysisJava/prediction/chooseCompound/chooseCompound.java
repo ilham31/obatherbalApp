@@ -144,32 +144,30 @@ public class chooseCompound extends Fragment {
     }
 
     private void getDataCompound() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/getlist";
+        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-
                         Log.d(TAG, "Onresponse" + response.toString());
                         try {
-                            JSONArray plant = response.getJSONArray("data");
-                            Log.d(TAG,"plant"+plant.toString());
-                            for (int i = 0; i < plant.length() ; i++)
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length() ; i++)
                             {
-                                JSONObject jsonObject = plant.getJSONObject(i);
+                                JSONObject jsonObject = data.getJSONObject(i);
                                 compoundPredictModels.add(
                                         new compoundPredictModel(
-                                                jsonObject.getString("_id"),
-                                                jsonObject.getString("sname"),
-                                                jsonObject.getString("idplant")
+                                                "0",
+                                                jsonObject.getString("Compounds"),
+                                                jsonObject.getString("Part of Plant")
 
                                         )
-
                                 );
                                 adapter = new compoundAdapterPredict(getActivity(),compoundPredictModels);
                                 recyclerView.setAdapter(adapter);
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -180,10 +178,11 @@ public class chooseCompound extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        Log.d(TAG, "Onerrorplant" + error.toString());
+                        Log.d(TAG, "Onerror" + error.toString());
                     }
                 });
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
+
 
     }
 

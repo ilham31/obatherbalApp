@@ -37,8 +37,9 @@ public class resultPrediction extends Fragment {
         view =  inflater.inflate(R.layout.fragment_result_prediction, container, false);
         final ArrayList<herbsModel> idPlant= (ArrayList<herbsModel>)getArguments().getSerializable("idPlant");
         final String idCategories= getArguments().getString("idCategories");
+        final String Categories= getArguments().getString("categories");
         method = (TextView) view.findViewById(R.id.chosenMethod);
-        method.setText("Method :"+idCategories);
+        method.setText("Method :"+Categories);
         recyclerView = (RecyclerView) view.findViewById(R.id.plantPredict);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

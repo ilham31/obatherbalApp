@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.ilham.obatherbal.compoundJava.compoundModel;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
 import com.example.ilham.obatherbal.crudeJava.detailCrude;
 
@@ -29,6 +30,7 @@ import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.herbalJava.herbalModel;
 import com.example.ilham.obatherbal.herbalJava.kampoModel;
 import com.example.ilham.obatherbal.search.Adapter.adapterKampo;
+import com.example.ilham.obatherbal.search.Adapter.adapterSearchCompound;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchJamu;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchPlant;
 
@@ -50,9 +52,11 @@ public class searchHerbs extends Fragment {
     List<herbalModel> herbalModels;
     List<kampoModel> kampoModels;
     List<crudeModel> crudeModels;
+    List <compoundModel> compoundModelList;
     adapterSearchJamu adapterJamu;
     adapterKampo adapterKampo;
     adapterSearchPlant adapterSearchPlant;
+    adapterSearchCompound adapterSearchCompound;
     RecyclerView recyclerView;
     TextView notfoundsearch,notfoundfilter;
 
@@ -99,11 +103,23 @@ public class searchHerbs extends Fragment {
                 break;
             case "compound":
                 searchHerbs.setHint("Search Compound");
+                compoundModelList = new ArrayList<>();
                 getDataCompound();
                 searchCompound();
+                startRecyclerViewCompound();
                 break;
         }
           return rootView;
+    }
+
+    private void startRecyclerViewCompound() {
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapterSearchCompound= new adapterSearchCompound(getActivity(),compoundModelList);
+        recyclerView.setAdapter(adapterSearchCompound);
+        recyclerView.setVisibility(View.GONE);
     }
 
     private void startRecyclerViewPlant() {
@@ -118,9 +134,96 @@ public class searchHerbs extends Fragment {
 
 
     private void searchCompound() {
+        searchHerbs.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(recyclerView.getVisibility()!= View.VISIBLE)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    notfoundsearch.setVisibility(View.GONE);
+                }
+                filterCompound(s.toString());
+                if(s.toString().length() == 0)
+                {
+                    recyclerView.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+    }
+
+    private void filterCompound(String s) {
+        Log.d(TAG,"string filter" + s);
+        ArrayList<compoundModel> filteredList = new ArrayList<>();
+        for (compoundModel item : compoundModelList){
+            if (item.getNama().toLowerCase().contains(s.toLowerCase()))
+            {
+                filteredList.add(item);
+            }
+        }
+        adapterSearchCompound.filterlist(filteredList);
+        if (filteredList.size() == 0)
+        {
+            notfoundfilter.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            notfoundfilter.setVisibility(View.GONE);
+        }
+
     }
 
     private void getDataCompound() {
+        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length() ; i++)
+                            {
+                                JSONObject jsonObject = data.getJSONObject(i);
+                                compoundModelList.add(
+                                        new compoundModel(
+                                                "0",
+                                                jsonObject.getString("Compounds"),
+                                                jsonObject.getString("Part of Plant"),
+                                                jsonObject.getString("Plant Species"),
+                                                jsonObject.getString("Molecular Formula"),
+                                                jsonObject.getString("References")
+                                        )
+                                );
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
+                    }
+                });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void searchCrude() {

@@ -61,6 +61,7 @@ public class chooseMethod extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("idPlant", (Serializable) idPlant);
                 bundle.putString("idCategories",idCategories);
+                bundle.putString("categories",categories);
                 step3Fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
@@ -79,13 +80,13 @@ public class chooseMethod extends Fragment {
         methodModels.add(
                 new methodModel(
                         "1",
-                        "metode 1"
+                        "Deep Learning"
                 )
         );
         methodModels.add(
                 new methodModel(
                         "2",
-                        "metode 2"
+                        "Random Forest"
                 )
         );
         ArrayAdapter<methodModel>  spinnerAdapter = new ArrayAdapter<methodModel>(getActivity(), android.R.layout.simple_spinner_item, methodModels);
