@@ -62,21 +62,21 @@ public class detailDisease extends AppCompatActivity {
                                 if (jsonObject.getString("Penyakit").toLowerCase().equals(daerah.toLowerCase())){
                                     JSONArray tanaman = jsonObject.getJSONArray("Tanaman");
                                     Log.d("ethnic detail disease", "size tanaman =" + tanaman.length());
+                                        for(int j = 0; j<tanaman.length();j++)
+                                        {
+                                            JSONObject detail = tanaman.getJSONObject(j);
+                                            detailDiseaseModels.add(
+                                                    new detailDiseaseModel(
+                                                            detail.getString("Tanaman"),
+                                                            detail.getString("spesies"),
+                                                            detail.getString("Bagian")
 
-                                        JSONObject detail = tanaman.getJSONObject(1);
-                                        detailDiseaseModels.add(
-                                                new detailDiseaseModel(
-                                                        detail.getString("Tanaman"),
-                                                        detail.getString("spesies"),
-                                                        detail.getString("Bagian")
-
-                                                )
-                                        );
-
-
+                                                    )
+                                            );
+                                            adapter.notifyDataSetChanged();
+                                        }
                                 }
                             }
-                            adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

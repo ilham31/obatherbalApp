@@ -36,9 +36,9 @@ public class detailDiseaseAdapter extends RecyclerView.Adapter<detailDiseaseAdap
     @Override
     public void onBindViewHolder(@NonNull detailDiseaseEthniclViewHolder detailDiseaseEthniclViewHolder, int i) {
         detailDiseaseModel detailDiseaseModel =detailDiseaseModels.get(i);
-        detailDiseaseEthniclViewHolder.tanaman.setText("Tanaman : " + detailDiseaseModel.getTanaman());
-        detailDiseaseEthniclViewHolder.spesies.setText("Spesies :" + detailDiseaseModel.getSpesies());
-        detailDiseaseEthniclViewHolder.bagian.setText("Bagian : "+detailDiseaseModel.getBagian());
+        detailDiseaseEthniclViewHolder.tanaman.setText("Plant : " + detailDiseaseModel.getTanaman());
+        detailDiseaseEthniclViewHolder.spesies.setText("Species :" + detailDiseaseModel.getSpesies());
+        detailDiseaseEthniclViewHolder.bagian.setText("Part : "+detailDiseaseModel.getBagian());
     }
 
     @Override

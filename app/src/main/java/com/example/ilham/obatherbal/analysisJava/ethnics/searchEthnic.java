@@ -92,9 +92,9 @@ public class searchEthnic extends AppCompatActivity {
                         try {
                             JSONArray ethnic = response.getJSONArray("data");
                             Log.d("ethnic","ethnic"+ethnic.toString());
-                            for (int i = 0; i < ethnic.length() ; i++)
-                            {
-                                JSONObject jsonObject = ethnic.getJSONObject(i);
+//                            for (int i = 0; i < ethnic.length() ; i++)
+//                            {
+                                JSONObject jsonObject = ethnic.getJSONObject(0);
 
                                 ethnicModelList.add(
                                         new ethnicModel(
@@ -104,7 +104,7 @@ public class searchEthnic extends AppCompatActivity {
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
-                            }
+//                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
