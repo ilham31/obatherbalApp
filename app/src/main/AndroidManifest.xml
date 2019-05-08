@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".analysisJava.ethnics.detailDisease" />
         <activity android:name=".databaseJava.explicit.detailExplicit" />
         <activity
@@ -32,7 +33,7 @@
             android:name=".analysisJava.ethnics.searchEthnic"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".splashScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

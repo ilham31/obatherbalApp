@@ -43,8 +43,6 @@
                 android:layout_below="@id/toolbarHerbs"
                 />
         </android.support.v7.widget.Toolbar>
-
-
         <TextView
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
@@ -54,7 +52,7 @@
             android:layout_below="@id/toolbarKampo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pilih jenis"
+            android:text="Categories"
             />
         <Spinner
 
