@@ -1,6 +1,9 @@
 package com.example.ilham.obatherbal.databaseJava.explicit;
 
+import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
+import com.example.ilham.obatherbal.search.searchHerbs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +55,16 @@ public class explicit extends AppCompatActivity {
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         get10DataExplicit();
         startRecyclerviewExplicit();
+        searchExplicit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(explicit.this,searchExplicit.class);
+                startActivity(intent);
+
+            }
+        });
     }
+
 
     private void startRecyclerviewExplicit() {
         mRecyclerView.setHasFixedSize(true);
@@ -105,7 +118,7 @@ public class explicit extends AppCompatActivity {
                                                 jsonObject.getString("language"),
                                                 jsonObject.getString("abstract"),
                                                 jsonObject.getString("description"),
-                                                jsonObject.getString("doc")
+                                                jsonObject.getString("file")
                                         )
                                 );
                                 mAdapter.notifyItemInserted(explicitModels.size());
@@ -160,7 +173,7 @@ public class explicit extends AppCompatActivity {
                                                     jsonObject.getString("language"),
                                                     jsonObject.getString("abstract"),
                                                     jsonObject.getString("description"),
-                                                    jsonObject.getString("doc")
+                                                    jsonObject.getString("file")
                                             )
                                     );
                                     mAdapter.notifyDataSetChanged();

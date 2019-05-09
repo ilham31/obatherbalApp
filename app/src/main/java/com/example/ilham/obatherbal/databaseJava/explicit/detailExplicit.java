@@ -1,13 +1,23 @@
 package com.example.ilham.obatherbal.databaseJava.explicit;
 
+import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,8 +30,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class detailExplicit extends AppCompatActivity {
+    private static final int PERMISSION_STORAGE_CODE = 1000;
     TextView title,uploader,datePublish,abstractExplicitDetail,description;
+    Button downloadFile;
     ProgressBar loading;
+    String fileName,urlDownload;
+    String idExplicit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +46,37 @@ public class detailExplicit extends AppCompatActivity {
         abstractExplicitDetail= (TextView) findViewById(R.id.abstractExplicitDetail);
         description = (TextView) findViewById(R.id.desctiptionExplicitDetail);
         loading = (ProgressBar) findViewById(R.id.loadDetailExplicit);
+        downloadFile = (Button) findViewById(R.id.downloadFile);
+        downloadFile.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
-        String idExplicit = getIntent().getStringExtra("idExplicit");
+        idExplicit = getIntent().getStringExtra("idExplicit");
         getDataExplicit(idExplicit);
+        downloadFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                {
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+                    {
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
+                    }
+                    else
+                    {
+                        startDownloading();
+                    }
+                }
+                else
+                {
+                    startDownloading();
+                }
+
+            }
+        });
 
     }
 
-    private void getDataExplicit(String idExplicit) {
+    private void downloadExplicit(String idExplicit) {
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/get/"+idExplicit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -50,24 +88,88 @@ public class detailExplicit extends AppCompatActivity {
                         try {
                             JSONObject explicit = response.getJSONObject("data");
 
-                            SpannableStringBuilder strTitle = new SpannableStringBuilder("Title : \n" + explicit.getString("title"));
-                            strTitle.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            title.setText(strTitle);
+                            fileName = explicit.getString("file");
+                            urlDownload = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/file/"+fileName;
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlDownload));
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+                            request.setTitle("Download");
+                            request.setDescription("Downloading file...");
+                            request.allowScanningByMediaScanner();
+                            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis());
 
-                            SpannableStringBuilder strUploader = new SpannableStringBuilder("Uploader : \n" + explicit.getString("firstName")+" "+explicit.getString("lastName"));
-                            strUploader.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            DownloadManager manager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+                            manager.enqueue(request);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d("diseaseTab", "Onerrordisease" + error.toString());
+                    }
+                });
+
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void startDownloading() {
+        downloadExplicit(idExplicit);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode)
+        {
+            case PERMISSION_STORAGE_CODE:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    startDownloading();
+                }
+                else
+                {
+                    Toast.makeText(this,"Permission denied !",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private void getDataExplicit(String idExplicit) {
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/get/"+idExplicit;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loading.setVisibility(View.GONE);
+                        downloadFile.setVisibility(View.VISIBLE);
+                        Log.d("diseaseTab", "Onresponsedetail" + response.toString());
+                        try {
+                            JSONObject explicit = response.getJSONObject("data");
+
+                            String titleFile = explicit.getString("title");
+                            title.setText(titleFile);
+
+                            SpannableStringBuilder strUploader = new SpannableStringBuilder("By : " + explicit.getString("firstName")+" "+explicit.getString("lastName"));
+                            strUploader.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             uploader.setText(strUploader);
 
-                            SpannableStringBuilder strDatePublish = new SpannableStringBuilder("Date publish : \n" + explicit.getString("datePublish"));
+                            SpannableStringBuilder strDatePublish = new SpannableStringBuilder("Date publish : \n" + explicit.getString("datePublish").substring(0,10));
                             strDatePublish.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             datePublish.setText(strDatePublish);
 
                             SpannableStringBuilder strAbstract = new SpannableStringBuilder("Abstract : \n" + explicit.getString("abstract"));
-                            strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             abstractExplicitDetail.setText(strAbstract);
 
                             SpannableStringBuilder strDesc = new SpannableStringBuilder("Description : \n" + explicit.getString("description"));
-                            strDesc.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            strDesc.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             description.setText(strDesc);
 
 
