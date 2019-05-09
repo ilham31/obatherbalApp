@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".databaseJava.explicit.explicit">
-
+    tools:context=".databaseJava.tacit.searchTacit">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
+        android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarTacit"
+            android:id="@+id/toolbarSearch"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -28,51 +25,51 @@
             app:contentInsetEnd="0dp"
             >
             <EditText
-                android:id="@+id/search_tacit"
+                android:id="@+id/searchTacit"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:drawableLeft="@drawable/ic_search_black_24dp"
-                android:hint="Search Document"
                 android:background="@drawable/edittext"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
+                android:hint="Search Tacit"
+                android:maxLines="1"
                 android:ellipsize="end"
-                android:focusableInTouchMode="false"
                 android:inputType="none"
-                android:layout_below="@id/toolbarTacit"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+
                 />
         </android.support.v7.widget.Toolbar>
 
+
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/toolbarTacit"
-            android:id="@+id/recyclerview_tacit"
+            android:layout_below="@id/toolbarSearch"
+            android:id="@+id/recyclerview_search_tacit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:scrollbars="vertical"
             >
         </android.support.v7.widget.RecyclerView>
 
-        <ProgressBar
-            android:id="@+id/loadTacit"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/startSearchTacit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:text="Type something to find what you want"
             android:layout_centerHorizontal="true"
-            />
+            android:layout_centerVertical="true"
+            android:gravity="center"/>
 
         <TextView
-            android:id="@+id/notfoundDocumentTacit"
+            android:id="@+id/notfoundfilterTacit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cant find what you looking for"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"/>
+
 
     </RelativeLayout>
 

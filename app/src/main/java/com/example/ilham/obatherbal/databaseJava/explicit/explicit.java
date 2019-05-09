@@ -92,7 +92,7 @@ public class explicit extends AppCompatActivity {
     }
 
     private void loadMoreDataExplicit(int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit"+page;
+        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
