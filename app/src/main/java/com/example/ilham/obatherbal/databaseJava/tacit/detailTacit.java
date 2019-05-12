@@ -32,8 +32,7 @@ import org.json.JSONObject;
 
 public class detailTacit extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
-    TextView title,uploaderTacit,datePublishTacit,refTacit,contentTacit;
-    Button downloadFile;
+    TextView title,uploaderTacit,datePublishTacit,refTacit,contentTacit,downloadFile;
     ProgressBar loading;
     String fileName,urlDownload;
     String idTacit;
@@ -47,7 +46,7 @@ public class detailTacit extends AppCompatActivity {
         refTacit= (TextView) findViewById(R.id.refTacitDetail);
         contentTacit = (TextView) findViewById(R.id.contentTacitDetail);
         loading = (ProgressBar) findViewById(R.id.loadDetailTacit);
-        downloadFile = (Button) findViewById(R.id.downloadFileTacit);
+        downloadFile = (TextView) findViewById(R.id.downloadFileTacit);
         downloadFile.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
         idTacit = getIntent().getStringExtra("idTacit");
@@ -96,9 +95,7 @@ public class detailTacit extends AppCompatActivity {
                             strUploader.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             uploaderTacit.setText(strUploader);
 
-                            SpannableStringBuilder strDatePublish = new SpannableStringBuilder("Date publish : \n" + tacit.getString("datePublish").substring(0,10));
-                            strDatePublish.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            datePublishTacit.setText(strDatePublish);
+                            datePublishTacit.setText(tacit.getString("datePublish").substring(0,10));
 
                             SpannableStringBuilder strAbstract = new SpannableStringBuilder("Reference : \n" + tacit.getString("reference"));
                             strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
