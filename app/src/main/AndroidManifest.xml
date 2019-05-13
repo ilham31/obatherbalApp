@@ -21,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".analysisJava.prediction.resultPredictionPlant.resultPredictionPlant"></activity>
+        <activity android:name=".databaseJava.explicit.postExplicit"></activity>
+        <activity android:name=".register" />
+        <activity android:name=".analysisJava.prediction.resultPredictionPlant.resultPredictionPlant" />
         <activity android:name=".analysisJava.prediction.resultPredictionCompound.resultPredictionCompound" />
         <activity android:name=".databaseJava.tacit.searchTacit" />
         <activity android:name=".databaseJava.tacit.detailTacit" />

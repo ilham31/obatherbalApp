@@ -1,7 +1,10 @@
 package com.example.ilham.obatherbal.databaseJava.explicit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +26,7 @@ import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
+import com.example.ilham.obatherbal.login;
 import com.example.ilham.obatherbal.search.searchHerbs;
 
 import org.json.JSONArray;
@@ -52,19 +56,38 @@ public class explicit extends AppCompatActivity {
         notfounddoc = (TextView) findViewById(R.id.notfoundDocumentExplicit);
         notfounddoc.setVisibility(View.GONE);
         loadExplicit.setVisibility(View.VISIBLE);
-        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        get10DataExplicit();
-        startRecyclerviewExplicit();
-        searchExplicit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(explicit.this,searchExplicit.class);
-                startActivity(intent);
-
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fabAddExplicit);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                checkToken();
+//            }
+//        });
+//        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+//        get10DataExplicit();
+//        startRecyclerviewExplicit();
+//        searchExplicit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(explicit.this,searchExplicit.class);
+//                startActivity(intent);
+//
+//            }
+//        });
     }
 
+    private void checkToken() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        String retrivedToken  = preferences.getString("token",null);
+        if (retrivedToken==null)
+        {
+            Intent i = new Intent(explicit.this, login.class);
+            startActivity(i);
+        }
+        else {
+            Log.d("token","token = "+retrivedToken);
+        }
+    }
 
     private void startRecyclerviewExplicit() {
         mRecyclerView.setHasFixedSize(true);

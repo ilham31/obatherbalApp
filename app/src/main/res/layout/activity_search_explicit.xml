@@ -45,7 +45,7 @@
             android:layout_below="@id/toolbarSearch"
             android:id="@+id/recyclerview_search_explicit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="5dp"
             android:scrollbars="vertical"
@@ -69,6 +69,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"/>
+
+
 
 
     </RelativeLayout>

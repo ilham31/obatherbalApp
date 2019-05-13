@@ -31,8 +31,7 @@ import org.json.JSONObject;
 
 public class detailExplicit extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
-    TextView title,uploader,datePublish,abstractExplicitDetail,description;
-    Button downloadFile;
+    TextView title,uploader,datePublish,abstractExplicitDetail,description,downloadFile;
     ProgressBar loading;
     String fileName,urlDownload;
     String idExplicit;
@@ -46,7 +45,7 @@ public class detailExplicit extends AppCompatActivity {
         abstractExplicitDetail= (TextView) findViewById(R.id.abstractExplicitDetail);
         description = (TextView) findViewById(R.id.desctiptionExplicitDetail);
         loading = (ProgressBar) findViewById(R.id.loadDetailExplicit);
-        downloadFile = (Button) findViewById(R.id.downloadFile);
+        downloadFile = (TextView) findViewById(R.id.downloadFile);
         downloadFile.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
         idExplicit = getIntent().getStringExtra("idExplicit");
@@ -160,9 +159,7 @@ public class detailExplicit extends AppCompatActivity {
                             strUploader.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             uploader.setText(strUploader);
 
-                            SpannableStringBuilder strDatePublish = new SpannableStringBuilder("Date publish : \n" + explicit.getString("datePublish").substring(0,10));
-                            strDatePublish.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            datePublish.setText(strDatePublish);
+                            datePublish.setText(explicit.getString("datePublish").substring(0,10));
 
                             SpannableStringBuilder strAbstract = new SpannableStringBuilder("Abstract : \n" + explicit.getString("abstract"));
                             strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
