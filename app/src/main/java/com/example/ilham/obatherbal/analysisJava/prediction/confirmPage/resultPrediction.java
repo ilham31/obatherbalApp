@@ -71,11 +71,11 @@ public class resultPrediction extends Fragment {
         submitPredictPlant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postData();
-//                Intent i = new Intent(getActivity(),resultPredictionPlant.class);
-//                i.putExtra("methodPredict",Categories);
-//                startActivity(i);
-//                getActivity().finish();
+//                postData();
+                Intent i = new Intent(getActivity(),resultPredictionPlant.class);
+                i.putExtra("methodPredict",Categories);
+                startActivity(i);
+                getActivity().finish();
             }
         });
 

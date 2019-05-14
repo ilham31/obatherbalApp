@@ -43,31 +43,40 @@
                 android:layout_below="@id/toolbarHerbs"
                 />
         </android.support.v7.widget.Toolbar>
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/textPilihjenis"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/categories"
             android:layout_below="@id/toolbarKampo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categories"
-            />
-        <Spinner
-
-            android:layout_below="@id/textPilihjenis"
-            android:id="@+id/filter_kampo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            />
+            android:weightSum="6"
+            >
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/textPilihjenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="14sp"
+                android:layout_weight="5"
+                />
+            <Spinner
+                android:id="@+id/filter_kampo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:gravity="end" />
+
+        </LinearLayout>
+
 
 
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/filter_kampo"
+            android:layout_below="@id/categories"
             android:id="@+id/recyclerview_kampo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

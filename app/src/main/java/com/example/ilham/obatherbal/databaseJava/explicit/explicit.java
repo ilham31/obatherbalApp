@@ -63,17 +63,17 @@ public class explicit extends AppCompatActivity {
 //                checkToken();
 //            }
 //        });
-//        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-//        get10DataExplicit();
-//        startRecyclerviewExplicit();
-//        searchExplicit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(explicit.this,searchExplicit.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+        RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        get10DataExplicit();
+        startRecyclerviewExplicit();
+        searchExplicit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(explicit.this,searchExplicit.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void checkToken() {
