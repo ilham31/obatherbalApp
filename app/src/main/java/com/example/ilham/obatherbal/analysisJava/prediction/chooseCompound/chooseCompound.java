@@ -1,6 +1,7 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.chooseCompound;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -54,6 +56,7 @@ public class chooseCompound extends Fragment {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +71,28 @@ public class chooseCompound extends Fragment {
         currentSelectedItems = new ArrayList<>();
 
         search = (EditText) view.findViewById(R.id.searchPredictCompound);
+
+        search.setOnTouchListener(new View.OnTouchListener() {
+            final int DRAWABLE_LEFT = 0;
+            final int DRAWABLE_TOP = 1;
+            final int DRAWABLE_RIGHT = 2;
+            final int DRAWABLE_BOTTOM = 3;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    int leftEdgeOfRightDrawable = search.getRight()
+                            - search.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width();
+                    // when EditBox has padding, adjust leftEdge like
+                    // leftEdgeOfRightDrawable -= getResources().getDimension(R.dimen.edittext_padding_left_right);
+                    if (event.getRawX() >= leftEdgeOfRightDrawable) {
+                        // clicked on clear icon
+                        search.setText("");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

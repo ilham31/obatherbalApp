@@ -28,6 +28,9 @@
                 android:text="Nama Herbal"
                 android:textStyle="bold"
                 android:textColor="#000"
+                android:maxLines="1"
+                android:maxLength="40"
+                android:ellipsize="end"
                 />
 
         </LinearLayout>

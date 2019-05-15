@@ -28,7 +28,8 @@
         <activity android:name=".databaseJava.tacit.searchTacit" />
         <activity android:name=".databaseJava.tacit.detailTacit" />
         <activity android:name=".databaseJava.explicit.searchExplicit" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".analysisJava.ethnics.detailDisease" />
         <activity android:name=".databaseJava.explicit.detailExplicit" />
         <activity
@@ -86,7 +87,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".analysisJava.prediction.steppersPredictionCompound"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"/>
     </application>
 
 </manifest>

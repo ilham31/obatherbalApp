@@ -24,7 +24,7 @@
             android:ellipsize="end"
             android:inputType="none"
             android:layout_alignParentTop="true"
-
+            android:drawableRight="@drawable/ic_close_black_24dp"
             />
 
         <TextView
