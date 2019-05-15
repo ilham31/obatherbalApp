@@ -12,10 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
@@ -105,7 +112,22 @@ public class tabDiseaseHerbal extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        Log.d("diseaseTab", "Onerrordisease" + error.toString());
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(getActivity(), message,
+                                Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -138,7 +160,22 @@ public class tabDiseaseHerbal extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        Log.d("diseaseTab", "Onerror" + error.toString());
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(getActivity(), message,
+                                Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -178,7 +215,22 @@ public class tabDiseaseHerbal extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        Log.d("diseaseTab", "Onerror" + error.toString());
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(getActivity(), message,
+                                Toast.LENGTH_LONG).show();
                     }
                 });
 

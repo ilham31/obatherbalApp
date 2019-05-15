@@ -4,6 +4,7 @@ package com.example.ilham.obatherbal.analysisJava.prediction.confirmPage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,7 +30,9 @@ import com.example.ilham.obatherbal.login;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +48,7 @@ public class resultPrediction extends Fragment {
     ArrayList<herbsModel> idPlant;
     ArrayList<String>postIdPlant;
     ArrayList<String>id;
+    ArrayList<String>plantName;
     Button submitPredictPlant;
     String Categories;
 
@@ -58,6 +63,12 @@ public class resultPrediction extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_result_prediction, container, false);
         idPlant= (ArrayList<herbsModel>)getArguments().getSerializable("idPlant");
+        plantName = new ArrayList<String>();
+        for (herbsModel h : idPlant)
+        {
+            Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
+            plantName.add(h.getNameHerbs());
+        }
         final String idCategories= getArguments().getString("idCategories");
         Categories= getArguments().getString("categories");
         method = (TextView) view.findViewById(R.id.chosenMethod);
@@ -71,11 +82,23 @@ public class resultPrediction extends Fragment {
         submitPredictPlant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (idPlant.size()>0)
+                {
+                    Intent i = new Intent(getActivity(),resultPredictionPlant.class);
+                    Bundle args = new Bundle();
+                    args.putString("methodPredict",Categories);
+                    args.putStringArrayList("plantName", plantName);
+                    i.putExtra("bundle",args);
+                    startActivity(i);
+                    getActivity().finish();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(),"please choose at least 1 plant",Toast.LENGTH_LONG).show();
+                }
 //                postData();
-                Intent i = new Intent(getActivity(),resultPredictionPlant.class);
-                i.putExtra("methodPredict",Categories);
-                startActivity(i);
-                getActivity().finish();
+
             }
         });
 

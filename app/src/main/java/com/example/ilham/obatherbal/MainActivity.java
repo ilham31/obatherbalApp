@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(isNetworkStatusAvialable (getApplicationContext())) {
-            bottomNavigationView=(BottomNavigationView)findViewById(R.id.main_nav);
+         bottomNavigationView=(BottomNavigationView)findViewById(R.id.main_nav);
             frameLayout=(FrameLayout) findViewById(R.id.main_frame);
             herbal= new herbal();
             crude = new crude();
@@ -76,10 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             });
-        } else {
-            Toast.makeText(getApplicationContext(), "internet is not avialable", Toast.LENGTH_SHORT).show();
 
-        }
 
 
     }
