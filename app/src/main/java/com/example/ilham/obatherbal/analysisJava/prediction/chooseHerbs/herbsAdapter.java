@@ -19,10 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-
-
-
 public class herbsAdapter extends RecyclerView.Adapter<herbsAdapter.herbsPredictViewHolder> {
     private Context mCtx;
     List<herbsModel> herbsModelList;

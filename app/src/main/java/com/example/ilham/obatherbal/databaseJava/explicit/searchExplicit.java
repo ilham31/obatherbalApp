@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.GONE;
+
 public class searchExplicit extends AppCompatActivity {
     List<explicitModelSearch> explicitModels;
     RecyclerView recyclerView;
@@ -85,6 +87,7 @@ public class searchExplicit extends AppCompatActivity {
                 {
                     recyclerView.setVisibility(View.GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(View.GONE);
                 }
 
             }

@@ -186,8 +186,8 @@ public class tabCrudeDetailPlant extends Fragment {
                         } else if (error instanceof TimeoutError) {
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
-                        Toast.makeText(getActivity(), message,
-                                Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), message,
+//                                Toast.LENGTH_LONG).show();
                     }
                 });
 

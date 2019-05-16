@@ -80,6 +80,7 @@ public class searchTacit extends AppCompatActivity {
                 {
                     recyclerView.setVisibility(View.GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(View.GONE);
                 }
 
             }

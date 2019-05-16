@@ -48,6 +48,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.GONE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -81,7 +83,7 @@ public class searchHerbs extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
         notfoundsearch = (TextView) rootView.findViewById(R.id.startSearch);
         notfoundfilter =(TextView)rootView.findViewById(R.id.notfoundfilter);
-        notfoundfilter.setVisibility(View.GONE);
+        notfoundfilter.setVisibility(GONE);
         notfoundsearch.setVisibility(View.VISIBLE);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
         switch (idCategories)
@@ -126,7 +128,7 @@ public class searchHerbs extends Fragment {
 
         adapterSearchCompound= new adapterSearchCompound(getActivity(),compoundModelList);
         recyclerView.setAdapter(adapterSearchCompound);
-        recyclerView.setVisibility(View.GONE);
+        recyclerView.setVisibility(GONE);
     }
 
     private void startRecyclerViewPlant() {
@@ -136,7 +138,7 @@ public class searchHerbs extends Fragment {
 
         adapterSearchPlant = new adapterSearchPlant(getActivity(),crudeModels);
         recyclerView.setAdapter(adapterSearchPlant);
-        recyclerView.setVisibility(View.GONE);
+        recyclerView.setVisibility(GONE);
     }
 
 
@@ -158,13 +160,14 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
-                    notfoundsearch.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(GONE);
                 }
                 filterCompound(s.toString());
                 if(s.toString().length() == 0)
                 {
-                    recyclerView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(GONE);
                 }
 
             }
@@ -187,7 +190,7 @@ public class searchHerbs extends Fragment {
         }
         else
         {
-            notfoundfilter.setVisibility(View.GONE);
+            notfoundfilter.setVisibility(GONE);
         }
 
     }
@@ -266,13 +269,14 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
-                    notfoundsearch.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(GONE);
                 }
                 filterPlant(s.toString());
                 if(s.toString().length() == 0)
                 {
-                    recyclerView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(GONE);
                 }
 
             }
@@ -295,7 +299,7 @@ public class searchHerbs extends Fragment {
         }
         else
         {
-            notfoundfilter.setVisibility(View.GONE);
+            notfoundfilter.setVisibility(GONE);
         }
     }
 
@@ -372,13 +376,14 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
-                    notfoundsearch.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(GONE);
                 }
                 filterKampo(s.toString());
                 if(s.toString().length() == 0)
                 {
-                    recyclerView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(GONE);
                 }
 
             }
@@ -400,7 +405,7 @@ public class searchHerbs extends Fragment {
         }
         else
         {
-            notfoundfilter.setVisibility(View.GONE);
+            notfoundfilter.setVisibility(GONE);
         }
     }
 
@@ -475,7 +480,7 @@ public class searchHerbs extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapterKampo = new adapterKampo(getActivity(),kampoModels);
         recyclerView.setAdapter(adapterKampo);
-        recyclerView.setVisibility(View.GONE);
+        recyclerView.setVisibility(GONE);
     }
 
     private void getDataJamu() {
@@ -561,13 +566,14 @@ public class searchHerbs extends Fragment {
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
-                    notfoundsearch.setVisibility(View.GONE);
+                    notfoundsearch.setVisibility(GONE);
                 }
                 filterJamu(s.toString());
                 if(s.toString().length() == 0)
                 {
-                    recyclerView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(GONE);
                     notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(GONE);
                 }
             }
         });
@@ -581,7 +587,7 @@ public class searchHerbs extends Fragment {
 
         adapterJamu = new adapterSearchJamu(getActivity(),herbalModels);
         recyclerView.setAdapter(adapterJamu);
-        recyclerView.setVisibility(View.GONE);
+        recyclerView.setVisibility(GONE);
     }
 
     private void filterJamu(String s) {
@@ -600,7 +606,7 @@ public class searchHerbs extends Fragment {
         }
         else
         {
-            notfoundfilter.setVisibility(View.GONE);
+            notfoundfilter.setVisibility(GONE);
         }
     }
 

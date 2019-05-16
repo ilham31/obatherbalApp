@@ -189,7 +189,7 @@ public class chooseCompound extends Fragment {
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 compoundPredictModels.add(
                                         new compoundPredictModel(
-                                                "0",
+                                                String.valueOf(i),
                                                 jsonObject.getString("Compounds"),
                                                 jsonObject.getString("Part of Plant")
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.ItemClickListener;
@@ -62,6 +63,7 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
                 if(checkBox.isChecked()&&checked==10)
                 {
                     compoundPredictViewHolder.checkBox.setChecked(false);
+                    Toast.makeText(mCtx,"Maximum compounds are 10",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
