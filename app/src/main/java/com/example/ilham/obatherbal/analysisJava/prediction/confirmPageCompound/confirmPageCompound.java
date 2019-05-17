@@ -43,11 +43,7 @@ public class confirmPageCompound extends Fragment {
         view = inflater.inflate(R.layout.fragment_confirm_page_compound, container, false);
         compoundName = new ArrayList<>();
         final ArrayList<compoundPredictModel> idCompound= (ArrayList<compoundPredictModel>)getArguments().getSerializable("idCompound");
-        for (compoundPredictModel h : idCompound)
-        {
-            Log.d("confirm","id plant = "+h.getIdCompound()+" name = "+h.getNameCompound());
-            compoundName.add(h.getNameCompound());
-        }
+
         final String idCategories= getArguments().getString("idCategories");
         final String Categories= getArguments().getString("categories");
         method = (TextView) view.findViewById(R.id.chosenMethodCompound);
@@ -59,6 +55,11 @@ public class confirmPageCompound extends Fragment {
             public void onClick(View v) {
                 if (idCompound.size()>0)
                 {
+                    for (compoundPredictModel h : idCompound)
+                    {
+                        Log.d("confirm","id plant = "+h.getIdCompound()+" name = "+h.getNameCompound());
+                        compoundName.add(h.getNameCompound());
+                    }
                     Intent i = new Intent(getActivity(), resultPredictionCompound.class);
                     Bundle args = new Bundle();
                     args.putString("methodPredict",Categories);

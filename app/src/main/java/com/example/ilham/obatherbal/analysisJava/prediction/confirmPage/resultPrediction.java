@@ -64,11 +64,7 @@ public class resultPrediction extends Fragment {
         view =  inflater.inflate(R.layout.fragment_result_prediction, container, false);
         idPlant= (ArrayList<herbsModel>)getArguments().getSerializable("idPlant");
         plantName = new ArrayList<String>();
-        for (herbsModel h : idPlant)
-        {
-            Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
-            plantName.add(h.getNameHerbs());
-        }
+
         final String idCategories= getArguments().getString("idCategories");
         Categories= getArguments().getString("categories");
         method = (TextView) view.findViewById(R.id.chosenMethod);
@@ -82,9 +78,14 @@ public class resultPrediction extends Fragment {
         submitPredictPlant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (idPlant.size()>0)
                 {
+                    for (herbsModel h : idPlant)
+                    {
+                        Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
+                        plantName.add(h.getNameHerbs());
+                    }
+                    postData();
                     Intent i = new Intent(getActivity(),resultPredictionPlant.class);
                     Bundle args = new Bundle();
                     args.putString("methodPredict",Categories);
@@ -97,7 +98,7 @@ public class resultPrediction extends Fragment {
                 {
                     Toast.makeText(getActivity(),"please choose at least 1 plant",Toast.LENGTH_LONG).show();
                 }
-//                postData();
+
 
             }
         });
