@@ -223,7 +223,6 @@ public class chooseJamu extends Fragment implements Serializable{
         String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -249,6 +248,10 @@ public class chooseJamu extends Fragment implements Serializable{
                                     jamu1.setAdapter(jamuSuggest);
                                     jamu2.setAdapter(jamuSuggest);
                                 }
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "The server could not be found. Please try again after some time!",Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

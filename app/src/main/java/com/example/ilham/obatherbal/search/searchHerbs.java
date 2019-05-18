@@ -13,7 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +43,7 @@ import com.example.ilham.obatherbal.herbalJava.kampoModel;
 import com.example.ilham.obatherbal.search.Adapter.adapterKampo;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchCompound;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchJamu;
+import com.example.ilham.obatherbal.search.Adapter.adapterSearchJamuDisease;
 import com.example.ilham.obatherbal.search.Adapter.adapterSearchPlant;
 
 import org.json.JSONArray;
@@ -68,6 +73,8 @@ public class searchHerbs extends Fragment {
     adapterSearchCompound adapterSearchCompound;
     RecyclerView recyclerView;
     TextView notfoundsearch,notfoundfilter;
+    LinearLayout categoriesSearch;
+    adapterSearchJamuDisease adapterSearchJamuDisease;
 
     public searchHerbs() {
         // Required empty public constructor
@@ -83,6 +90,8 @@ public class searchHerbs extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
         notfoundsearch = (TextView) rootView.findViewById(R.id.startSearch);
         notfoundfilter =(TextView)rootView.findViewById(R.id.notfoundfilter);
+        categoriesSearch = (LinearLayout) rootView.findViewById(R.id.categoriesSearchHerbal);
+        categoriesSearch.setVisibility(GONE);
         notfoundfilter.setVisibility(GONE);
         notfoundsearch.setVisibility(View.VISIBLE);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
@@ -92,9 +101,10 @@ public class searchHerbs extends Fragment {
                 searchHerbs.setHint("Search Jamu");
                 herbalModels = new ArrayList<>();
                 getDataJamu();
-                searhJamu();
-                startRecyclerViewJamu();
-
+                searhJamubyName();
+                startRecyclerViewJamubyName();
+//                filterSearchTypeHerbal();
+//                categoriesSearch.setVisibility(View.VISIBLE);
                 break;
             case "kampo":
                 searchHerbs.setHint("Search Kampo");
@@ -119,6 +129,102 @@ public class searchHerbs extends Fragment {
                 break;
         }
           return rootView;
+    }
+
+    private void filterSearchTypeHerbal() {
+        final Spinner spinner = (Spinner) rootView.findViewById(R.id.filter_herbalSearch);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        List<String> itemList = new ArrayList<String>();
+        itemList.add(0,"Name");
+        itemList.add(1,"Disease");
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, itemList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Specify the layout to use when the list of choices appears
+
+// Apply the adapter to the spinner
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0)
+                {
+                    searhJamubyName();
+                    startRecyclerViewJamubyName();
+                }
+                else if (position == 1)
+                {
+                    searchJamubyDisease();
+                    startRecyclerViewJamubyDisease();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void startRecyclerViewJamubyDisease() {
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapterSearchJamuDisease = new adapterSearchJamuDisease(getActivity(),herbalModels);
+
+        recyclerView.setAdapter(adapterSearchJamuDisease);
+        recyclerView.setVisibility(GONE);
+    }
+
+    private void searchJamubyDisease() {
+        searchHerbs.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(recyclerView.getVisibility()!= View.VISIBLE)
+                {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    notfoundsearch.setVisibility(GONE);
+                }
+                filterJamubyDisease(s.toString());
+                if(s.toString().length() == 0)
+                {
+                    recyclerView.setVisibility(GONE);
+                    notfoundsearch.setVisibility(View.VISIBLE);
+                    notfoundfilter.setVisibility(GONE);
+                }
+            }
+        });
+    }
+
+    private void filterJamubyDisease(String s) {
+        ArrayList<herbalModel> filteredList = new ArrayList<>();
+        for (herbalModel item : herbalModels){
+            if (item.getKhasiat().toLowerCase().contains(s.toLowerCase()))
+            {
+                filteredList.add(item);
+            }
+        }
+        adapterSearchJamuDisease.filterlist(filteredList);
+        Log.d("searchJamu","size filter ="+filteredList.size());
+        if (filteredList.size() == 0)
+        {
+            notfoundfilter.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            notfoundfilter.setVisibility(GONE);
+        }
+
     }
 
     private void startRecyclerViewCompound() {
@@ -548,7 +654,7 @@ public class searchHerbs extends Fragment {
 
     }
 
-    private void searhJamu() {
+    private void searhJamubyName() {
         searchHerbs.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -568,7 +674,7 @@ public class searchHerbs extends Fragment {
                     recyclerView.setVisibility(View.VISIBLE);
                     notfoundsearch.setVisibility(GONE);
                 }
-                filterJamu(s.toString());
+                filterJamubyName(s.toString());
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(GONE);
@@ -579,7 +685,7 @@ public class searchHerbs extends Fragment {
         });
     }
 
-    private void startRecyclerViewJamu()
+    private void startRecyclerViewJamubyName()
     {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
         recyclerView.setHasFixedSize(true);
@@ -590,7 +696,7 @@ public class searchHerbs extends Fragment {
         recyclerView.setVisibility(GONE);
     }
 
-    private void filterJamu(String s) {
+    private void filterJamubyName(String s) {
         ArrayList<herbalModel> filteredList = new ArrayList<>();
         for (herbalModel item : herbalModels){
             if (item.getNama().toLowerCase().contains(s.toLowerCase()))

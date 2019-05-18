@@ -41,9 +41,38 @@
                 />
         </android.support.v7.widget.Toolbar>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/categoriesSearchHerbal"
+            android:layout_below="@id/toolbarSearch"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:weightSum="6"
+            >
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/textPilihjenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search by"
+                android:textSize="14sp"
+                android:layout_weight="5"
+                />
+            <Spinner
+                android:id="@+id/filter_herbalSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textAlignment="viewEnd"
+                android:gravity="end" />
+        </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@id/toolbarSearch"
+            android:layout_below="@id/categoriesSearchHerbal"
             android:id="@+id/recyclerview_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
