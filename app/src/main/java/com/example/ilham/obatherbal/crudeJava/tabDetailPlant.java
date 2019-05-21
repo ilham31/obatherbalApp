@@ -42,9 +42,10 @@ import java.util.regex.Pattern;
  */
 public class tabDetailPlant extends Fragment {
     View rootview;
-    TextView describe,notFound,plantNames;
+    TextView describe,notFound,plantNames,refWiki;
     String idplant;
     ProgressBar loading;
+    String plantName;
 
     public tabDetailPlant() {
         // Required empty public constructor
@@ -62,6 +63,7 @@ public class tabDetailPlant extends Fragment {
         describe = (TextView) rootview.findViewById(R.id.descriptivePlant);
         loading = (ProgressBar) rootview.findViewById(R.id.loadWikiData);
         plantNames = (TextView) rootview.findViewById(R.id.detailNamePlant);
+        refWiki = (TextView) rootview.findViewById(R.id.referenceWiki);
         notFound = (TextView) rootview.findViewById(R.id.notFoundWiki);
         notFound.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
@@ -78,7 +80,7 @@ public class tabDetailPlant extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject plant = response.getJSONObject("data");
-                            String plantName = plant.getString("sname");
+                            plantName = plant.getString("sname");
                             SpannableStringBuilder strDetailName = new SpannableStringBuilder("Name : \n"+ plantName);
                             strDetailName.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             plantNames.setText(strDetailName);
@@ -138,6 +140,7 @@ public class tabDetailPlant extends Fragment {
                             {
                                 Log.d("keyStringIterator","key ="+"masuk log");
                                 notFound.setVisibility(View.VISIBLE);
+                                refWiki.setText(View.VISIBLE);
                             }
                             else
                             {
@@ -148,6 +151,16 @@ public class tabDetailPlant extends Fragment {
                                 strDetailWiki.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 describe.setText(strDetailWiki);
 
+                                SpannableStringBuilder strRefWiki = null;
+                                try {
+                                    String refPlantName = plantName.replaceAll(" ", "_");
+                                    strRefWiki = new SpannableStringBuilder("Reference : \n"+ "https://en.wikipedia.org/wiki/"+ URLEncoder.encode(refPlantName, "UTF-8"));
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
+                                }
+                                strDetailWiki.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                refWiki.setText(strRefWiki);
+                                Linkify.addLinks(refWiki,Linkify.WEB_URLS);
                                 Log.d("detail","isi respon"+extract);
                             }
 

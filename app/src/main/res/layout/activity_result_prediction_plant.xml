@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,6 +7,7 @@
     android:layout_height="match_parent"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     tools:context=".analysisJava.prediction.resultPredictionPlant.resultPredictionPlant">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,62 +18,61 @@
         android:layout_marginLeft="10dp"
         android:id="@+id/backpresspredictresult"
         />
-    <ImageView
-        android:id="@+id/successPredict"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_above="@id/textResult"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        />
-    <LinearLayout
-        android:id="@+id/textResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
 
-        >
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Result Prediction"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="20sp"
+        <ImageView
+            android:id="@+id/successPredict"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_above="@id/textResult"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             />
+        <LinearLayout
+            android:id="@+id/textResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+
+            >
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Result Prediction"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:id="@+id/predictResultPlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
+
+        </LinearLayout>
         <TextView
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:id="@+id/predictResultPlant"
+            android:id="@+id/texttext"
+            android:layout_below="@id/textResult"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:text="Plant :"
+            android:layout_marginLeft="10dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/texttext"
+            android:id="@+id/plantPredictResult"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            />
-
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/texttext"
-        android:layout_below="@id/textResult"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Plant :"
-        android:layout_marginLeft="10dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_below="@id/texttext"
-        android:id="@+id/plantPredictResult"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

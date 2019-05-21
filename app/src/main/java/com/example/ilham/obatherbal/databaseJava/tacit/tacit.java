@@ -88,7 +88,6 @@ public class tacit extends AppCompatActivity {
                                                     jsonObject.getString("datePublish"),
                                                     jsonObject.getString("title"),
                                                     jsonObject.getString("content"),
-                                                    jsonObject.getString("reference"),
                                                     jsonObject.getString("file"),
                                                     jsonObject.getString("createdby")
                                             )
@@ -160,7 +159,6 @@ public class tacit extends AppCompatActivity {
                                                 jsonObject.getString("datePublish"),
                                                 jsonObject.getString("title"),
                                                 jsonObject.getString("content"),
-                                                jsonObject.getString("reference"),
                                                 jsonObject.getString("file"),
                                                 jsonObject.getString("createdby")
                                         )

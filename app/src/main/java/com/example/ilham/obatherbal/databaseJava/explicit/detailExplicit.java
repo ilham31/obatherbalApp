@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,7 @@ import org.json.JSONObject;
 
 public class detailExplicit extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
-    TextView title,uploader,datePublish,abstractExplicitDetail,description,downloadFile;
+    TextView title,uploader,datePublish,abstractExplicitDetail,description,downloadFile,refExplicit;
     ProgressBar loading;
     String fileName,urlDownload;
     String idExplicit;
@@ -45,6 +46,7 @@ public class detailExplicit extends AppCompatActivity {
         abstractExplicitDetail= (TextView) findViewById(R.id.abstractExplicitDetail);
         description = (TextView) findViewById(R.id.desctiptionExplicitDetail);
         loading = (ProgressBar) findViewById(R.id.loadDetailExplicit);
+        refExplicit = (TextView) findViewById(R.id.refExplicitDetail);
         downloadFile = (TextView) findViewById(R.id.downloadFile);
         downloadFile.setVisibility(View.GONE);
         loading.setVisibility(View.VISIBLE);
@@ -168,6 +170,11 @@ public class detailExplicit extends AppCompatActivity {
                             SpannableStringBuilder strDesc = new SpannableStringBuilder("Description : \n" + explicit.getString("description"));
                             strDesc.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                             description.setText(strDesc);
+
+                            SpannableStringBuilder strRef = new SpannableStringBuilder("Reference : \n" + "researchgate.net");
+                            strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            refExplicit.setText(strRef);
+                            Linkify.addLinks(refExplicit,Linkify.WEB_URLS);
 
 
 

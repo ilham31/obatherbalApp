@@ -89,8 +89,8 @@ public class tacitAdapter extends RecyclerView.Adapter {
 
             tacitModel detailTacit= (tacitModel) tacitModelList.get(position);
 
-            ((tacitViewHolder) holder).title.setText("Title :"+detailTacit.getTitleTacit());
-            ((tacitViewHolder) holder).uploader.setText("Uploader :"+detailTacit.getUploaderTacit());
+            ((tacitViewHolder) holder).title.setText(detailTacit.getTitleTacit());
+            ((tacitViewHolder) holder).uploader.setText("By :"+detailTacit.getUploaderTacit());
             final String idTacit =detailTacit.get_id();
             ((tacitViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

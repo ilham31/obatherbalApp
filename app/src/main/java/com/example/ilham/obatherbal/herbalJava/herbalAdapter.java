@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
 
@@ -96,9 +98,10 @@ public class herbalAdapter extends RecyclerView.Adapter{
 
             ((herbalViewHolder) holder).namaHerbal.setText(detailherbal.getNama());
             ((herbalViewHolder) holder).khasiatHerbal.setText(detailherbal.getKhasiat());
-//            Glide.with(mCtx)
-//                .load(detailherbal.getThumbnail())
-//                .into(((herbalViewHolder) holder).thumbnail);
+            Glide.with(mCtx)
+                .load("http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/image/"+detailherbal.getThumbnail())
+                    .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .into(((herbalViewHolder) holder).thumbnail);
             final String idHerbal =detailherbal.getId();
             ((herbalViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +152,7 @@ public class herbalAdapter extends RecyclerView.Adapter{
             super(itemView);
             namaHerbal = itemView.findViewById(R.id.nama_herbal);
             khasiatHerbal = itemView.findViewById(R.id.khasiat_herbal);
-//            thumbnail = itemView.findViewById(R.id.gambar_herbal);
+            thumbnail = itemView.findViewById(R.id.gambar_herbal);
         }
     }
 

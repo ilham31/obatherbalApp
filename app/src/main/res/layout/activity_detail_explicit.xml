@@ -14,7 +14,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarTitle"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -83,6 +83,13 @@
             <TextView
                 android:layout_marginTop="20dp"
                 android:id="@+id/desctiptionExplicitDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/refExplicitDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center"

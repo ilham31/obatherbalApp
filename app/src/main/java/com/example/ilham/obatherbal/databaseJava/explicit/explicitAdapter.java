@@ -89,8 +89,8 @@ public class explicitAdapter extends RecyclerView.Adapter {
 
             explicitModel detailExplicit= (explicitModel) explicitModelsList.get(position);
 
-            ((exxplicitViewHolder) holder).title.setText("Title :"+detailExplicit.getTitle());
-            ((exxplicitViewHolder) holder).uploader.setText("Uploader :"+detailExplicit.getFirstname()+" "+detailExplicit.getLastname());
+            ((exxplicitViewHolder) holder).title.setText(detailExplicit.getTitle());
+            ((exxplicitViewHolder) holder).uploader.setText("By :"+detailExplicit.getFirstname()+" "+detailExplicit.getLastname());
             final String idExplicit =detailExplicit.get_id();
             ((exxplicitViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

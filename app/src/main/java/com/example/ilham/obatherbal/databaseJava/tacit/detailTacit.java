@@ -43,7 +43,7 @@ public class detailTacit extends AppCompatActivity {
         title = (TextView) findViewById(R.id.titleTacitDetail);
         uploaderTacit = (TextView) findViewById(R.id.uploaderTacitDetail);
         datePublishTacit = (TextView) findViewById(R.id.datePublishTacitDetail);
-        refTacit= (TextView) findViewById(R.id.refTacitDetail);
+//        refTacit= (TextView) findViewById(R.id.refTacitDetail);
         contentTacit = (TextView) findViewById(R.id.contentTacitDetail);
         loading = (ProgressBar) findViewById(R.id.loadDetailTacit);
         downloadFile = (TextView) findViewById(R.id.downloadFileTacit);
@@ -97,10 +97,6 @@ public class detailTacit extends AppCompatActivity {
 
                             datePublishTacit.setText(tacit.getString("datePublish").substring(0,10));
 
-                            SpannableStringBuilder strAbstract = new SpannableStringBuilder("Reference : \n" + tacit.getString("reference"));
-                            strAbstract.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 9, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                            refTacit.setText(strAbstract);
-                            Linkify.addLinks(refTacit,Linkify.WEB_URLS);
 
                             SpannableStringBuilder strDesc = new SpannableStringBuilder("Content : \n" + tacit.getString("content"));
                             strDesc.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
