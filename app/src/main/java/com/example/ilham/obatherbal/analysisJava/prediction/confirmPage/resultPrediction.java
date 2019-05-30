@@ -1,10 +1,7 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.confirmPage;
 
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,25 +21,19 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsModel;
-import com.example.ilham.obatherbal.analysisJava.prediction.resultPredictionPlant.resultPredictionPlant;
-import com.example.ilham.obatherbal.login;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class resultPrediction extends Fragment {
     private View view;
-    private TextView method;
+    private TextView method,infoLoad;
     private RecyclerView recyclerView;
     private adapterConfirm adapterConfirm;
     ArrayList<herbsModel> idPlant;
@@ -51,6 +42,7 @@ public class resultPrediction extends Fragment {
     ArrayList<String>plantName;
     Button submitPredictPlant;
     String Categories;
+    ProgressBar load;
 
     public resultPrediction() {
         // Required empty public constructor
@@ -71,6 +63,7 @@ public class resultPrediction extends Fragment {
         method.setText("Method :"+Categories);
         submitPredictPlant = (Button) view.findViewById(R.id.submitPredictPlant);
         recyclerView = (RecyclerView) view.findViewById(R.id.plantPredict);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapterConfirm = new adapterConfirm(getActivity(),idPlant);
@@ -86,13 +79,13 @@ public class resultPrediction extends Fragment {
                         plantName.add(h.getNameHerbs());
                     }
                     postData();
-                    Intent i = new Intent(getActivity(),resultPredictionPlant.class);
-                    Bundle args = new Bundle();
-                    args.putString("methodPredict",Categories);
-                    args.putStringArrayList("plantName", plantName);
-                    i.putExtra("bundle",args);
-                    startActivity(i);
-                    getActivity().finish();
+//                    Intent i = new Intent(getActivity(),resultPredictionPlant.class);
+//                    Bundle args = new Bundle();
+//                    args.putString("methodPredict",Categories);
+//                    args.putStringArrayList("plantName", plantName);
+//                    i.putExtra("bundle",args);
+//                    startActivity(i);
+//                    getActivity().finish();
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 package com.example.ilham.obatherbal.crudeJava;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -45,7 +46,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class crude extends Fragment {
-
+    View rootView;
     RecyclerView recyclerView;
     crudeAdapter adapter;
     List<crudeModel> crudeModels;
@@ -63,9 +64,10 @@ public class crude extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_crude, container, false);
+        rootView = inflater.inflate(R.layout.fragment_crude, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_crude);
         crudeModels = new ArrayList<>();
+        String link = getString(R.string.url);
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         search=(EditText) rootView.findViewById(R.id.search_crude);
         loadCrude = (ProgressBar) rootView.findViewById(R.id.loadCrude);
@@ -76,15 +78,17 @@ public class crude extends Fragment {
                 searchCrude();
             }
         });
-        get10DataCrude();
-        startRecyclerviewCrude();
+        get10DataCrude(link);
+        startRecyclerviewCrude(link);
+
 
 
         return rootView;
     }
 
-    private void loadMoreDataCrude(int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/"+page;
+    private void loadMoreDataCrude(int page, String link) {
+        String url = link+"/jamu/api/plant/pages/"+page;
+//        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -118,29 +122,33 @@ public class crude extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        String message = null;
-                        if (error instanceof NetworkError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ServerError) {
-                            message = "The server could not be found. Please try again after some time!!";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ParseError) {
-                            message = "Parsing error! Please try again after some time!!";
-                        } else if (error instanceof NoConnectionError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof TimeoutError) {
-                            message = "Connection TimeOut! Please check your internet connection.";
+                        Activity activity = getActivity();
+                        if(activity != null && isAdded())
+                        {
+                            String message = null;
+                            if (error instanceof NetworkError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ServerError) {
+                                message = "The server could not be found. Please try again after some time!!";
+                            } else if (error instanceof AuthFailureError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ParseError) {
+                                message = "Parsing error! Please try again after some time!!";
+                            } else if (error instanceof NoConnectionError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof TimeoutError) {
+                                message = "Connection TimeOut! Please check your internet connection.";
+                            }
+                            Toast.makeText(getActivity(), message,
+                                    Toast.LENGTH_LONG).show();
                         }
-                        Toast.makeText(getActivity(), message,
-                                Toast.LENGTH_LONG).show();
                     }
                 });
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
 
-    private void startRecyclerviewCrude() {
+    private void startRecyclerviewCrude(final String link) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -162,7 +170,7 @@ public class crude extends Fragment {
                         //add items one by one
                         int page = (crudeModels.size()/10)+1;
                         Log.d(TAG, "pagecrude" + page +"size = " +crudeModels.size());
-                        loadMoreDataCrude(page);
+                        loadMoreDataCrude(page,link);
 
                     }
                 }, 2000);
@@ -183,9 +191,9 @@ public class crude extends Fragment {
         ft.commit();
     }
 
-    private void get10DataCrude() {
+    private void get10DataCrude(String link) {
 
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/";
+        String url = link+"/jamu/api/plant/pages/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -219,22 +227,26 @@ public class crude extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        String message = null;
-                        if (error instanceof NetworkError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ServerError) {
-                            message = "The server could not be found. Please try again after some time!!";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ParseError) {
-                            message = "Parsing error! Please try again after some time!!";
-                        } else if (error instanceof NoConnectionError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof TimeoutError) {
-                            message = "Connection TimeOut! Please check your internet connection.";
+                        Activity activity = getActivity();
+                        if(activity != null && isAdded())
+                        {
+                            String message = null;
+                            if (error instanceof NetworkError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ServerError) {
+                                message = "The server could not be found. Please try again after some time!!";
+                            } else if (error instanceof AuthFailureError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ParseError) {
+                                message = "Parsing error! Please try again after some time!!";
+                            } else if (error instanceof NoConnectionError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof TimeoutError) {
+                                message = "Connection TimeOut! Please check your internet connection.";
+                            }
+                            Toast.makeText(getActivity(), message,
+                                    Toast.LENGTH_LONG).show();
                         }
-                        Toast.makeText(getActivity(), message,
-                                Toast.LENGTH_LONG).show();
                     }
                 });
 

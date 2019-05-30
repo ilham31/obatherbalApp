@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.tacit;
+package com.example.ilham.obatherbal.knowledge.tacit;
 
 public class tacitModel {
     private String _id,datePublishTacit,titleTacit,contentTacit,fileTacit,uploaderTacit;

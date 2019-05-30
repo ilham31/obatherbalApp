@@ -72,7 +72,7 @@ public class tabDetailPlant extends Fragment {
     }
 
     private void getDataPlant(String idplant) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/get/"+idplant;
+        String url = getString(R.string.url)+"/jamu/api/plant/get/"+idplant;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

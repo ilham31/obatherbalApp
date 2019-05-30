@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.tacit;
+package com.example.ilham.obatherbal.knowledge.tacit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -108,7 +108,7 @@ public class searchTacit extends AppCompatActivity {
     }
 
     private void getDataTacit() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/tacit/getlist";
+        String url = getString(R.string.url)+"/jamu/api/tacit/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

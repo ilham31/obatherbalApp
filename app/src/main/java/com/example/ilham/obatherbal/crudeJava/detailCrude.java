@@ -74,7 +74,7 @@ public class detailCrude extends AppCompatActivity  {
     }
 
     private void getPicDetailPlant(String idPlant) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/get/"+idPlant;
+        String url = getString(R.string.url)+"/jamu/api/plant/get/"+idPlant;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

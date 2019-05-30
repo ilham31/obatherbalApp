@@ -131,101 +131,6 @@ public class searchHerbs extends Fragment {
           return rootView;
     }
 
-    private void filterSearchTypeHerbal() {
-        final Spinner spinner = (Spinner) rootView.findViewById(R.id.filter_herbalSearch);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        List<String> itemList = new ArrayList<String>();
-        itemList.add(0,"Name");
-        itemList.add(1,"Disease");
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, itemList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Specify the layout to use when the list of choices appears
-
-// Apply the adapter to the spinner
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0)
-                {
-                    searhJamubyName();
-                    startRecyclerViewJamubyName();
-                }
-                else if (position == 1)
-                {
-                    searchJamubyDisease();
-                    startRecyclerViewJamubyDisease();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    private void startRecyclerViewJamubyDisease() {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapterSearchJamuDisease = new adapterSearchJamuDisease(getActivity(),herbalModels);
-
-        recyclerView.setAdapter(adapterSearchJamuDisease);
-        recyclerView.setVisibility(GONE);
-    }
-
-    private void searchJamubyDisease() {
-        searchHerbs.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(recyclerView.getVisibility()!= View.VISIBLE)
-                {
-                    recyclerView.setVisibility(View.VISIBLE);
-                    notfoundsearch.setVisibility(GONE);
-                }
-                filterJamubyDisease(s.toString());
-                if(s.toString().length() == 0)
-                {
-                    recyclerView.setVisibility(GONE);
-                    notfoundsearch.setVisibility(View.VISIBLE);
-                    notfoundfilter.setVisibility(GONE);
-                }
-            }
-        });
-    }
-
-    private void filterJamubyDisease(String s) {
-        ArrayList<herbalModel> filteredList = new ArrayList<>();
-        for (herbalModel item : herbalModels){
-            if (item.getKhasiat().toLowerCase().contains(s.toLowerCase()))
-            {
-                filteredList.add(item);
-            }
-        }
-        adapterSearchJamuDisease.filterlist(filteredList);
-        Log.d("searchJamu","size filter ="+filteredList.size());
-        if (filteredList.size() == 0)
-        {
-            notfoundfilter.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            notfoundfilter.setVisibility(GONE);
-        }
-
-    }
 
     private void startRecyclerViewCompound() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
@@ -410,7 +315,7 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataCrude() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/getlist";
+        String url = getString(R.string.url)+"/jamu/api/plant/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -517,7 +422,7 @@ public class searchHerbs extends Fragment {
 
 
     private void getDataKampo() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -590,7 +495,7 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataJamu() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

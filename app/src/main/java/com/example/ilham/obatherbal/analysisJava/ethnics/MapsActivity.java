@@ -234,7 +234,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String address;
         address = getIntent().getStringExtra("daerah");
         // Add a marker in Sydney and move the camera
-        Log.d("ethnic", "masuk onmapready" + address);
         Geocoder geocoder = new Geocoder(this);
         try {
             Log.d("ethnic", "masuk geocoder");
@@ -249,21 +248,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 /*used marker for show the location */
                 mMap.addMarker(new MarkerOptions().position(user));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(user,6));
-//                try {
-//                    GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.indonesia_province, getApplicationContext());
-//
-//                    GeoJsonPolygonStyle style = layer.getDefaultPolygonStyle();
-//                    style.setFillColor(Color.MAGENTA);
-//                    style.setStrokeColor(Color.MAGENTA);
-//                    style.setStrokeWidth(1F);
-//
-//                    layer.addLayerToMap();
-//
-//                } catch (IOException ex) {
-//                    Log.e("IOException", ex.getLocalizedMessage());
-//                } catch (JSONException ex) {
-//                    Log.e("JSONException", ex.getLocalizedMessage());
-//                }
             }
             else
             {

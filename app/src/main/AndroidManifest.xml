@@ -23,22 +23,20 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".databaseJava.explicit.postExplicit"></activity>
-        <activity android:name=".register" />
         <activity android:name=".analysisJava.prediction.resultPredictionPlant.resultPredictionPlant" />
         <activity android:name=".analysisJava.prediction.resultPredictionCompound.resultPredictionCompound" />
-        <activity android:name=".databaseJava.tacit.searchTacit" />
-        <activity android:name=".databaseJava.tacit.detailTacit" />
-        <activity android:name=".databaseJava.explicit.searchExplicit" />
+        <activity android:name=".knowledge.tacit.searchTacit" />
+        <activity android:name=".knowledge.tacit.detailTacit" />
+        <activity android:name=".knowledge.explicit.searchExplicit" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".analysisJava.ethnics.detailDisease" />
-        <activity android:name=".databaseJava.explicit.detailExplicit" />
+        <activity android:name=".knowledge.explicit.detailExplicit" />
         <activity
-            android:name=".databaseJava.explicit.explicit"
+            android:name=".knowledge.explicit.explicit"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".databaseJava.tacit.tacit"
+            android:name=".knowledge.tacit.tacit"
             android:screenOrientation="portrait" />
         <activity
             android:name=".analysisJava.ethnics.searchEthnic"
@@ -70,7 +68,6 @@
             android:name=".analysisJava.comparison.steppersComparison"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".login" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

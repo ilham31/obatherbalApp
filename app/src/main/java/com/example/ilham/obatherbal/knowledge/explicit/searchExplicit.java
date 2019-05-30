@@ -1,9 +1,5 @@
-package com.example.ilham.obatherbal.databaseJava.explicit;
+package com.example.ilham.obatherbal.knowledge.explicit;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.login;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,8 +24,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.view.View.GONE;
 
 public class searchExplicit extends AppCompatActivity {
     List<explicitModelSearch> explicitModels;
@@ -115,7 +108,7 @@ public class searchExplicit extends AppCompatActivity {
     }
 
     private void getDataExplicit() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/getlist";
+        String url = getString(R.string.url)+"/jamu/api/explicit/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

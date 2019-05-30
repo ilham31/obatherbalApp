@@ -79,7 +79,7 @@ public class tabPlantComparisonJamu2 extends Fragment {
 
     private void getIdCrude(String idHerbal) {
         Log.d("tab 2 comparison","id = " + idHerbal);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -130,7 +130,7 @@ public class tabPlantComparisonJamu2 extends Fragment {
 
     private void getDetailCrude(String idCrude) {
         Log.d("tab 2 comparison","masuk sini" +idCrude);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+idCrude;
+        String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+idCrude;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

@@ -186,7 +186,7 @@ public class chooseHerbs extends Fragment {
 
 
     private void getDataHerbs() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/getlist";
+        String url = getString(R.string.url)+"/jamu/api/plant/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

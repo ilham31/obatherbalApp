@@ -1,6 +1,7 @@
 package com.example.ilham.obatherbal.herbalJava;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -73,15 +74,17 @@ public class herbal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_herbal, container, false);
-        herbalModels = new ArrayList<>();
+
+            rootView = inflater.inflate(R.layout.fragment_herbal, container, false);
+            herbalModels = new ArrayList<>();
+            String link = getString(R.string.url);
 //        getActivity().getActionBar().setDisplayShowTitleEnabled(false);
-        searchHerbal = (EditText) rootView.findViewById(R.id.search_herbal);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
-        loadHerb = (ProgressBar) rootView.findViewById(R.id.loadHerb);
-        loadHerb.setVisibility(View.VISIBLE);
-        RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
-        sortData(rootView);
+            searchHerbal = (EditText) rootView.findViewById(R.id.search_herbal);
+            mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
+            loadHerb = (ProgressBar) rootView.findViewById(R.id.loadHerb);
+            loadHerb.setVisibility(View.VISIBLE);
+            RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
+            sortData(rootView,link);
 
         return rootView;
 
@@ -104,7 +107,7 @@ public class herbal extends Fragment {
 
 
 
-    private void StartRecyclerViewJamu(final View rootView) {
+    private void StartRecyclerViewJamu(final View rootView, final String link) {
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -132,7 +135,7 @@ public class herbal extends Fragment {
                         //add items one by one
                         int page = (herbalModels.size()/10)+1;
                         Log.d(TAG, "pagejamu" + page +"size = " +herbalModels.size());
-                        loadMoreJamu(page);
+                        loadMoreJamu(page,link);
 
                     }
                 }, 2000);
@@ -145,8 +148,8 @@ public class herbal extends Fragment {
 
     //AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ
     //https://www.googleapis.com/customsearch/v1?key=AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ&cx=008499053186876385122:rpuxtfhy9bq&q=jamu gadung klingsir
-    private void get10DataJamu() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/pages";
+    private void get10DataJamu(String link) {
+        String url = link+"/jamu/api/herbsmed/pages";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -208,8 +211,8 @@ public class herbal extends Fragment {
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
-private void loadMoreJamu(final int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/pages/"+page;
+private void loadMoreJamu(final int page, String link) {
+        String url = link+"/jamu/api/herbsmed/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -271,7 +274,7 @@ private void loadMoreJamu(final int page) {
 
     }
 
-    private void sortData(final View rootView) {
+    private void sortData(final View rootView, final String link) {
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.filter_herbal);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -301,8 +304,8 @@ private void loadMoreJamu(final int page) {
                     categoriesHerbal selectedValue = (categoriesHerbal) parent.getItemAtPosition(position);
                     String categories = (String) selectedValue.getCategories();
                     final String idCategories = (String) selectedValue.getIdCategories();
-                    StartRecyclerViewJamu(rootView);
-                    get10DataJamu();
+                    StartRecyclerViewJamu(rootView,link);
+                    get10DataJamu(link);
                     searchHerbal.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

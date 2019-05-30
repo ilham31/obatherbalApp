@@ -74,7 +74,7 @@ public class tabDiseaseHerbal extends Fragment {
 
     private void getDetailHerbal(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -136,7 +136,7 @@ public class tabDiseaseHerbal extends Fragment {
     }
 
     private void getCompany(String idcompany) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/company/get/"+idcompany;
+        String url = getString(R.string.url)+"/jamu/api/company/get/"+idcompany;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -184,7 +184,7 @@ public class tabDiseaseHerbal extends Fragment {
 
     private void getDetailDisease(String idDclass) {
         Log.d("disease","Call data disease and disease" + idDclass);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/dclass/get/"+idDclass;
+        String url = getString(R.string.url)+"/jamu/api/dclass/get/"+idDclass;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

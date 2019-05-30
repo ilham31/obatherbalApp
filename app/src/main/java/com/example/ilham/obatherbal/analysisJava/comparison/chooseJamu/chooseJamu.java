@@ -220,7 +220,7 @@ public class chooseJamu extends Fragment implements Serializable{
     }
 
     private void getDataJamuComparison() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/getlist";
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override

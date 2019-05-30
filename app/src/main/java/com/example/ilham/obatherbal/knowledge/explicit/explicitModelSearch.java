@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.explicit;
+package com.example.ilham.obatherbal.knowledge.explicit;
 
 public class explicitModelSearch {
     private String _id,title,description;

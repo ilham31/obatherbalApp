@@ -76,7 +76,7 @@ public class tabCrudeDetailPlant extends Fragment {
     }
 
     private void getDataPlant(String idplant) {
-            String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/get/"+idplant;
+            String url = getString(R.string.url)+"/jamu/api/plant/get/"+idplant;
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                     (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -139,7 +139,7 @@ public class tabCrudeDetailPlant extends Fragment {
 
     private void getDetailCrude(String s) {
         Log.d("masuk crude recy","masuk sini" +s);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+s;
+        String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+s;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

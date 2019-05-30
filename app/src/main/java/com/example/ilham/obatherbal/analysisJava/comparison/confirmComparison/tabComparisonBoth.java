@@ -101,7 +101,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDetailCrude(String s) {
         Log.d("tab 1 comparison","id crude masuk sini" +s);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/crudedrug/get/"+s;
+        String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+s;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -142,7 +142,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDataJamuCrude2(String idHerbal2) {
         Log.d("getdatajamu 2","masuk sini = " + idHerbal2);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal2;
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal2;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -187,7 +187,7 @@ public class tabComparisonBoth extends Fragment {
 
     private void getDataJamuCrude1(String idHerbal1) {
         Log.d("getDatajamu 1","masuk sini = " + idHerbal1);
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal1;
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal1;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

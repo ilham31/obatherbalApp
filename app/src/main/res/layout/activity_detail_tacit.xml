@@ -43,19 +43,6 @@
                     android:layout_marginBottom="15dp"
                     />
 
-                <TextView
-                    android:id="@+id/downloadFileTacit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Download"
-                    android:layout_alignParentBottom="true"
-                    android:textColor="@color/white"
-                    android:layout_toRightOf="@+id/datePublishExplicitDetail"
-                    android:layout_marginBottom="15dp"
-                    android:layout_alignParentRight="true"
-                    android:textAlignment="textEnd"
-                    android:layout_marginRight="50dp"
-                    android:gravity="end" />
 
             </RelativeLayout>
     </android.support.v7.widget.Toolbar>
@@ -75,8 +62,6 @@
             >
 
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="40dp"
                 android:id="@+id/contentTacitDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +69,7 @@
                 />
 
         <TextView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/uploaderTacitDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +84,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".databaseJava.tacit.detailTacit">
+tools:context=".knowledge.tacit.detailTacit">
     <ProgressBar
         android:id="@+id/loadDetailTacit"
         android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.tacit;
+package com.example.ilham.obatherbal.knowledge.tacit;
 
 public class tacitModelSearch {
     private String _id,title;

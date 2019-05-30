@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.explicit;
+package com.example.ilham.obatherbal.knowledge.explicit;
 
 import android.Manifest;
 import android.app.DownloadManager;
@@ -15,7 +15,6 @@ import android.text.SpannableStringBuilder;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,7 +77,7 @@ public class detailExplicit extends AppCompatActivity {
     }
 
     private void downloadExplicit(String idExplicit) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/get/"+idExplicit;
+        String url = getString(R.string.url)+"/jamu/api/explicit/get/"+idExplicit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -142,7 +141,7 @@ public class detailExplicit extends AppCompatActivity {
     }
 
     private void getDataExplicit(String idExplicit) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/get/"+idExplicit;
+        String url = getString(R.string.url)+"/jamu/api/explicit/get/"+idExplicit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

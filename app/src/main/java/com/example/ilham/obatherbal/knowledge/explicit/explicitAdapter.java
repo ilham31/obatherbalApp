@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.tacit;
+package com.example.ilham.obatherbal.knowledge.explicit;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,7 @@ import com.example.ilham.obatherbal.R;
 
 import java.util.List;
 
-public class tacitAdapter extends RecyclerView.Adapter {
-
+public class explicitAdapter extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private int visibleThreshold = 5;
@@ -26,11 +25,11 @@ public class tacitAdapter extends RecyclerView.Adapter {
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
     private Context mCtx;
-    List<tacitModel> tacitModelList;
+    List<explicitModel> explicitModelsList;
 
-    public tacitAdapter(RecyclerView recyclerView,Context mCtx, List<tacitModel> tacitModelList) {
+    public explicitAdapter(RecyclerView recyclerView,Context mCtx, List<explicitModel> explicitModelsList) {
         this.mCtx = mCtx;
-        this.tacitModelList = tacitModelList;
+        this.explicitModelsList = explicitModelsList;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
@@ -62,7 +61,7 @@ public class tacitAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return tacitModelList.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        return explicitModelsList.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     @NonNull
@@ -73,7 +72,7 @@ public class tacitAdapter extends RecyclerView.Adapter {
             CardView v = (CardView) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.cardview_displayexplicit, parent,false);
 //        View view =inflater.inflate(R.layout.cardview_herbal,null);
-            vh = new tacitViewHolder(v);
+            vh = new exxplicitViewHolder(v);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.progressbar_item, parent, false);
@@ -85,18 +84,18 @@ public class tacitAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof tacitViewHolder) {
+        if (holder instanceof exxplicitViewHolder) {
 
-            tacitModel detailTacit= (tacitModel) tacitModelList.get(position);
+            explicitModel detailExplicit= (explicitModel) explicitModelsList.get(position);
 
-            ((tacitViewHolder) holder).title.setText(detailTacit.getTitleTacit());
-            ((tacitViewHolder) holder).uploader.setText("By :"+detailTacit.getUploaderTacit());
-            final String idTacit =detailTacit.get_id();
-            ((tacitViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((exxplicitViewHolder) holder).title.setText(detailExplicit.getTitle());
+            ((exxplicitViewHolder) holder).uploader.setText("By :"+detailExplicit.getFirstname()+" "+detailExplicit.getLastname());
+            final String idExplicit =detailExplicit.get_id();
+            ((exxplicitViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(mCtx, detailTacit.class);
-                    i.putExtra("idTacit", idTacit);
+                    Intent i = new Intent(mCtx, detailExplicit.class);
+                    i.putExtra("idExplicit", idExplicit);
                     mCtx.startActivity(i);
 
                 }
@@ -106,19 +105,18 @@ public class tacitAdapter extends RecyclerView.Adapter {
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return tacitModelList.size();
-    }
-
     public void setLoaded() {
         loading = false;
+    }
+
+    @Override
+    public int getItemCount() {
+        return explicitModelsList.size();
     }
 
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
         this.onLoadMoreListener = onLoadMoreListener;
     }
-
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
@@ -129,10 +127,10 @@ public class tacitAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public static class tacitViewHolder extends RecyclerView.ViewHolder{
+    public static class exxplicitViewHolder extends RecyclerView.ViewHolder{
 
         TextView title,uploader;
-        public tacitViewHolder(@NonNull View itemView) {
+        public exxplicitViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.titleExplicit);
             uploader = itemView.findViewById(R.id.uploaderExplicit);

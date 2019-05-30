@@ -65,7 +65,7 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
 
     private void getDataProvince(final String provinceId) {
         RequestQueue queue = MySingleton.getInstance(mCtx.getApplicationContext()).getRequestQueue();
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/province/get/"+provinceId;
+        String url = mCtx.getString(R.string.url)+"/jamu/api/province/get/"+provinceId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

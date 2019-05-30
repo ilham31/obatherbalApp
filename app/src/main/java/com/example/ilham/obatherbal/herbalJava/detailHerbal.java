@@ -75,7 +75,7 @@ public class detailHerbal extends AppCompatActivity {
     }
 
     private void getPicHerbal(String idHerbal) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/get/"+idHerbal;
+        String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -85,7 +85,7 @@ public class detailHerbal extends AppCompatActivity {
                         try {
                             JSONObject herbsmed = response.getJSONObject("data");
                             Glide.with(detailHerbal.this)
-                                    .load("http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/image/"+herbsmed.getString("img"))
+                                    .load(getString(R.string.url)+"/jamu/api/herbsmed/image/"+herbsmed.getString("img"))
                                     .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                                     .into(gambarDetailHerbal);
 

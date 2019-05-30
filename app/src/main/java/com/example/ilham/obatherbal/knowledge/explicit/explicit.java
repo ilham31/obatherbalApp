@@ -1,12 +1,9 @@
-package com.example.ilham.obatherbal.databaseJava.explicit;
+package com.example.ilham.obatherbal.knowledge.explicit;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +22,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.crudeJava.crudeModel;
-import com.example.ilham.obatherbal.login;
-import com.example.ilham.obatherbal.search.searchHerbs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,13 +50,6 @@ public class explicit extends AppCompatActivity {
         notfounddoc = (TextView) findViewById(R.id.notfoundDocumentExplicit);
         notfounddoc.setVisibility(View.GONE);
         loadExplicit.setVisibility(View.VISIBLE);
-//        FloatingActionButton fab = findViewById(R.id.fabAddExplicit);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                checkToken();
-//            }
-//        });
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         get10DataExplicit();
         startRecyclerviewExplicit();
@@ -76,18 +63,7 @@ public class explicit extends AppCompatActivity {
         });
     }
 
-    private void checkToken() {
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-        String retrivedToken  = preferences.getString("token",null);
-        if (retrivedToken==null)
-        {
-            Intent i = new Intent(explicit.this, login.class);
-            startActivity(i);
-        }
-        else {
-            Log.d("token","token = "+retrivedToken);
-        }
-    }
+
 
     private void startRecyclerviewExplicit() {
         mRecyclerView.setHasFixedSize(true);
@@ -115,7 +91,7 @@ public class explicit extends AppCompatActivity {
     }
 
     private void loadMoreDataExplicit(int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/"+page;
+        String url = getString(R.string.url)+"/jamu/api/explicit/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -165,7 +141,7 @@ public class explicit extends AppCompatActivity {
     }
 
     private void get10DataExplicit() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit";
+        String url = getString(R.string.url)+"/jamu/api/explicit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

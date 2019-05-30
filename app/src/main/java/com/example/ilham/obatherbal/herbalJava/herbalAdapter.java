@@ -99,7 +99,7 @@ public class herbalAdapter extends RecyclerView.Adapter{
             ((herbalViewHolder) holder).namaHerbal.setText(detailherbal.getNama());
             ((herbalViewHolder) holder).khasiatHerbal.setText(detailherbal.getKhasiat());
             Glide.with(mCtx)
-                .load("http://ci.apps.cs.ipb.ac.id/jamu/api/herbsmed/image/"+detailherbal.getThumbnail())
+                .load(mCtx.getString(R.string.url)+"/jamu/api/herbsmed/image/"+detailherbal.getThumbnail())
                     .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(((herbalViewHolder) holder).thumbnail);
             final String idHerbal =detailherbal.getId();

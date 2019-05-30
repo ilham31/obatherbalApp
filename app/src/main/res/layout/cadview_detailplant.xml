@@ -16,10 +16,9 @@
             android:id="@+id/namaCrude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Crude"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:textStyle="bold"
+            android:textStyle="italic"
             />
         <LinearLayout
             android:id="@+id/namaLatinLokal"
@@ -33,13 +32,12 @@
                 android:id="@+id/namaLatin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="nama latin /"
+                android:text="/"
                 android:textStyle="italic"/>
             <TextView
                 android:id="@+id/namaLocal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="local"
                 />
         </LinearLayout>
 
@@ -50,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:textStyle="italic"
             />
 
         <TextView

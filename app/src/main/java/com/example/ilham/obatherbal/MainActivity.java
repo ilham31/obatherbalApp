@@ -11,12 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.example.ilham.obatherbal.analysisJava.analysis;
 import com.example.ilham.obatherbal.compoundJava.compound;
 import com.example.ilham.obatherbal.crudeJava.crude;
-import com.example.ilham.obatherbal.databaseJava.database;
+import com.example.ilham.obatherbal.knowledge.knowldege;
 import com.example.ilham.obatherbal.herbalJava.herbal;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private com.example.ilham.obatherbal.herbalJava.herbal herbal;
     private com.example.ilham.obatherbal.crudeJava.crude crude;
-    private com.example.ilham.obatherbal.databaseJava.database database;
+    private knowldege database;
     private com.example.ilham.obatherbal.analysisJava.analysis analysis;
     private com.example.ilham.obatherbal.compoundJava.compound compound;
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             frameLayout=(FrameLayout) findViewById(R.id.main_frame);
             herbal= new herbal();
             crude = new crude();
-            database=new database();
+            database=new knowldege();
             analysis=new analysis();
             compound=new compound();
             setFragment(herbal);
@@ -103,6 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finishAffinity();
+        super.onBackPressed();
     }
 }

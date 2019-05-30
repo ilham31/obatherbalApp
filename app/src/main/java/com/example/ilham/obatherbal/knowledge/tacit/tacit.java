@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava.tacit;
+package com.example.ilham.obatherbal.knowledge.tacit;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -62,7 +62,7 @@ public class tacit extends AppCompatActivity {
     }
 
     private void get10DataTacit() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/tacit";
+        String url = getString(R.string.url)+"/jamu/api/tacit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -138,7 +138,7 @@ public class tacit extends AppCompatActivity {
     }
 
     private void loadMoreDataTacit(int page) {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/tacit/"+page;
+        String url = getString(R.string.url)+"/jamu/api/tacit/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 

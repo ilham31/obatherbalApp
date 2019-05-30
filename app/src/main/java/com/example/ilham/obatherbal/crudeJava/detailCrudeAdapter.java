@@ -1,9 +1,14 @@
 package com.example.ilham.obatherbal.crudeJava;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +44,9 @@ public class detailCrudeAdapter extends RecyclerView.Adapter<detailCrudeAdapter.
         crudeDrugDetailViewHolder.sname.setText(detailCrudeModel.getSname());
         crudeDrugDetailViewHolder.name_eng.setText(detailCrudeModel.getName_en() + " / ");
         crudeDrugDetailViewHolder.name_loc.setText(detailCrudeModel.getName_loc());
-        crudeDrugDetailViewHolder.gname.setText("gname : "+detailCrudeModel.getGnameCrude());
+
+                crudeDrugDetailViewHolder.gname.setText("gname : "+detailCrudeModel.getGnameCrude());
+
         crudeDrugDetailViewHolder.position.setText("Position : " + detailCrudeModel.getPositionCrude());
         crudeDrugDetailViewHolder.effect.setText("Effect : "+detailCrudeModel.getEffect());
         crudeDrugDetailViewHolder.refCrude.setText("Reference : "+detailCrudeModel.getRef());

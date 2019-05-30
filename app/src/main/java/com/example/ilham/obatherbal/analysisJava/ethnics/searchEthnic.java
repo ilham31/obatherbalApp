@@ -89,7 +89,7 @@ public class searchEthnic extends AppCompatActivity {
     }
 
     private void getDataEthnic() {
-        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/ethnic/";
+        String url = getString(R.string.url)+"/jamu/api/ethnic/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override

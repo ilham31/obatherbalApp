@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.databaseJava;
+package com.example.ilham.obatherbal.knowledge;
 
 
 import android.app.AlertDialog;
@@ -14,21 +14,21 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.databaseJava.explicit.explicit;
-import com.example.ilham.obatherbal.databaseJava.tacit.tacit;
+import com.example.ilham.obatherbal.knowledge.explicit.explicit;
+import com.example.ilham.obatherbal.knowledge.tacit.tacit;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class database extends Fragment {
+public class knowldege extends Fragment {
     View rootview;
     ImageView imageView;
     CardView knowledge;
     String[] type;
     String selection;
 
-    public database() {
+    public knowldege() {
         // Required empty public constructor
     }
 
