@@ -1,8 +1,7 @@
-package com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison;
+package com.example.ilham.obatherbal.analysisJava.comparison.resultComparison;
 
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -29,13 +28,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class confirmComparison extends Fragment {
+public class resultComparison extends Fragment {
     View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     List<String> idCrudeResponse1,idCrudeResponse2;
 
-    public confirmComparison() {
+    public resultComparison() {
         // Required empty public constructor
     }
 
@@ -43,7 +42,7 @@ public class confirmComparison extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragmentt
         view = inflater.inflate(R.layout.fragment_confirm_comparison, container, false);
         final String idjamu1 = getArguments().getString("idjamu1");
         final String idjamu2 = getArguments().getString("idjamu2");
@@ -58,6 +57,8 @@ public class confirmComparison extends Fragment {
         getDataJamuCrude1(idjamu1);
         getDataJamuCrude2(idjamu2);
         viewPagerComparisonJamu adapter = new viewPagerComparisonJamu(getChildFragmentManager());
+
+        //inisialisasi 3 tab
 
         tabPlantComparison1 comparisonJamu1 = new tabPlantComparison1();
         tabPlantComparisonJamu2 comparisonJamu2 = new tabPlantComparisonJamu2();
@@ -121,7 +122,7 @@ public class confirmComparison extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+//cek crude untuk menghindari id yang sama
     private void checkSameItem2(List<String> idCrudeResponse2) {
         HashSet<String> hashet2 = new HashSet<String>();
         hashet2.addAll(idCrudeResponse2);
@@ -165,7 +166,7 @@ public class confirmComparison extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+    //cek crude untuk menghindari id yang sama
     private void checkSameItem1(List<String> idCrudeResponse1) {
         HashSet<String> hashet1 = new HashSet<String>();
         hashet1.addAll(idCrudeResponse1);

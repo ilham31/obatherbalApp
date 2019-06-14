@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.analysisJava.comparison.chooseMethod;
+package com.example.ilham.obatherbal.analysisJava.comparison.confirmJamu;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

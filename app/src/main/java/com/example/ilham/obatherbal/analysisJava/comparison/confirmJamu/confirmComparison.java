@@ -1,11 +1,10 @@
-package com.example.ilham.obatherbal.analysisJava.comparison.chooseMethod;
+package com.example.ilham.obatherbal.analysisJava.comparison.confirmJamu;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.ilham.obatherbal.MySingleton;
+import com.example.ilham.obatherbal.analysisJava.comparison.resultComparison.resultComparison;
 import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
-import com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison.confirmComparison;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu.jamuModelComparison;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,14 +25,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class chooseMethodComparison extends Fragment implements Serializable {
+public class confirmComparison extends Fragment implements Serializable {
 
     private View view;
     private Button buttonNext;
     private RecyclerView recyclerView;
     private adapterComparisonJamuConfirm adapterComparisonJamuConfirm;
     List<jamuModelComparison> detailjamu;
-    public chooseMethodComparison() {
+    public confirmComparison() {
         // Required empty public constructor
     }
 
@@ -76,7 +67,7 @@ public class chooseMethodComparison extends Fragment implements Serializable {
                     }
                     Log.d("confirm","idjamu 1 = "+idjamu.get(0)+", idjamu2 = "+idjamu.get(1));
                     steppersComparison.goToStepConfirm();
-                    confirmComparison step3fragment = new confirmComparison();
+                    resultComparison step3fragment = new resultComparison();
                     Bundle bundle = new Bundle();
                     bundle.putString("idjamu1",idjamu.get(0));
                     bundle.putString("idjamu2",idjamu.get(1));

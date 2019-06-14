@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".analysisJava.comparison.confirmComparison.tabPlantComparisonJamu2">
+    tools:context=".analysisJava.comparison.resultComparison.tabPlantComparisonJamu2">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -31,8 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recyclerview_plant_comparison_jamu2"
-                android:layout_margin="10dp"
-                >
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+               >
 
             </android.support.v7.widget.RecyclerView>
 

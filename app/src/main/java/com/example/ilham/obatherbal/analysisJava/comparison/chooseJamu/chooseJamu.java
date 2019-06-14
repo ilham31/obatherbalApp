@@ -3,8 +3,6 @@ package com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +25,10 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.analysisJava.comparison.steppersComparison;
-import com.example.ilham.obatherbal.analysisJava.comparison.chooseMethod.chooseMethodComparison;
+import com.example.ilham.obatherbal.analysisJava.comparison.confirmJamu.confirmComparison;
 
 import com.example.ilham.obatherbal.R;
 
@@ -67,13 +64,17 @@ public class chooseJamu extends Fragment implements Serializable{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        //membuat array list
         jamuModelComparisonList = new ArrayList<>();
         chosenJamu = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
+
+        //get data jamu untuk auto complete
         getDataJamuComparison();
 
-
         view =  inflater.inflate(R.layout.fragment_choose_jamu, container, false);
+
+        //inisiasi komponen
         jamu1 = view.findViewById(R.id.jamu1);
         ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
                 getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
@@ -93,10 +94,12 @@ public class chooseJamu extends Fragment implements Serializable{
                             selected = (jamuModelComparison) parent.getAdapter().getItem(position);
                             idJamu1 = selected.getId();
                             jamu1.setKeyListener(null);
+                            //menyimpan jamu yang dipilih ke arraylist chosenjamu
                             chosenJamu.add(selected);
                         }
                     });
                 }
+                //jika keluar dari focus di form
                 else {
                     if (idJamu1 == null)
                     {
@@ -106,12 +109,14 @@ public class chooseJamu extends Fragment implements Serializable{
                             String jamu1Database = item.getNama();
                             if (jamu1.getText().toString().equals(jamu1Database))
                             {
+                                //jika var jamu1 sama dengan di database
                                 jamu1.setKeyListener(null);
                                 match1 = 1;
                                 idJamu1=item.getId();
                                 chosenJamu.add(item);
                             }
                         }
+
                         if (match1 != 1)
                         {
                             jamu1.setError("invalid jamu");
@@ -184,6 +189,7 @@ public class chooseJamu extends Fragment implements Serializable{
 
                     if (chosenJamu.size() == 2 )
                     {
+                        //kalau kedua jamu sama
                         if (idJamu1.equals(idJamu2))
                         {
                             Toast.makeText(getActivity(),"Please Select 2 different Jamu",Toast.LENGTH_SHORT).show();
@@ -195,7 +201,7 @@ public class chooseJamu extends Fragment implements Serializable{
                             jamu1.setText("");
                             jamu2.setText("");
                             steppersComparison.goToStepMethodComparison();
-                            chooseMethodComparison step2fragment = new chooseMethodComparison();
+                            confirmComparison step2fragment = new confirmComparison();
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("idJamu", (Serializable) chosenJamu);
                             step2fragment.setArguments(bundle);
@@ -243,6 +249,7 @@ public class chooseJamu extends Fragment implements Serializable{
 
                                             )
                                     );
+                                    //menyimpan data yang di dapatkan dari server ke arrayadapter untuk ditampilkan sebagai saran
                                     ArrayAdapter<jamuModelComparison> jamuSuggest = new ArrayAdapter<jamuModelComparison>(
                                             getActivity(), android.R.layout.simple_dropdown_item_1line, jamuModelComparisonList);
                                     jamu1.setAdapter(jamuSuggest);

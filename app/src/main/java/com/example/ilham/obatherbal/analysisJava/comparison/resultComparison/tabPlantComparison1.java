@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison;
+package com.example.ilham.obatherbal.analysisJava.comparison.resultComparison;
 
 
 import android.os.Bundle;
@@ -19,8 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.crudeJava.crudeAdapter;
-import com.example.ilham.obatherbal.crudeJava.crudeModel;
 import com.example.ilham.obatherbal.crudeJava.detailCrudeAdapter;
 import com.example.ilham.obatherbal.crudeJava.detailCrudeModel;
 
@@ -35,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class tabPlantComparisonJamu2 extends Fragment {
+public class tabPlantComparison1 extends Fragment {
     View view;
     String idHerbal;
     List<detailCrudeModel> detailCrudeModels;
@@ -45,7 +43,7 @@ public class tabPlantComparisonJamu2 extends Fragment {
     ProgressBar loading;
     List<String> idCrudeResponse;
 
-    public tabPlantComparisonJamu2() {
+    public tabPlantComparison1() {
         // Required empty public constructor
     }
 
@@ -54,23 +52,22 @@ public class tabPlantComparisonJamu2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_tab_plant_comparison_jamu2, container, false);
+        view = inflater.inflate(R.layout.fragment_tab_plant_comparison_jamu1, container, false);
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
         detailCrudeModels = new ArrayList<>();
         idCrudeResponse = new ArrayList<>();
         Bundle bundle = this.getArguments();
-        idHerbal = bundle.getString("idjamu2");
+        idHerbal = bundle.getString("idjamu1");
         Log.d("plantTab","idplant = "+ idHerbal);
-        Log.d("tab 2 comparison","tab called = " + idHerbal);
-        namaJamu = (TextView) view.findViewById(R.id.namaJamuComparison2);
-        khasiatJamu = (TextView) view.findViewById(R.id.khasiatJamuComparison2);
-        loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamu2);
+        Log.d("tab 1 comparison","tab called = " + idHerbal);
+        namaJamu = (TextView) view.findViewById(R.id.namaJamuComparison1);
+        khasiatJamu = (TextView) view.findViewById(R.id.khasiatJamuComparison1);
+        loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamu1);
         loading.setVisibility(View.VISIBLE);
         getIdCrude(idHerbal);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_plant_comparison_jamu2);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_plant_comparison_jamu1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         adapter = new detailCrudeAdapter(getActivity(),detailCrudeModels);
         recyclerView.setAdapter(adapter);
 
@@ -78,7 +75,7 @@ public class tabPlantComparisonJamu2 extends Fragment {
     }
 
     private void getIdCrude(String idHerbal) {
-        Log.d("tab 2 comparison","id = " + idHerbal);
+        Log.d("tab 1 comparison","id crude = " + idHerbal);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -96,7 +93,6 @@ public class tabPlantComparisonJamu2 extends Fragment {
                                 JSONObject jsonObject = refCrude.getJSONObject(i);
                                 String idCrude = jsonObject.getString("idcrude");
                                 idCrudeResponse.add(idCrude);
-
 //                                getDetailCrude(idCrude);
                             }
                             checkSameItem(idCrudeResponse);
@@ -125,13 +121,11 @@ public class tabPlantComparisonJamu2 extends Fragment {
         for (int counter = 0; counter < idCrudeResponse.size(); counter++) {
             getDetailCrude(idCrudeResponse.get(counter));
         }
-        Log.d("tab 2 comparison","sudah bedaa" +idCrudeResponse);
     }
 
     private void getDetailCrude(String idCrude) {
-        Log.d("tab 2 comparison","masuk sini" +idCrude);
+        Log.d("tab 1 comparison","id crude masuk sini" +idCrude);
         String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+idCrude;
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -169,5 +163,6 @@ public class tabPlantComparisonJamu2 extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
+
 
 }

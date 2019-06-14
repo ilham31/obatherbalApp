@@ -1,4 +1,4 @@
-package com.example.ilham.obatherbal.analysisJava.comparison.confirmComparison;
+package com.example.ilham.obatherbal.analysisJava.comparison.resultComparison;
 
 
 import android.os.Bundle;
