@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.analysisJava.prediction.confirmPage.resultPrediction;
+import com.example.ilham.obatherbal.analysisJava.prediction.confirmPage.confirmPrediction;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsModel;
 
@@ -57,7 +57,7 @@ public class chooseMethod extends Fragment {
             public void onClick(View v) {
                 Log.d("method","selected item on button"+idCategories);
                 steppersPrediction.goToStepResult();
-                resultPrediction step3Fragment = new resultPrediction();
+                confirmPrediction step3Fragment = new confirmPrediction();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("idPlant", (Serializable) idPlant);
                 bundle.putString("idCategories",idCategories);

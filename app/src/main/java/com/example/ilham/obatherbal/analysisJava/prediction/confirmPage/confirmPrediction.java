@@ -1,6 +1,9 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.confirmPage;
 
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,9 +34,9 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class resultPrediction extends Fragment {
+public class confirmPrediction extends Fragment {
     private View view;
-    private TextView method,infoLoad;
+    private TextView method;
     private RecyclerView recyclerView;
     private adapterConfirm adapterConfirm;
     ArrayList<herbsModel> idPlant;
@@ -42,9 +45,8 @@ public class resultPrediction extends Fragment {
     ArrayList<String>plantName;
     Button submitPredictPlant;
     String Categories;
-    ProgressBar load;
 
-    public resultPrediction() {
+    public confirmPrediction() {
         // Required empty public constructor
     }
 
@@ -64,6 +66,12 @@ public class resultPrediction extends Fragment {
         submitPredictPlant = (Button) view.findViewById(R.id.submitPredictPlant);
         recyclerView = (RecyclerView) view.findViewById(R.id.plantPredict);
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        View v = inflater.inflate(R.layout.layout_loading_dialog, null);
+        builder.setView(v);
+        final AlertDialog dialog = builder.create();
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapterConfirm = new adapterConfirm(getActivity(),idPlant);
@@ -78,7 +86,8 @@ public class resultPrediction extends Fragment {
                         Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
                         plantName.add(h.getNameHerbs());
                     }
-                    postData();
+                    dialog.show(); // to show this dialog
+//                    postData(dialog);
 //                    Intent i = new Intent(getActivity(),resultPredictionPlant.class);
 //                    Bundle args = new Bundle();
 //                    args.putString("methodPredict",Categories);
@@ -104,7 +113,8 @@ public class resultPrediction extends Fragment {
         return view;
     }
 
-    private void postData() {
+    private void postData(AlertDialog dialog) {
+        dialog.dismiss();
         postIdPlant = new ArrayList<>();
         id = new ArrayList<>();
         for (herbsModel h : idPlant)

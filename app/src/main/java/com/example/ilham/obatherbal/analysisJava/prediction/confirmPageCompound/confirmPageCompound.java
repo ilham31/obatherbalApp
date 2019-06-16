@@ -1,6 +1,7 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.confirmPageCompound;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,14 @@ public class confirmPageCompound extends Fragment {
         method.setText("Method :"+Categories);
         recyclerView = (RecyclerView) view.findViewById(R.id.compoundPredict);
         submitCompound = (Button) view.findViewById(R.id.submitPredictCompound);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(false); // if you want user to wait for some process to finish,
+        View v = inflater.inflate(R.layout.layout_loading_dialog, null);
+        builder.setView(v);
+        final AlertDialog dialog = builder.create();
+
+        
         submitCompound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
