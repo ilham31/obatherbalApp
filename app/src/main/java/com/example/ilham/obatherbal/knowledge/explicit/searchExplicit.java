@@ -35,6 +35,7 @@ public class searchExplicit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_explicit);
+        //deklarasi komponen halaman
         notfoundsearch = (TextView) findViewById(R.id.startSearchExplicit);
         notfoundfilter =(TextView)findViewById(R.id.notfoundfilterExplicit);
         searchExplicit = (EditText) findViewById(R.id.searchExplicit);
@@ -45,7 +46,7 @@ public class searchExplicit extends AppCompatActivity {
         searhExplicit();
         startRecyclerViewExplicit();
     }
-
+    //deklarasi recyclerview
     private void startRecyclerViewExplicit() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_search_explicit);
         recyclerView.setHasFixedSize(true);
@@ -69,13 +70,15 @@ public class searchExplicit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //cek keadaan recyclerview
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
                     notfoundsearch.setVisibility(View.GONE);
                 }
+                //panggil fungsi filter dengan parameter kata-kata yang berada di search bar
                 filterExplicit(s.toString());
+                //jika kata-katanya kosong, recyclerview dihilangkan dan info di tampilkan
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(View.GONE);
@@ -87,10 +90,12 @@ public class searchExplicit extends AppCompatActivity {
         });
     }
 
+    //filter explicit
     private void filterExplicit(String s) {
         Log.d("search explicit","string filter" + s);
         ArrayList<explicitModelSearch> filteredList = new ArrayList<>();
         for (explicitModelSearch item : explicitModels){
+            //jika kata-kata di search box sama dengan di database
             if (item.getTitle().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredList.add(item);
@@ -106,7 +111,7 @@ public class searchExplicit extends AppCompatActivity {
             notfoundfilter.setVisibility(View.GONE);
         }
     }
-
+    //mendapatkan data explicit
     private void getDataExplicit() {
         String url = getString(R.string.url)+"/jamu/api/explicit/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

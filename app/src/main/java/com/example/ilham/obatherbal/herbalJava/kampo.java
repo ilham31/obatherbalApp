@@ -70,7 +70,6 @@ public class kampo extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_kampo, container, false);
         kampoModels = new ArrayList<>();
-//        getActivity().getActionBar().setDisplayShowTitleEnabled(false);
         searchKampo = (EditText) rootView.findViewById(R.id.search_kampo);
         kampoRecycleriew = (RecyclerView) rootView.findViewById(R.id.recyclerview_kampo);
         loadKampo = (ProgressBar) rootView.findViewById(R.id.loadKampo);
@@ -110,7 +109,7 @@ public class kampo extends Fragment {
                     String categories = (String) selectedValue.getCategories();
                     final String idCategories = (String) selectedValue.getIdCategories();
                     StartRecyclerViewKampo(rootView);
-                    get10DataKampo();
+                    getAllDataKampo();
                     searchKampo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -124,7 +123,6 @@ public class kampo extends Fragment {
                     herbal herbalFragment = new herbal();
 
                     ft.replace(R.id.main_frame, herbalFragment);
-//        ft.addToBackStack(null);
                     ft.commit();
                 }
 
@@ -136,7 +134,7 @@ public class kampo extends Fragment {
             }
         });
     }
-
+    //deklarasi recyclerview
     private void StartRecyclerViewKampo(View rootView) {
 
         kampoRecycleriew.setHasFixedSize(true);
@@ -149,8 +147,8 @@ public class kampo extends Fragment {
         kampoRecycleriew.setAdapter(kampoAdapter);
         kampoRecycleriew.setVisibility(View.VISIBLE);
     }
-
-    private void get10DataKampo() {
+    //ambil semua data kampo
+    private void getAllDataKampo() {
         String url = getString(R.string.url)+"/jamu/api/herbsmed/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -166,6 +164,7 @@ public class kampo extends Fragment {
                             {
                                 JSONObject jsonObject = herbsmeds.getJSONObject(i);
                                 String check = jsonObject.getString("idherbsmed");
+                                //cek karakter pertama kampo
                                 Character id = check.charAt(0);
                                 Log.d(TAG,"huruf pertama"+id);
                                 if (id == 'K')

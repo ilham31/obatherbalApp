@@ -38,6 +38,7 @@ public class detailExplicit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //deklarasi komponen
         setContentView(R.layout.activity_detail_explicit);
         title = (TextView) findViewById(R.id.titleExplicitDetail);
         uploader = (TextView) findViewById(R.id.uploaderExplicitDetail);
@@ -56,6 +57,7 @@ public class detailExplicit extends AppCompatActivity {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 {
+                    //cek permission untuk mengakses external storage
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
                     {
                         String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -75,7 +77,7 @@ public class detailExplicit extends AppCompatActivity {
         });
 
     }
-
+    //mendownload file dengan menggunakan idexplicit
     private void downloadExplicit(String idExplicit) {
         String url = getString(R.string.url)+"/jamu/api/explicit/get/"+idExplicit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -89,7 +91,7 @@ public class detailExplicit extends AppCompatActivity {
                             JSONObject explicit = response.getJSONObject("data");
 
                             fileName = explicit.getString("file");
-                            urlDownload = "http://ci.apps.cs.ipb.ac.id/jamu/api/explicit/file/"+fileName;
+                            urlDownload = getString(R.string.url)+"/jamu/api/explicit/file/"+fileName;
                             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urlDownload));
                             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
                             request.setTitle("Download");
@@ -122,12 +124,14 @@ public class detailExplicit extends AppCompatActivity {
         downloadExplicit(idExplicit);
     }
 
+    // cek request permission dari user
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode)
         {
             case PERMISSION_STORAGE_CODE:
             {
+                //jika di perbolehkan oleh user
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     startDownloading();
@@ -139,7 +143,7 @@ public class detailExplicit extends AppCompatActivity {
             }
         }
     }
-
+    //menampilkan data explicit
     private void getDataExplicit(String idExplicit) {
         String url = getString(R.string.url)+"/jamu/api/explicit/get/"+idExplicit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

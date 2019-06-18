@@ -58,6 +58,7 @@ public class confirmComparison extends Fragment implements Serializable {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //kalau jamu yang terpilih 2
                 if (idJamu.size() == 2)
                 {
                     List<String> idjamu = new ArrayList<String>();

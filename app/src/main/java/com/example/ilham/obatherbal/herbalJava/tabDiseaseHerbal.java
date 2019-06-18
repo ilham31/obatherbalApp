@@ -55,6 +55,7 @@ public class tabDiseaseHerbal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_tab_disease_herbal, container, false);
+        //deklarasi komponen
         Bundle bundle = this.getArguments();
         idHerbal = bundle.getString("idHerbal");
         Log.d("diseaseTab","idherbal = "+ idHerbal);
@@ -72,6 +73,7 @@ public class tabDiseaseHerbal extends Fragment {
         return rootview;
     }
 
+    //mengambil data-data jamu
     private void getDetailHerbal(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;

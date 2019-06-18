@@ -50,20 +50,27 @@ public class detailCrude extends AppCompatActivity  {
         setContentView(R.layout.activity_detail_crude);
          RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
          String idPlant = getIntent().getStringExtra("idPlant");
+
+         //deklarasi komponen
          Log.d(TAG,"idplant = "+idPlant);
          detailPic = (ImageView) findViewById(R.id.detailCrudePic);
          tabLayout = (TabLayout) findViewById(R.id.tablayoutdetailcrude);
          appBarLayout = (AppBarLayout) findViewById(R.id.appbarCrudeDetail);
          viewPager = (ViewPager) findViewById(R.id.viewPagerDetailCrude);
 
+         //mengambil gambar tanaman
          getPicDetailPlant(idPlant);
 
+         //deklarasi adapter untuk detail tanaman
          viewPagerDetailCrude adapter = new viewPagerDetailCrude(getSupportFragmentManager());
          tabDetailPlant detailPlant = new tabDetailPlant();
          tabCrudeDetailPlant detailCrude = new tabCrudeDetailPlant();
+
+         //mengisi bundle menggunakan id plant
          Bundle bundle = new Bundle();
          bundle.putString("idplant",idPlant);
 
+         //menyimpan bundle pada tab
          detailPlant.setArguments(bundle);
          detailCrude.setArguments(bundle);
 
@@ -73,6 +80,7 @@ public class detailCrude extends AppCompatActivity  {
          tabLayout.setupWithViewPager(viewPager);
     }
 
+    //mengambil data tanaman
     private void getPicDetailPlant(String idPlant) {
         String url = getString(R.string.url)+"/jamu/api/plant/get/"+idPlant;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

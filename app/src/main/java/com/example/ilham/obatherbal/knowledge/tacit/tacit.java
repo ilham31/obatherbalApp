@@ -60,7 +60,7 @@ public class tacit extends AppCompatActivity {
             }
         });
     }
-
+    //mengambil 10 data awal tacit
     private void get10DataTacit() {
         String url = getString(R.string.url)+"/jamu/api/tacit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -71,6 +71,7 @@ public class tacit extends AppCompatActivity {
                         loadTacit.setVisibility(View.GONE);
                         Log.d("explicit", "Onresponse" + response.toString());
                         try {
+                            //cek data tacit di database, kalau kosong tampilkan info
                             if (Integer.valueOf(response.getString("lenght")) ==  0)
                             {
                                 notfounddoc.setVisibility(View.VISIBLE);
@@ -111,12 +112,13 @@ public class tacit extends AppCompatActivity {
 
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
-
+    //deklarasi recyclerview tacit
     private void startRecyclerviewTacit() {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new tacitAdapter(mRecyclerView,this,tacitModels);
         mRecyclerView.setAdapter(mAdapter);
+        //load more ketika sudah mencapai bagian bawah tacit
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -129,6 +131,7 @@ public class tacit extends AppCompatActivity {
                         tacitModels.remove(tacitModels.size()-1);
                         mAdapter.notifyItemRemoved(tacitModels.size());
 
+                        //menghitung page tacit selanjutnya
                         int page = (tacitModels.size()/10)+1;
                         loadMoreDataTacit(page);
                     }
@@ -137,6 +140,7 @@ public class tacit extends AppCompatActivity {
         });
     }
 
+    //mengambil data tacit pada halaman berikutnya
     private void loadMoreDataTacit(int page) {
         String url = getString(R.string.url)+"/jamu/api/tacit/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

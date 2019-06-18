@@ -58,6 +58,7 @@ public class tabCrudeDetailPlant extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //deklarasi komponen
         rootview = inflater.inflate(R.layout.fragment_tab_crude_detail_plant, container, false);
         RequestQueue queue = MySingleton.getInstance(this.getActivity()).getRequestQueue();
         Bundle bundle = this.getArguments();
@@ -75,6 +76,7 @@ public class tabCrudeDetailPlant extends Fragment {
         return rootview;
     }
 
+    //mengambil data tanaman
     private void getDataPlant(String idplant) {
             String url = getString(R.string.url)+"/jamu/api/plant/get/"+idplant;
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -93,6 +95,7 @@ public class tabCrudeDetailPlant extends Fragment {
                                     idCrudeResponse.add(idCrude);
 //                                getDetailCrude(idCrude);
                                 }
+                                //cek duplikasi id crude pada tanaman
                                 checkSameItem(idCrudeResponse);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -133,6 +136,8 @@ public class tabCrudeDetailPlant extends Fragment {
         idCrudeResponse.clear();
         idCrudeResponse.addAll(hashet);
         for (int counter = 0; counter < idCrudeResponse.size(); counter++) {
+
+            //melihat detail crude
             getDetailCrude(idCrudeResponse.get(counter));
         }
     }

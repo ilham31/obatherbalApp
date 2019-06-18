@@ -45,7 +45,7 @@ public class searchTacit extends AppCompatActivity {
         searhTacit();
         startRecyclerViewTacit();
     }
-
+    // deklarasi komponen recyclerview tacit
     private void startRecyclerViewTacit() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_search_tacit);
         recyclerView.setHasFixedSize(true);
@@ -54,6 +54,7 @@ public class searchTacit extends AppCompatActivity {
         recyclerView.setAdapter(adapterTacitSearch);
         recyclerView.setVisibility(View.GONE);
     }
+
 
     private void searhTacit() {
         searchTacit.addTextChangedListener(new TextWatcher() {
@@ -69,13 +70,15 @@ public class searchTacit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //cek keadaan recyclerview
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
                     notfoundsearch.setVisibility(View.GONE);
                 }
+                //memanggilfungsi filterTacit dengan parameter s
                 filterTacit(s.toString());
+                //cek search box, jika kosong recyclerview di hilangkan dan di munculkan info
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(View.GONE);
@@ -91,6 +94,7 @@ public class searchTacit extends AppCompatActivity {
         Log.d("search explicit","string filter" + s);
         ArrayList<tacitModelSearch> filteredList = new ArrayList<>();
         for (tacitModelSearch item : tacitModelSearches){
+            //jika ada vari item.getTitle di string pencarian
             if (item.getTitle().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredList.add(item);
@@ -107,6 +111,7 @@ public class searchTacit extends AppCompatActivity {
         }
     }
 
+    //mengambil data tacit untuk pencarian dengan menggunakan model tacitModelSearches
     private void getDataTacit() {
         String url = getString(R.string.url)+"/jamu/api/tacit/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

@@ -99,6 +99,7 @@ public class chooseCompound extends Fragment {
                 return false;
             }
         });
+        //filter data senyawa untuk memudahkan prediksi
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -123,6 +124,7 @@ public class chooseCompound extends Fragment {
                 sb = new StringBuffer();
                 for (compoundPredictModel h : adapter.checkedCompound)
                 {
+                    //memasukkan semua data yang telah di centang ke arraylist id compound
                     idCompound.add(
                             new compoundPredictModel(
                                     h.getIdData(),
@@ -132,6 +134,7 @@ public class chooseCompound extends Fragment {
                     );
 
                 }
+                //kalau jumlah yang di seleksi lebih dari 0
                 if (adapter.checkedCompound.size()>0){
                     steppersPredictionCompound.goToStepMethod();
                     chooseMethodCompound step2Fragment = new chooseMethodCompound();
@@ -153,7 +156,7 @@ public class chooseCompound extends Fragment {
 
         return view;
     }
-
+    //deklarasi recyclerview
     private void startRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -161,10 +164,12 @@ public class chooseCompound extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    //filter data senyawa
     private void filter(String s) {
         ArrayList<compoundPredictModel> filteredlist =  new ArrayList<>();
         for (compoundPredictModel item : compoundPredictModels)
         {
+            //jika string di search sama dengan data di database
             if(item.getNameCompound().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredlist.add(item);
@@ -173,7 +178,7 @@ public class chooseCompound extends Fragment {
         }
         adapter.filterlist(filteredlist);
     }
-
+    //mengambil data senyawa
     private void getDataCompound() {
         String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

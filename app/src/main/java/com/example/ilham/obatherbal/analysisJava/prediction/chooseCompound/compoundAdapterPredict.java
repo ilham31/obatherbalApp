@@ -24,12 +24,12 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
     List<compoundPredictModel> compoundModelList;
     List<compoundPredictModel> checkedCompound = new ArrayList<>();
     private int checked=0;
-
+    //konstruktor untuk adapter
     public compoundAdapterPredict(Context mCtx, List<compoundPredictModel> compoundModelList) {
         this.mCtx = mCtx;
         this.compoundModelList = compoundModelList;
     }
-
+    //deklarasi viewholder untuk recyclerview
     @NonNull
     @Override
     public compoundPredictViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -39,16 +39,20 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
         compoundPredictViewHolder holder = new compoundPredictViewHolder(v);
         return holder;
     }
-
+    //deklarasi isi untuk viewholder
     @Override
     public void onBindViewHolder(@NonNull final compoundPredictViewHolder compoundPredictViewHolder, int i) {
         final compoundPredictModel detailCompound = compoundModelList.get(i);
         compoundPredictViewHolder.name.setText(detailCompound.getNameCompound());
+        //semua checkbox di set false
         compoundPredictViewHolder.checkBox.setChecked(false);
+        //kalau arraylist terdapat isi
         if (checkedCompound.size() > 0)
         {
+            //menmerikasi array list dengan model JSON
             for (compoundPredictModel h : checkedCompound)
             {
+                //jika id array list ada yang sama dengan data yang diambil dari server maka checkbox di set true
                 Log.d("adapter","id = "+h.getIdCompound());
                 if(h.getIdData().contains(detailCompound.getIdData())){
                     compoundPredictViewHolder.checkBox.setChecked(true);
@@ -60,6 +64,7 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
             @Override
             public void onItemClick(View v, int pos) {
                 CheckBox checkBox = (CheckBox) v;
+                //kalau checkbox sudah di ceklis sebanyak 10
                 if(checkBox.isChecked()&&checked==10)
                 {
                     compoundPredictViewHolder.checkBox.setChecked(false);
@@ -67,6 +72,7 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
                 }
                 else
                 {
+                    //jika tidak dan belum di centang
                     if (checkBox.isChecked())
                     {
                         checkedCompound.add(compoundModelList.get(pos));
@@ -87,11 +93,13 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
 
     }
 
+    //untuk menghitung jumlah array list
     @Override
     public int getItemCount() {
         return compoundModelList.size();
     }
 
+    //filter recyclerview
     public void filterlist (ArrayList<compoundPredictModel> filteredList)
     {
         compoundModelList =filteredList;
@@ -99,6 +107,7 @@ public class compoundAdapterPredict extends RecyclerView.Adapter<compoundAdapter
 
     }
 
+    //deklarasi komponen komponen untuk recyclerview
     class compoundPredictViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name;
         CheckBox checkBox;

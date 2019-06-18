@@ -64,6 +64,7 @@ public class crude extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //dekalrasi variabel
         rootView = inflater.inflate(R.layout.fragment_crude, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_crude);
         crudeModels = new ArrayList<>();
@@ -85,10 +86,9 @@ public class crude extends Fragment {
 
         return rootView;
     }
-
+    //mengambil data pada halaman selanjutnya
     private void loadMoreDataCrude(int page, String link) {
         String url = link+"/jamu/api/plant/pages/"+page;
-//        String url = "http://ci.apps.cs.ipb.ac.id/jamu/api/plant/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -147,7 +147,7 @@ public class crude extends Fragment {
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
-
+    //deklarasi recyclerview
     private void startRecyclerviewCrude(final String link) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -178,7 +178,7 @@ public class crude extends Fragment {
             }
         });
     }
-
+    //mencari crud emenggunakan categories "crude"
     private void searchCrude() {
         Bundle arguments = new Bundle();
         arguments.putString( "categories" , "crude");
@@ -191,8 +191,8 @@ public class crude extends Fragment {
         ft.commit();
     }
 
+    //mengambil 10 data awal crude
     private void get10DataCrude(String link) {
-
         String url = link+"/jamu/api/plant/pages/";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

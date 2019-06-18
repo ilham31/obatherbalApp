@@ -73,7 +73,7 @@ public class tabPlantComparison1 extends Fragment {
 
         return view;
     }
-
+    // mencari id crude dari id herbal (id jamu)
     private void getIdCrude(String idHerbal) {
         Log.d("tab 1 comparison","id crude = " + idHerbal);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
@@ -95,6 +95,7 @@ public class tabPlantComparison1 extends Fragment {
                                 idCrudeResponse.add(idCrude);
 //                                getDetailCrude(idCrude);
                             }
+                            //cek untuk menghindari duplikasi idcrude
                             checkSameItem(idCrudeResponse);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -122,7 +123,7 @@ public class tabPlantComparison1 extends Fragment {
             getDetailCrude(idCrudeResponse.get(counter));
         }
     }
-
+    //mencari detail crude
     private void getDetailCrude(String idCrude) {
         Log.d("tab 1 comparison","id crude masuk sini" +idCrude);
         String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+idCrude;

@@ -74,11 +74,10 @@ public class herbal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        //deklarasi komponen
             rootView = inflater.inflate(R.layout.fragment_herbal, container, false);
             herbalModels = new ArrayList<>();
             String link = getString(R.string.url);
-//        getActivity().getActionBar().setDisplayShowTitleEnabled(false);
             searchHerbal = (EditText) rootView.findViewById(R.id.search_herbal);
             mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_herbal);
             loadHerb = (ProgressBar) rootView.findViewById(R.id.loadHerb);
@@ -90,8 +89,7 @@ public class herbal extends Fragment {
 
     }
 
-
-
+    //mencari jamu dengan menggunakan idCategories berdasarkan sortData
     private void searchHerb(String idCategories) {
         Bundle arguments = new Bundle();
         arguments.putString( "categories" , idCategories);
@@ -106,7 +104,7 @@ public class herbal extends Fragment {
     }
 
 
-
+    //deklarasi recyclerview
     private void StartRecyclerViewJamu(final View rootView, final String link) {
 
         mRecyclerView.setHasFixedSize(true);
@@ -145,9 +143,7 @@ public class herbal extends Fragment {
 
     }
 
-
-    //AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ
-    //https://www.googleapis.com/customsearch/v1?key=AIzaSyDx99g6q4WjOWoiNb06l0I7mhVs8zAc-VQ&cx=008499053186876385122:rpuxtfhy9bq&q=jamu gadung klingsir
+    //mengambil 10 data awal jamu
     private void get10DataJamu(String link) {
         String url = link+"/jamu/api/herbsmed/pages";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -210,7 +206,7 @@ public class herbal extends Fragment {
                });
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+    //mengambil data selanjutnya pada jamu
 private void loadMoreJamu(final int page, String link) {
         String url = link+"/jamu/api/herbsmed/pages/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

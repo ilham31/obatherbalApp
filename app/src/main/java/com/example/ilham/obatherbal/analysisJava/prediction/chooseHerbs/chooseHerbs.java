@@ -99,6 +99,7 @@ public class chooseHerbs extends Fragment {
                 return false;
             }
         });
+        //filter data prediksi berdasarkan kata-kata di kolom pencarian
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,6 +126,7 @@ public class chooseHerbs extends Fragment {
             public void onClick(View v) {
 //
                     sb = new StringBuffer();
+                    //mencari data yang telah di centang dan selanjutnya dimasukkan ke array list idplant
                     for (herbsModel h : adapter.checkedHerbs)
                     {
                         idPlant.add(
@@ -136,7 +138,7 @@ public class chooseHerbs extends Fragment {
                         );
 
                     }
-
+                    //kalau size lebih dari 0
                     if (adapter.checkedHerbs.size()>0)
                     {
                         steppersPrediction.goToStepMethod();
@@ -161,6 +163,7 @@ public class chooseHerbs extends Fragment {
         return view;
     }
 
+    //deklarasi recyclerview
     private void startRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -170,11 +173,12 @@ public class chooseHerbs extends Fragment {
     }
 
 
-
+    //filter data prediksi berdasarkan kata-kata dari kolom pencarian
     private void filter(String s) {
         ArrayList<herbsModel> filteredlist =  new ArrayList<>();
         for (herbsModel item : herbsModels)
         {
+            //jika kata-kata di kolom pencarian sama dengan data dari server recyclerview diubah
             if(item.getNameHerbs().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredlist.add(item);
@@ -184,7 +188,7 @@ public class chooseHerbs extends Fragment {
         adapter.filterlist(filteredlist);
     }
 
-
+    //mengambil data tanaman
     private void getDataHerbs() {
         String url = getString(R.string.url)+"/jamu/api/plant/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

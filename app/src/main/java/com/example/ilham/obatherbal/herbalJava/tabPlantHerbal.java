@@ -57,6 +57,7 @@ public class tabPlantHerbal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_tab_plant_herbal, container, false);
+        //deklarasi komponen
         crudeModels = new ArrayList<>();
         idCrudeResponse = new ArrayList<>();
         recyclerView = (RecyclerView) rootview.findViewById(R.id.recyclerview_plant_in_herbal);
@@ -72,7 +73,7 @@ public class tabPlantHerbal extends Fragment {
         getIdCrude(idHerbal);
         return rootview;
     }
-
+    // mencari id crude
     private void getIdCrude(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
@@ -92,6 +93,7 @@ public class tabPlantHerbal extends Fragment {
                                 idCrudeResponse.add(idCrude);
 //                                getDetailCrude(idCrude);
                             }
+                            //cek untuk menghindari duplikasi id
                             checkSameItem(idCrudeResponse);
 
                         } catch (JSONException e) {
@@ -135,7 +137,7 @@ public class tabPlantHerbal extends Fragment {
             getDetailCrude(idCrudeResponse.get(counter));
         }
     }
-
+    //mencari tanaman dari crude dengan menggunakan idcrude yang sudah di cek duplikasinya lalu mengambil refplant
     private void getDetailCrude(String idCrude) {
         Log.d("getCrude","masuk sini" +idCrude);
         String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+idCrude;

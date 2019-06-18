@@ -4,7 +4,9 @@ package com.example.ilham.obatherbal.analysisJava.prediction.confirmPage;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +47,10 @@ public class confirmPrediction extends Fragment {
     ArrayList<String>plantName;
     Button submitPredictPlant;
     String Categories;
+    ProgressBar predictProgress;
+    TextView progressNotif,phasePredict;
+    Handler handler = new Handler();
+    private int progressStatus = 0;
 
     public confirmPrediction() {
         // Required empty public constructor
@@ -52,25 +58,18 @@ public class confirmPrediction extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_result_prediction, container, false);
         idPlant= (ArrayList<herbsModel>)getArguments().getSerializable("idPlant");
         plantName = new ArrayList<String>();
-
         final String idCategories= getArguments().getString("idCategories");
         Categories= getArguments().getString("categories");
         method = (TextView) view.findViewById(R.id.chosenMethod);
         method.setText("Method :"+Categories);
         submitPredictPlant = (Button) view.findViewById(R.id.submitPredictPlant);
         recyclerView = (RecyclerView) view.findViewById(R.id.plantPredict);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        builder.setCancelable(false); // if you want user to wait for some process to finish,
-        View v = inflater.inflate(R.layout.layout_loading_dialog, null);
-        builder.setView(v);
-        final AlertDialog dialog = builder.create();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -86,7 +85,55 @@ public class confirmPrediction extends Fragment {
                         Log.d("confirm","id plant = "+h.getIdPlant()+" name = "+h.getNameHerbs());
                         plantName.add(h.getNameHerbs());
                     }
-                    dialog.show(); // to show this dialog
+                    AlertDialog.Builder myDialogBuilder = new AlertDialog.Builder(getActivity());
+                    View ProgressView = getLayoutInflater().inflate(R.layout.layout_loading_dialog,
+                            null);
+                    predictProgress=(ProgressBar)ProgressView.findViewById(R.id.progressbarPredict);
+                    progressNotif = (TextView) ProgressView.findViewById(R.id.progressNotif);
+                    phasePredict = (TextView) ProgressView.findViewById(R.id.phasePredict);
+
+                    myDialogBuilder.setView(ProgressView);
+                    myDialogBuilder.create().show();
+
+                    new Thread(new Runnable() {
+                        public void run() {
+                            while (progressStatus < 100) {
+                                progressStatus += 1;
+                                // Update the progress bar and display the
+                                //current value in the text view
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        predictProgress.setProgress(progressStatus);
+                                        progressNotif.setText(progressStatus+"/"+predictProgress.getMax());
+                                        if (progressStatus <= 25)
+                                        {
+                                            phasePredict.setText("Phase :"+"Phase 1");
+                                        }
+                                        else if (progressStatus <= 50){
+                                            phasePredict.setText("Phase :"+"Phase 2");
+                                        }
+                                        else if (progressStatus <= 75){
+                                            phasePredict.setText("Phase :"+"Phase 3");
+                                        }
+                                        else{
+                                            phasePredict.setText("Phase :"+"Phase 4");
+                                        }
+
+
+                                    }
+                                });
+                                try {
+                                    // Sleep for 200 milliseconds.
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }).start();
+
+
+//                    dialog.dismiss();// to show this dialog
 //                    postData(dialog);
 //                    Intent i = new Intent(getActivity(),resultPredictionPlant.class);
 //                    Bundle args = new Bundle();

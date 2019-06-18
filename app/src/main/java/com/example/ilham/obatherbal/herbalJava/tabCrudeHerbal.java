@@ -56,6 +56,7 @@ public class tabCrudeHerbal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //deklarasi komponen
         rootview = inflater.inflate(R.layout.fragment_tab_crude_herbal, container, false);
         detailCrudeModels = new ArrayList<>();
         idCrudeResponse = new ArrayList<>();
@@ -72,7 +73,7 @@ public class tabCrudeHerbal extends Fragment {
         getIdCrude(idHerbal);
         return rootview;
     }
-
+    //mendapatkan id crude dari jamu
     private void getIdCrude(String idHerbal) {
         Log.d("disease","Call data detail and disease" + idHerbal);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
@@ -125,7 +126,7 @@ public class tabCrudeHerbal extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+    //cek duplikasi id crude
     private void checkSameItem(List<String> idCrudeResponse) {
         HashSet<String> hashet = new HashSet<String>();
         hashet.addAll(idCrudeResponse);
@@ -135,7 +136,7 @@ public class tabCrudeHerbal extends Fragment {
             getDetailCrude(idCrudeResponse.get(counter));
         }
     }
-
+    //mendapatkan detail info crude
     private void getDetailCrude(String idCrude) {
         Log.d("getCrude","masuk sini" +idCrude);
         String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+idCrude;

@@ -43,6 +43,7 @@ public class explicit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explicit);
+        //deklarasi komponen
         explicitModels = new ArrayList<>();
         searchExplicit = (EditText) findViewById(R.id.search_explicit);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_explicit);
@@ -64,12 +65,14 @@ public class explicit extends AppCompatActivity {
     }
 
 
-
+    //deklarasi recyclerview
     private void startRecyclerviewExplicit() {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new explicitAdapter(mRecyclerView,this,explicitModels);
         mRecyclerView.setAdapter(mAdapter);
+
+        //loadmore recyclerview
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -89,7 +92,7 @@ public class explicit extends AppCompatActivity {
             }
         });
     }
-
+    //mengambil data selanjutnya di halaman berikutnya
     private void loadMoreDataExplicit(int page) {
         String url = getString(R.string.url)+"/jamu/api/explicit/"+page;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -139,7 +142,7 @@ public class explicit extends AppCompatActivity {
 
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
-
+    //mendapatkan 10 data awal
     private void get10DataExplicit() {
         String url = getString(R.string.url)+"/jamu/api/explicit";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

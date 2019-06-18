@@ -58,10 +58,13 @@ public class tabComparisonBoth extends Fragment {
         idCrudeResponse1 = new ArrayList<>();
         idCrudeResponse2 = new ArrayList<>();
 
+        //ambil id crude dari jamu 1 dan jamu 2
         Bundle bundle = this.getArguments();
         idHerbal1 = bundle.getString("idjamu1");
         idHerbal2 = bundle.getString("idjamu2");
+
         Log.d("intent","masuk sini = " +idHerbal1 +idHerbal2);
+
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview_plant_comparison_jamu_both);
         nothingBoth = (TextView) view.findViewById(R.id.nothingBoth);
         loading = (ProgressBar) view.findViewById(R.id.loadtabComparisonJamuBoth);
@@ -80,25 +83,28 @@ public class tabComparisonBoth extends Fragment {
 
         return view;
     }
-
+    // cek persamaan kedua id crude
     private void checkSimilarity(List<String> idCrudeResponse1, List<String> idCrudeResponse2) {
         Log.d("tabBoth","masuk sini");
         List<String> common = new ArrayList<String>(idCrudeResponse1);
         common.retainAll(idCrudeResponse2);
         Log.d("tabBoth","size common = "+common.size());
+        //kalau tidak sama
         if (common.size() == 0)
         {
             nothingBoth.setVisibility(View.VISIBLE);
             loading.setVisibility(View.GONE);
         }
+        //kalau sama
         else
         {
             for (int counter = 0; counter < common.size(); counter++) {
+                //panggil method getdetailcrude dengan parameter id yg sama untuk ditampilkan
                 getDetailCrude(common.get(counter));
             }
         }
     }
-
+    // mencari crude yang samadi kedua jamu
     private void getDetailCrude(String s) {
         Log.d("tab 1 comparison","id crude masuk sini" +s);
         String url = getString(R.string.url)+"/jamu/api/crudedrug/get/"+s;
@@ -111,6 +117,7 @@ public class tabComparisonBoth extends Fragment {
                         Log.d("getCrude", "Onresponsegetdetailcrude" + response.toString());
                         try {
                             JSONObject crudeDrug = response.getJSONObject("data");
+                            //disimpan ke model detailCrudeModels
                             detailCrudeModels.add(
                                     new detailCrudeModel(
                                             crudeDrug.getString("sname"),
@@ -139,7 +146,7 @@ public class tabComparisonBoth extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+    //mengambil id crude di jamu 2
     private void getDataJamuCrude2(String idHerbal2) {
         Log.d("getdatajamu 2","masuk sini = " + idHerbal2);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal2;
@@ -159,8 +166,9 @@ public class tabComparisonBoth extends Fragment {
                                 idCrudeResponse2.add(idCrude);
 //                                getDetailCrude(idCrude);
                             }
+                            //cek id crude di jamu 2 untuk menghindari duplikasi
                             checkSameItem2(idCrudeResponse2);
-                            checkSimilarity(idCrudeResponse1,idCrudeResponse2);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -183,8 +191,10 @@ public class tabComparisonBoth extends Fragment {
         hashet2.addAll(idCrudeResponse2);
         idCrudeResponse2.clear();
         idCrudeResponse2.addAll(hashet2);
+        //cek persamaan crude dari kedua jamu
+        checkSimilarity(idCrudeResponse1,idCrudeResponse2);
     }
-
+    //mencari crude dari jamu 1
     private void getDataJamuCrude1(String idHerbal1) {
         Log.d("getDatajamu 1","masuk sini = " + idHerbal1);
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal1;
@@ -204,7 +214,9 @@ public class tabComparisonBoth extends Fragment {
                                 idCrudeResponse1.add(idCrude);
 //                                getDetailCrude(idCrude);
                             }
+                            //mengecek apakah id crude ada yang sama di method checksameitem
                             checkSameItem1(idCrudeResponse1);
+                             //panggil method untuk melihat id crude di jamu 2
                             getDataJamuCrude2(idHerbal2);
                         } catch (JSONException e) {
                             e.printStackTrace();

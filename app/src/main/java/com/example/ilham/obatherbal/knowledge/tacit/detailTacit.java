@@ -48,7 +48,7 @@ public class detailTacit extends AppCompatActivity {
         getDataTacit(idTacit);
 
     }
-
+    //mengambil data tacit
     private void getDataTacit(String idTacit) {
         String url = getString(R.string.url)+"/jamu/api/tacit/get/"+idTacit;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

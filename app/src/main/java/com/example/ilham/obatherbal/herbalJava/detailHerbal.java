@@ -45,6 +45,8 @@ public class detailHerbal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_herbal);
         String idHerbal = getIntent().getStringExtra("idHerbal");
+
+        //deklarasi komponen
         tabLayout = (TabLayout) findViewById(R.id.tablayoutdetailJamu);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbaridDetailJamu);
         viewPager = (ViewPager) findViewById(R.id.viewPagerDetailJamu);
@@ -60,20 +62,20 @@ public class detailHerbal extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("idHerbal",idHerbal);
 
+        //menyimpan bundle berisi idherbal pada tiap fragment
         diseaseHerbal.setArguments(bundle);
         crudeHerbal.setArguments(bundle);
         plantHerbal.setArguments(bundle);
 
+        //memasukkan fragment ke adapter
         adapter.addFragment(diseaseHerbal,"Detail");
         adapter.addFragment(plantHerbal,"Plant");
         adapter.addFragment(crudeHerbal,"Crude");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-//        reference = (TextView) findViewById(R.id.reference);
-//        reference.setText(urlRef);
-//        Linkify.addLinks(reference,Linkify.WEB_URLS);
     }
 
+    //mengambil gambar jamu
     private void getPicHerbal(String idHerbal) {
         String url = getString(R.string.url)+"/jamu/api/herbsmed/get/"+idHerbal;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

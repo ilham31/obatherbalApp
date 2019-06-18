@@ -60,10 +60,12 @@ public class knowldege extends Fragment {
                 builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //pindah ke halaman tacit
                         if (selection.equals("Tacit")){
                             Intent intent = new Intent(getActivity(), tacit.class);
                             startActivity(intent);
                         }
+                        //halaman explicit
                         else{
                             Intent intent = new Intent(getActivity(), explicit.class);
                             startActivity(intent);

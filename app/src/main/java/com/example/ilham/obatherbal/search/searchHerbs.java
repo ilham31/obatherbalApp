@@ -87,6 +87,7 @@ public class searchHerbs extends Fragment {
         Bundle arguments = getArguments();
         String idCategories = arguments.getString("categories");
         Log.d(TAG,"kategori yang dipilih :"+idCategories );
+        //deklarasi komponen
         rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
         notfoundsearch = (TextView) rootView.findViewById(R.id.startSearch);
         notfoundfilter =(TextView)rootView.findViewById(R.id.notfoundfilter);
@@ -95,6 +96,7 @@ public class searchHerbs extends Fragment {
         notfoundfilter.setVisibility(GONE);
         notfoundsearch.setVisibility(View.VISIBLE);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
+        //mencocokkan kategori pencarian berdasarkan idcategories
         switch (idCategories)
         {
             case "jamu":
@@ -103,8 +105,6 @@ public class searchHerbs extends Fragment {
                 getDataJamu();
                 searhJamubyName();
                 startRecyclerViewJamubyName();
-//                filterSearchTypeHerbal();
-//                categoriesSearch.setVisibility(View.VISIBLE);
                 break;
             case "kampo":
                 searchHerbs.setHint("Search Kampo");
@@ -133,6 +133,7 @@ public class searchHerbs extends Fragment {
 
 
     private void startRecyclerViewCompound() {
+        //deklarasi komponen recyclerview untuk senyawa
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -143,6 +144,7 @@ public class searchHerbs extends Fragment {
     }
 
     private void startRecyclerViewPlant() {
+        //deklarasi komponen recyclerview untuk tanaman
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_search);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -167,13 +169,15 @@ public class searchHerbs extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //cek recyclerview
                 if(recyclerView.getVisibility()!= View.VISIBLE)
                 {
                     recyclerView.setVisibility(View.VISIBLE);
                     notfoundsearch.setVisibility(GONE);
                 }
+                //panggil method filterCompound
                 filterCompound(s.toString());
+                //kalau text yang di search bar kosong, recyclerview dihilangkan,info di tampilkan
                 if(s.toString().length() == 0)
                 {
                     recyclerView.setVisibility(GONE);
@@ -189,12 +193,14 @@ public class searchHerbs extends Fragment {
         Log.d(TAG,"string filter" + s);
         ArrayList<compoundModel> filteredList = new ArrayList<>();
         for (compoundModel item : compoundModelList){
+            //kalau string di search bar sama dengan data.getNama di model -> dimasukkan ke array filteredlist
             if (item.getNama().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredList.add(item);
             }
         }
         adapterSearchCompound.filterlist(filteredList);
+        //cek hasil pencarian ada atau tidak
         if (filteredList.size() == 0)
         {
             notfoundfilter.setVisibility(View.VISIBLE);

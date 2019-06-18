@@ -56,6 +56,7 @@ public class tabDetailPlant extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //deklarasi komponen
         rootview = inflater.inflate(R.layout.fragment_tab_detail_plant, container, false);
         RequestQueue queue = MySingleton.getInstance(this.getActivity()).getRequestQueue();
         Bundle bundle = this.getArguments();
@@ -70,7 +71,7 @@ public class tabDetailPlant extends Fragment {
         getDataPlant(idplant);
         return rootview;
     }
-
+    //mengambil data tanaman
     private void getDataPlant(String idplant) {
         String url = getString(R.string.url)+"/jamu/api/plant/get/"+idplant;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -116,7 +117,7 @@ public class tabDetailPlant extends Fragment {
 
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
-
+    //mengambil detail data dari wikipedia
     private void getDescribeWiki(final String plantName) {
         String url = null;
         try {
@@ -136,12 +137,14 @@ public class tabDetailPlant extends Fragment {
                             Iterator keys = pages.keys();
                             String key = (String)keys.next();
                             Log.d("keyStringIterator","key ="+key);
+                            //jika data tidak ditemukan, menampilkan info
                             if (key.equals("-1"))
                             {
                                 Log.d("keyStringIterator","key ="+"masuk log");
                                 notFound.setVisibility(View.VISIBLE);
                                 refWiki.setText(View.VISIBLE);
                             }
+                            //jika data ditemukan
                             else
                             {
                                 JSONObject value = pages.getJSONObject(key);
