@@ -6,6 +6,7 @@ public class methodModel {
     public methodModel(String idCategories, String categories) {
         this.idCategories = idCategories;
         this.categories = categories;
+
     }
 
     public String getIdCategories() {

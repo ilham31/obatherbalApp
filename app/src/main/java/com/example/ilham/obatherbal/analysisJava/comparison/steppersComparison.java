@@ -272,10 +272,8 @@ public class steppersComparison extends AppCompatActivity {
             backToStepMethodComparison();
         } else if (position == 2) {
             Intent main = new Intent(this, MainActivity.class);
-//                ethnic.putExtra("daerah","Sumatra utara");
             startActivity(main);
             finish();
-//            backToStepConfirm();
         }
 
         super.onBackPressed();

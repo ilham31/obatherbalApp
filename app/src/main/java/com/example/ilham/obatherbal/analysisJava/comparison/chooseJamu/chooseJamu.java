@@ -122,11 +122,6 @@ public class chooseJamu extends Fragment implements Serializable{
                             jamu1.setError("invalid jamu");
                         }
                     }
-
-//                    if (idJamu1==null)
-//                    {
-//                        jamu1.setError("invalid jamu");
-//                    }
                 }
             }
         });
@@ -167,11 +162,6 @@ public class chooseJamu extends Fragment implements Serializable{
                             jamu2.setError("invalid jamu");
                         }
                     }
-
-//                    if (idJamu2==null)
-//                    {
-//                        jamu2.setError("invalid jamu");
-//                    }
                 }
             }
         });

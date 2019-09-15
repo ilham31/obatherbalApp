@@ -47,13 +47,7 @@ public class adapterSearchCompound extends RecyclerView.Adapter<adapterSearchCom
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mCtx, detailCompound.class);
-                Bundle b = new Bundle();
-                b.putString("compoundName",detailCompound.getNama());
-                b.putString("partOfPlantCompound",detailCompound.getPartOfplant());
-                b.putString("plantSpeciesCompound",detailCompound.getPlantspecies());
-                b.putString("molecularFormula",detailCompound.getMolecular_formula());
-                b.putString("refCompound",detailCompound.getRef());
-                i.putExtras(b);
+                i.putExtra("idCompound",detailCompound.getId());
                 mCtx.startActivity(i);
             }
         });

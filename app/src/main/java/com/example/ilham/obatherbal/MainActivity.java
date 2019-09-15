@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private com.example.ilham.obatherbal.herbalJava.herbal herbal;
     private com.example.ilham.obatherbal.crudeJava.crude crude;
-    private knowldege database;
+    private knowldege knowldege;
     private com.example.ilham.obatherbal.analysisJava.analysis analysis;
     private com.example.ilham.obatherbal.compoundJava.compound compound;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             frameLayout=(FrameLayout) findViewById(R.id.main_frame);
             herbal= new herbal();
             crude = new crude();
-            database=new knowldege();
+            knowldege=new knowldege();
             analysis=new analysis();
             compound=new compound();
             setFragment(herbal);
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                             setFragment(crude);
                             return true;
 
-                        case R.id.nav_database:;
-                            setFragment(database);
+                        case R.id.nav_knowledge:;
+                            setFragment(knowldege);
                             return true;
 
                         case R.id.nav_analysis:

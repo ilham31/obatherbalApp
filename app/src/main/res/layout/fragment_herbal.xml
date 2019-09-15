@@ -6,14 +6,10 @@
     android:id="@+id/frameHerbal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".herbalJava.herbal">
-
-
-
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarHerbs"
@@ -45,7 +41,6 @@
                 android:focusableInTouchMode="false"
                 />
         </android.support.v7.widget.Toolbar>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,9 +69,6 @@
                 android:textAlignment="viewEnd"
                 android:gravity="end" />
         </LinearLayout>
-
-
-
         <android.support.v7.widget.RecyclerView
             android:layout_below="@id/categories"
             android:id="@+id/recyclerview_herbal"
@@ -90,7 +82,6 @@
             android:scrollbars="vertical"
             >
         </android.support.v7.widget.RecyclerView>
-
         <ProgressBar
             android:id="@+id/loadHerb"
             android:layout_width="wrap_content"
@@ -98,7 +89,5 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             />
-
     </RelativeLayout>
-
 </FrameLayout>

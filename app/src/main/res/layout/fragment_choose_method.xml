@@ -28,6 +28,16 @@
 
         </Spinner>
 
+        <Switch
+            android:id="@+id/optimization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginTop="100dp"
+            android:text="Optimization     "
+            android:checked="false"
+            />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

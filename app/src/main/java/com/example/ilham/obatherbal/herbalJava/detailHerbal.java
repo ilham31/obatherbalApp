@@ -90,12 +90,9 @@ public class detailHerbal extends AppCompatActivity {
                                     .load(getString(R.string.url)+"/jamu/api/herbsmed/image/"+herbsmed.getString("img"))
                                     .apply(new RequestOptions().error(R.drawable.placehold).diskCacheStrategy(DiskCacheStrategy.ALL))
                                     .into(gambarDetailHerbal);
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }, new Response.ErrorListener() {
 
@@ -120,7 +117,6 @@ public class detailHerbal extends AppCompatActivity {
 //                                Toast.LENGTH_LONG).show();
                     }
                 });
-
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 

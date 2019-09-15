@@ -91,8 +91,6 @@ public class searchHerbs extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_search_herbs, parent, false);
         notfoundsearch = (TextView) rootView.findViewById(R.id.startSearch);
         notfoundfilter =(TextView)rootView.findViewById(R.id.notfoundfilter);
-        categoriesSearch = (LinearLayout) rootView.findViewById(R.id.categoriesSearchHerbal);
-        categoriesSearch.setVisibility(GONE);
         notfoundfilter.setVisibility(GONE);
         notfoundsearch.setVisibility(View.VISIBLE);
         searchHerbs = (EditText) rootView.findViewById(R.id.search_herbs);
@@ -213,10 +211,9 @@ public class searchHerbs extends Fragment {
     }
 
     private void getDataCompound() {
-        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
+        String url = getString(R.string.url)+"/jamu/api/compound/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Onresponse" + response.toString());
@@ -227,12 +224,8 @@ public class searchHerbs extends Fragment {
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 compoundModelList.add(
                                         new compoundModel(
-                                                "0",
-                                                jsonObject.getString("Compounds"),
-                                                jsonObject.getString("Part of Plant"),
-                                                jsonObject.getString("Plant Species"),
-                                                jsonObject.getString("Molecular Formula"),
-                                                jsonObject.getString("References")
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("cname")
                                         )
                                 );
                             }
@@ -247,6 +240,7 @@ public class searchHerbs extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
                         String message = null;
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";
@@ -569,15 +563,10 @@ public class searchHerbs extends Fragment {
         searchHerbs.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 if(recyclerView.getVisibility()!= View.VISIBLE)

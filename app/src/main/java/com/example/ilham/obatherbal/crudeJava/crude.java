@@ -81,9 +81,6 @@ public class crude extends Fragment {
         });
         get10DataCrude(link);
         startRecyclerviewCrude(link);
-
-
-
         return rootView;
     }
     //mengambil data pada halaman selanjutnya

@@ -235,7 +235,6 @@ private void loadMoreJamu(final int page, String link) {
                                     );
                                     mAdapter.notifyItemInserted(herbalModels.size());
                                 }
-
                             }
                             mAdapter.setLoaded();
                         } catch (JSONException e) {

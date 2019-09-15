@@ -62,6 +62,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="115" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -71,7 +73,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundImage" value="D:\HerbsMed4_512.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Ilham\Desktop\logo.jpg" />
                                     </map>
                                   </option>
                                 </PersistentState>

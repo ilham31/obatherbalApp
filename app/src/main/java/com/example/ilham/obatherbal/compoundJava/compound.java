@@ -2,6 +2,7 @@ package com.example.ilham.obatherbal.compoundJava;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
+import com.example.ilham.obatherbal.OnLoadMoreListener;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.crudeJava.crudeModel;
 import com.example.ilham.obatherbal.search.searchHerbs;
@@ -52,6 +54,9 @@ public class compound extends Fragment {
     EditText search;
     ProgressBar loadCompound;
     private static final String TAG = "compound";
+    View rootView;
+    private LinearLayoutManager mLayoutManager;
+    private Handler handler;
 
     public compound() {
         // Required empty public constructor
@@ -62,10 +67,11 @@ public class compound extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_compound, container, false);
+        rootView = inflater.inflate(R.layout.fragment_compound, container, false);
         compoundModels = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getActivity().getApplicationContext()).getRequestQueue();
-        getData();
+        String link = getString(R.string.url);
+        getData(link);
         search = (EditText) rootView.findViewById(R.id.search_compound);
         loadCompound = (ProgressBar) rootView.findViewById(R.id.loadCompound);
         loadCompound.setVisibility(View.VISIBLE);
@@ -75,13 +81,95 @@ public class compound extends Fragment {
                 searchCompound();
             }
         });
+        setupRecyclerView(link);
+        return rootView;
+    }
+
+    private void setupRecyclerView(final String link) {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_compound);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new compoundAdapter(getActivity(),compoundModels);
+        adapter = new compoundAdapter(recyclerView,getActivity(),compoundModels);
         recyclerView.setAdapter(adapter);
-        return rootView;
+        adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                //add null , so the adapter will check view_type and show progress bar at bottom
+                compoundModels.add(null);
+                adapter.notifyItemInserted(compoundModels.size() - 1);
+                handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //   remove progress item
+                        compoundModels.remove(compoundModels.size() - 1);
+                        adapter.notifyItemRemoved(compoundModels.size());
+                        //add items one by one
+                        int page = (compoundModels.size()/10)+1;
+                        Log.d(TAG, "pagecrude" + page +"size = " +compoundModels.size());
+                        loadMoreDataCompound(page,link);
+
+                    }
+                }, 2000);
+
+            }
+        });
+    }
+
+    private void loadMoreDataCompound(int page, String link) {
+        String url = link+"/jamu/api/compound/pages/"+page;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        loadCompound.setVisibility(View.GONE);
+                        Log.d(TAG, "Onresponse" + response.toString());
+                        try {
+                            JSONArray data = response.getJSONArray("data");
+                            for (int i = 0; i < data.length() ; i++)
+                            {
+                                JSONObject jsonObject = data.getJSONObject(i);
+                                compoundModels.add(
+                                        new compoundModel(
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("cname")
+                                        )
+                                );
+                                adapter.notifyItemInserted(compoundModels.size());
+                            }
+                            adapter.setLoaded();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d(TAG, "Onerror" + error.toString());
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(getActivity(), message,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void searchCompound() {
@@ -97,8 +185,8 @@ public class compound extends Fragment {
     }
 
 
-    private void getData() {
-        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
+    private void getData(String link) {
+        String url = link+"/jamu/api/compound/pages/1";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -113,14 +201,11 @@ public class compound extends Fragment {
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 compoundModels.add(
                                         new compoundModel(
-                                                "0",
-                                                jsonObject.getString("Compounds"),
-                                                jsonObject.getString("Part of Plant"),
-                                                jsonObject.getString("Plant Species"),
-                                                jsonObject.getString("Molecular Formula"),
-                                                jsonObject.getString("References")
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("cname")
                                                )
                                 );
+                                adapter.notifyDataSetChanged();
                             }
 
                         } catch (JSONException e) {
@@ -153,7 +238,6 @@ public class compound extends Fragment {
                     }
                 });
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
-
     }
 
 }

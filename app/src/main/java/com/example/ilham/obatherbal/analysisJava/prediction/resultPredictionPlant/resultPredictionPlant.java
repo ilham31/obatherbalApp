@@ -22,8 +22,8 @@ import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsMod
 import java.util.ArrayList;
 
 public class resultPredictionPlant extends AppCompatActivity  {
-    TextView result,textPlant;
-    String method;
+    TextView result,textPlant, diseaseDescTextView;
+    String method,diseaseDesc, disease;
     ImageView back,successPredict;
     RecyclerView recyclerView;
     ArrayList<String> idPlant;
@@ -35,9 +35,16 @@ public class resultPredictionPlant extends AppCompatActivity  {
         setContentView(R.layout.activity_result_prediction_plant);
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
-        result = (TextView)findViewById(R.id.predictResultPlant);
+        result = findViewById(R.id.predictResultPlant);
+        diseaseDescTextView = findViewById(R.id.diseaseDesctiptionCrude);
         method = args.getString("methodPredict");
         idPlant = (ArrayList<String>) args.getStringArrayList("plantName");
+//        args.putString("classDisease",classDisease);
+//        args.putString("descDisease",descDisease);
+//        args.putString("refDisease",refDisease);
+        disease = args.getString("disease");
+        diseaseDesc = args.getString("descDisease");
+
         back = (ImageView) findViewById(R.id.backpresspredictresult);
         successPredict = (ImageView) findViewById(R.id.successPredict);
         textPlant = (TextView)findViewById(R.id.texttext);
@@ -45,8 +52,8 @@ public class resultPredictionPlant extends AppCompatActivity  {
         {
             successPredict.setImageResource(R.drawable.predictplant);
             Log.d("result", "plantttt"+String.valueOf(idPlant));
-            result.setText("The plants that you choose can cure cough with 90% accuracy using method "+method);
-
+            result.setText("The plants that you choose can cure "+disease);
+            diseaseDescTextView.setText(diseaseDesc);
             recyclerView = (RecyclerView)findViewById(R.id.plantPredictResult);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

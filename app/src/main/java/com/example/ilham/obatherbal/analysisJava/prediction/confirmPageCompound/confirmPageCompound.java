@@ -4,6 +4,7 @@ package com.example.ilham.obatherbal.analysisJava.prediction.confirmPageCompound
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,10 @@ public class confirmPageCompound extends Fragment {
     private adapterConfirmCompound adapterConfirmCompound;
     Button submitCompound;
     ArrayList<String>compoundName;
+    ProgressBar predictProgress;
+    TextView progressNotif,phasePredict;
+    Handler handler = new Handler();
+    private int progressStatus = 0;
     public confirmPageCompound() {
         // Required empty public constructor
     }
@@ -69,13 +75,63 @@ public class confirmPageCompound extends Fragment {
                         Log.d("confirm","id plant = "+h.getIdCompound()+" name = "+h.getNameCompound());
                         compoundName.add(h.getNameCompound());
                     }
-                    Intent i = new Intent(getActivity(), resultPredictionCompound.class);
-                    Bundle args = new Bundle();
-                    args.putString("methodPredict",Categories);
-                    args.putStringArrayList("compoundName", compoundName);
-                    i.putExtra("bundle",args);
-                    startActivity(i);
-                    getActivity().finish();
+                    AlertDialog.Builder myDialogBuilder = new AlertDialog.Builder(getActivity());
+                    View ProgressView = getLayoutInflater().inflate(R.layout.layout_loading_dialog,
+                            null);
+                    predictProgress=(ProgressBar)ProgressView.findViewById(R.id.progressbarPredict);
+                    progressNotif = (TextView) ProgressView.findViewById(R.id.progressNotif);
+                    phasePredict = (TextView) ProgressView.findViewById(R.id.phasePredict);
+
+                    myDialogBuilder.setView(ProgressView);
+                    myDialogBuilder.create().show();
+
+                    new Thread(new Runnable() {
+                        public void run() {
+                            while (progressStatus < 100) {
+                                progressStatus += 1;
+                                // Update the progress bar and display the
+                                //current value in the text view
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        predictProgress.setProgress(progressStatus);
+                                        progressNotif.setText(progressStatus+"/"+predictProgress.getMax());
+                                        if (progressStatus <= 25)
+                                        {
+                                            phasePredict.setText("Phase :"+"Phase 1");
+                                        }
+                                        else if (progressStatus <= 50){
+                                            phasePredict.setText("Phase :"+"Phase 2");
+                                        }
+                                        else if (progressStatus <= 75){
+                                            phasePredict.setText("Phase :"+"Phase 3");
+                                        }
+                                        else if (progressStatus == 100)
+                                        {
+                                            Intent i = new Intent(getActivity(), resultPredictionCompound.class);
+                                            Bundle args = new Bundle();
+                                            args.putString("methodPredict",Categories);
+                                            args.putStringArrayList("compoundName", compoundName);
+                                            i.putExtra("bundle",args);
+                                            startActivity(i);
+                                            getActivity().finish();
+                                        }
+                                        else{
+                                            phasePredict.setText("Phase :"+"Phase 4");
+                                        }
+
+
+                                    }
+                                });
+                                try {
+                                    // Sleep for 200 milliseconds.
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }).start();
+//
                 }
                 else
                 {
