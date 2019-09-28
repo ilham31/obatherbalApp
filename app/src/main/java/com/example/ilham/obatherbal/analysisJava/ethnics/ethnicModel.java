@@ -1,12 +1,11 @@
 package com.example.ilham.obatherbal.analysisJava.ethnics;
 
 public class ethnicModel {
-    private String idEthnic,ethnicName,provinceId;
+    private String idEthnic,ethnicName;
 
-    public ethnicModel(String idEthnic, String ethnicName, String provinceId) {
+    public ethnicModel(String idEthnic, String ethnicName) {
         this.idEthnic = idEthnic;
         this.ethnicName = ethnicName;
-        this.provinceId = provinceId;
     }
 
     public String getIdEthnic() {
@@ -17,7 +16,4 @@ public class ethnicModel {
         return ethnicName;
     }
 
-    public String getProvinceId() {
-        return provinceId;
-    }
 }

@@ -54,18 +54,14 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
         ethnicViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getDataProvince(detailEthnic.getProvinceId());
-                Intent ethnic = new Intent(mCtx,MapsActivity.class);
-                ethnic.putExtra("daerah","sumatera utara");
-                mCtx.startActivity(ethnic);
-
+                getDataProvince(detailEthnic.getIdEthnic());
             }
         });
     }
 
-    private void getDataProvince(final String provinceId) {
+    private void getDataProvince(final String idEtnic) {
         RequestQueue queue = MySingleton.getInstance(mCtx.getApplicationContext()).getRequestQueue();
-        String url = mCtx.getString(R.string.url)+"/jamu/api/province/get/"+provinceId;
+        String url = mCtx.getString(R.string.url)+"/jamu/api/ethnic/get/"+idEtnic;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -73,12 +69,13 @@ public class adapterEthnic extends RecyclerView.Adapter<adapterEthnic.ethnicView
                     public void onResponse(JSONObject response) {
                         try {
 
-                            JSONObject province = response.getJSONObject("data");
-                            String address = province.getString("province_name");
+                            JSONObject data = response.getJSONObject("data");
+                            JSONObject refProvince = data.getJSONObject("refProvince");
+                            String province = refProvince.getString("province_name");
                             Intent ethnic = new Intent(mCtx,MapsActivity.class);
-                            ethnic.putExtra("daerah","Sumatera utara");
+                            ethnic.putExtra("daerah",province);
+                            ethnic.putExtra("idEtnis",idEtnic);
                             mCtx.startActivity(ethnic);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

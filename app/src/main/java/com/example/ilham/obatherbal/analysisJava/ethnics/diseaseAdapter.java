@@ -38,15 +38,8 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseV
     @Override
     public void onBindViewHolder(@NonNull diseaseViewHolder diseaseViewHolder, int i) {
         final diseaseModel detailDisease = diseaseModelList.get(i);
-        diseaseViewHolder.diseaseName.setText(detailDisease.getDiseaseName());
-        diseaseViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ethnic = new Intent(mCtx,detailDisease.class);
-                ethnic.putExtra("daerahPenyakit",detailDisease.getDiseaseName());
-                mCtx.startActivity(ethnic);
-            }
-        });
+        diseaseViewHolder.diseaseName.setText(detailDisease.getDiseaseENG()+" ("+detailDisease.getDiseaseINA()+")");
+        diseaseViewHolder.plantEthnics.setText("can cured using "+detailDisease.getSpecies()+" ("+detailDisease.getNameINA()+") using its "+detailDisease.getSectionENG()+" ("+detailDisease.getSectionINA()+")");
 
     }
 
@@ -63,10 +56,11 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseV
 
     class diseaseViewHolder extends RecyclerView.ViewHolder{
 
-        TextView diseaseName;
+        TextView diseaseName,plantEthnics;
         public diseaseViewHolder(@NonNull View itemView) {
             super(itemView);
-            diseaseName = (TextView) itemView.findViewById(R.id.diseaseName);
+            diseaseName = (TextView) itemView.findViewById(R.id.diseaseEthnic);
+            plantEthnics = (TextView) itemView.findViewById(R.id.plantEthnic);
         }
     }
 }

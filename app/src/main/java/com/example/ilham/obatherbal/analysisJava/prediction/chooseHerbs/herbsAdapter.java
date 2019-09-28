@@ -70,7 +70,7 @@ public class herbsAdapter extends RecyclerView.Adapter<herbsAdapter.herbsPredict
                 public void onItemClick(View v, int pos) {
                     CheckBox checkBox = (CheckBox) v;
                     //jika checkboxnya sudah 10
-                    if(checkBox.isChecked()&&checked==10)
+                    if(checkBox.isChecked()&&checked==6)
                     {
                         herbsPredictViewHolder.checkBox.setChecked(false);
                         Toast.makeText(mCtx,"Maximum plants are 10",Toast.LENGTH_SHORT).show();

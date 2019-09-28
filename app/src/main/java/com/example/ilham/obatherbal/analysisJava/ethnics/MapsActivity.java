@@ -65,7 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         diseaseModels = new ArrayList<>();
         RequestQueue queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        getDataApi();
+        String idEtnis = getIntent().getStringExtra("idEtnis");
+        getDataApi(idEtnis);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_disease);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -117,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("disease","string filter" + s);
         ArrayList<diseaseModel> filteredList = new ArrayList<>();
         for (diseaseModel item : diseaseModels){
-            if (item.getDiseaseName().toLowerCase().contains(s.toLowerCase()))
+            if (item.getDiseaseENG().toLowerCase().contains(s.toLowerCase()))
             {
                 filteredList.add(item);
             }
@@ -126,8 +127,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void getDataApi() {
-        String url = "https://my-json-server.typicode.com/ilham31/jsonobatherbal/db";
+    private void getDataApi(String idEtnis) {
+        String url = getString(R.string.url)+"/jamu/api/ethnic/get/"+idEtnis;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -135,14 +136,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onResponse(JSONObject response) {
                         Log.d("ethnic", "OnresponseHerbal" + response.toString());
                         try {
-                            JSONArray disease = response.getJSONArray("disease");
-                            for(int i =0;i<disease.length();i++) {
-                                JSONObject jsonObject = disease.getJSONObject(i);
+                            JSONObject data = response.getJSONObject("data");
+                            JSONArray refPlantEthnic = data.getJSONArray("refPlantethnic");
+                            for(int i =0;i<refPlantEthnic.length();i++) {
+                                JSONObject jsonObject = refPlantEthnic.getJSONObject(i);
                                 diseaseModels.add(
                                         new diseaseModel(
-                                                "0",
-                                                jsonObject.getString("Penyakit")
-
+                                                jsonObject.getString("disease_ina"),
+                                                jsonObject.getString("disease_ing"),
+                                                jsonObject.getString("name_ina"),
+                                                jsonObject.getString("species"),
+                                                jsonObject.getString("family"),
+                                                jsonObject.getString("section_ina"),
+                                                jsonObject.getString("section_ing")
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
@@ -179,45 +185,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
-//        JsonArrayRequest request = new JsonArrayRequest(url,
-//                new Response.Listener<JSONArray>() {
-//                    @Override
-//                    public void onResponse(JSONArray jsonArray) {
-////                        loadCrude.setVisibility(View.GONE);
-//                        Log.d("maps", "Onresponsecrude" + jsonArray.toString());
-//                        Log.d("maps", "lengthonresponse" + jsonArray.length());
-//
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            try {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-////                                Log.d(TAG,"jsonobject"+jsonObject);
-//                                diseaseModels.add(
-//                                        new diseaseModel(
-//                                                jsonObject.getString("id"),
-//                                                jsonObject.getString("title")
-//
-//                                        )
-//                                );
-//                                adapter.notifyDataSetChanged();
-//                            } catch (JSONException e) {
-//
-//                            }
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        Log.d("maps", "Onerror" + volleyError.toString());
-//                    }
-//                });
-//
-//        MySingleton.getInstance(this).addToRequestQueue(request);
-
-
-
-
 
     /**
      * Manipulates the map once available.

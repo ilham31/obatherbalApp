@@ -89,7 +89,7 @@ public class searchEthnic extends AppCompatActivity {
     }
 
     private void getDataEthnic() {
-        String url = getString(R.string.url)+"/jamu/api/ethnic/";
+        String url = getString(R.string.url)+"/jamu/api/ethnic/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -99,19 +99,18 @@ public class searchEthnic extends AppCompatActivity {
                         try {
                             JSONArray ethnic = response.getJSONArray("data");
                             Log.d("ethnic","ethnic"+ethnic.toString());
-//                            for (int i = 0; i < ethnic.length() ; i++)
-//                            {
-                                JSONObject jsonObject = ethnic.getJSONObject(0);
+                            for (int i = 0; i < ethnic.length() ; i++)
+                            {
+                                JSONObject jsonObject = ethnic.getJSONObject(i);
 
                                 ethnicModelList.add(
                                         new ethnicModel(
                                                 jsonObject.getString("_id"),
-                                                jsonObject.getString("name"),
-                                                jsonObject.getString("province")
+                                                jsonObject.getString("name")
                                         )
                                 );
                                 adapter.notifyDataSetChanged();
-//                            }
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
