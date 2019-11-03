@@ -18,18 +18,20 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AboutKMSJamu"></activity>
         <activity android:name=".analysisJava.prediction.resultPredictionPlant.resultPredictionPlant" />
         <activity android:name=".analysisJava.prediction.resultPredictionCompound.resultPredictionCompound" />
         <activity android:name=".knowledge.tacit.searchTacit" />
         <activity android:name=".knowledge.tacit.detailTacit" />
         <activity android:name=".knowledge.explicit.searchExplicit" />
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".analysisJava.ethnics.detailDisease" />
         <activity android:name=".knowledge.explicit.detailExplicit" />
         <activity
@@ -87,7 +89,7 @@
         <activity
             android:name=".analysisJava.prediction.steppersPredictionCompound"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>

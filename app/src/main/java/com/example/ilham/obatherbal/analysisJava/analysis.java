@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
@@ -58,8 +59,10 @@ public class analysis extends Fragment {
                             startActivity(intent);
                         }
                         else{
-                            Intent intent = new Intent(getActivity(),steppersPredictionCompound.class);
-                            startActivity(intent);
+                            Toast.makeText(getActivity(), "This feature will available soon",
+                                    Toast.LENGTH_LONG).show();
+//                            Intent intent = new Intent(getActivity(),steppersPredictionCompound.class);
+//                            startActivity(intent);
                         }
                     }
                 });

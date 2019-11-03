@@ -65,6 +65,7 @@ public class detailCrude extends AppCompatActivity  {
          viewPagerDetailCrude adapter = new viewPagerDetailCrude(getSupportFragmentManager());
          tabDetailPlant detailPlant = new tabDetailPlant();
          tabCrudeDetailPlant detailCrude = new tabCrudeDetailPlant();
+         tabCompoundDetailPlant detailCompound = new tabCompoundDetailPlant();
 
          //mengisi bundle menggunakan id plant
          Bundle bundle = new Bundle();
@@ -73,9 +74,11 @@ public class detailCrude extends AppCompatActivity  {
          //menyimpan bundle pada tab
          detailPlant.setArguments(bundle);
          detailCrude.setArguments(bundle);
+         detailCompound.setArguments(bundle);
 
          adapter.addFragment(detailPlant,"Detail");
          adapter.addFragment(detailCrude,"Crude");
+         adapter.addFragment(detailCompound,"Compound");
          viewPager.setAdapter(adapter);
          tabLayout.setupWithViewPager(viewPager);
     }

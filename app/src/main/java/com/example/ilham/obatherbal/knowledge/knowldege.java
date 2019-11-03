@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.ilham.obatherbal.AboutKMSJamu;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.knowledge.explicit.explicit;
 import com.example.ilham.obatherbal.knowledge.tacit.tacit;
@@ -24,7 +25,7 @@ import com.example.ilham.obatherbal.knowledge.tacit.tacit;
 public class knowldege extends Fragment {
     View rootview;
     ImageView imageView;
-    CardView knowledge;
+    CardView knowledge,aboutKMSJamu;
     String[] type;
     String selection;
 
@@ -42,44 +43,23 @@ public class knowldege extends Fragment {
         //knowledge card
         imageView = (ImageView)rootview.findViewById(R.id.thumbnailKnowledge);
         knowledge = (CardView) rootview.findViewById(R.id.knowledgeCard);
+        aboutKMSJamu = rootview.findViewById(R.id.aboutKMSJamu);
         Glide.with(this)
                 .load("https://image.freepik.com/free-photo/book-library-with-open-textbook_1150-5921.jpg")
                 .into(imageView);
         knowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                type = new String[]{"Tacit","Explicit"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Choose ");
-                builder.setSingleChoiceItems(type, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selection = type[which];
-                    }
-                });
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //pindah ke halaman tacit
-                        if (selection.equals("Tacit")){
-                            Intent intent = new Intent(getActivity(), tacit.class);
-                            startActivity(intent);
-                        }
-                        //halaman explicit
-                        else{
-                            Intent intent = new Intent(getActivity(), explicit.class);
-                            startActivity(intent);
-                        }
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(), explicit.class);
+                startActivity(intent);
+            }
+        });
 
-                    }
-                });
-                AlertDialog mDialog = builder.create();
-                mDialog.show();
+        aboutKMSJamu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(), AboutKMSJamu.class);
+                startActivity(intent);
             }
         });
         return rootview;

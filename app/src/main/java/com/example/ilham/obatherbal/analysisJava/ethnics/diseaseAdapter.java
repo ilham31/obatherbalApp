@@ -39,7 +39,7 @@ public class diseaseAdapter extends RecyclerView.Adapter<diseaseAdapter.diseaseV
     public void onBindViewHolder(@NonNull diseaseViewHolder diseaseViewHolder, int i) {
         final diseaseModel detailDisease = diseaseModelList.get(i);
         diseaseViewHolder.diseaseName.setText(detailDisease.getDiseaseENG()+" ("+detailDisease.getDiseaseINA()+")");
-        diseaseViewHolder.plantEthnics.setText("can cured using "+detailDisease.getSpecies()+" ("+detailDisease.getNameINA()+") using its "+detailDisease.getSectionENG()+" ("+detailDisease.getSectionINA()+")");
+        diseaseViewHolder.plantEthnics.setText("can cured using "+detailDisease.getSpecies()+" ("+detailDisease.getNameINA()+") using its "+detailDisease.getSectionENG()+" /"+detailDisease.getSectionINA());
 
     }
 

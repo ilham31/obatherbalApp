@@ -107,6 +107,7 @@ public class tabPlantHerbal extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
                         String message = null;
+                        Log.d("onerrorplant", "onerrorplant" + error.toString());
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";
                         } else if (error instanceof ServerError) {
@@ -175,6 +176,7 @@ public class tabPlantHerbal extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
                         String message = null;
+                        Log.d("onerrorplant", "onerrorplant" + error.toString());
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";
                         } else if (error instanceof ServerError) {

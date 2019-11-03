@@ -138,7 +138,7 @@ public class confirmPrediction extends Fragment {
             param=param+"&id[]="+postIdPlant.get(i);
         }
 
-        String url = "https://api.jamumedicine.com/jamu/api/user/secret?type=crude&optimization="+optimization+"&model="+idCategories+param;
+        String url = getString(R.string.url)+"/jamu/api/user/secret?type=crude&optimization="+optimization+"&model="+idCategories+param;
         Log.d("confirm","url = "+url);
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {

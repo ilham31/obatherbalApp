@@ -187,6 +187,7 @@ public class herbal extends Fragment {
                    public void onErrorResponse(VolleyError volleyError) {
                        // TODO: Handle error
                        String message = null;
+                       Log.d(TAG, "Onerror" + volleyError.toString());
                        if (volleyError instanceof NetworkError) {
                            message = "Cannot connect to Internet...Please check your connection!";
                        } else if (volleyError instanceof ServerError) {
