@@ -2,15 +2,12 @@ package com.example.ilham.obatherbal.analysisJava.prediction.confirmPage;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,13 +33,10 @@ import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsModel;
 import com.example.ilham.obatherbal.analysisJava.prediction.resultPredictionPlant.resultPredictionPlant;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.

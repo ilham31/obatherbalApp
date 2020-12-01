@@ -2,8 +2,8 @@ package com.example.ilham.obatherbal.analysisJava.prediction;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 

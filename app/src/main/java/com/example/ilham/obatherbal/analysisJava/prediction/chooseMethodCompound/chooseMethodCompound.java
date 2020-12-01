@@ -2,7 +2,7 @@ package com.example.ilham.obatherbal.analysisJava.prediction.chooseMethodCompoun
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethod.methodModel;
@@ -32,6 +33,7 @@ public class chooseMethodCompound extends Fragment {
     View view;
     private String categories;
     private String idCategories;
+    private Integer optimizationValue;
 
     public chooseMethodCompound() {
         // Required empty public constructor
@@ -44,10 +46,11 @@ public class chooseMethodCompound extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_choose_method_compound, container, false);
         Spinner spinner = (Spinner) view.findViewById(R.id.pilihMetodeCompound);
+        final Switch optimization = (Switch) view.findViewById(R.id.optimization_compound);
         final ArrayList<compoundPredictModel> idCompound= (ArrayList<compoundPredictModel>)getArguments().getSerializable("idCompound");
         for (compoundPredictModel h : idCompound)
         {
-            Log.d("method compound","id plant = "+h.getIdCompound() +" name = "+h.getNameCompound());
+            Log.d("method compound","id compound = "+h.getIdCompound() +" name = "+h.getNameCompound());
         }
         selectMethod();
 
@@ -56,12 +59,19 @@ public class chooseMethodCompound extends Fragment {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (optimization.isChecked()) {
+                    optimizationValue = 1;
+                } else {
+                    optimizationValue = 0;
+                }
+                Log.d("optimization","optimization = " + optimizationValue);
                 steppersPredictionCompound.goToStepResult();
                 confirmPageCompound step3Fragment = new confirmPageCompound();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("idCompound", (Serializable) idCompound);
                 bundle.putString("idCategories",idCategories);
                 bundle.putString("categories",categories);
+                bundle.putInt("Optimization", optimizationValue);
                 step3Fragment.setArguments(bundle);
                 getFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_from_right, R.anim.slide_in_from_left, R.anim.slide_out_from_left)
@@ -78,14 +88,21 @@ public class chooseMethodCompound extends Fragment {
         List<methodModel> methodModels = new ArrayList<>();
         methodModels.add(
                 new methodModel(
-                        "1",
-                        "Deep learning"
+                        "dnn",
+                        "Deep Neural Network"
                 )
         );
         methodModels.add(
                 new methodModel(
-                        "2",
+                        "rf",
                         "Random Forest"
+                )
+        );
+
+        methodModels.add(
+                new methodModel(
+                        "lgbm",
+                        "Light GBM"
                 )
         );
         ArrayAdapter<methodModel> spinnerAdapter = new ArrayAdapter<methodModel>(getActivity(), android.R.layout.simple_spinner_item, methodModels);

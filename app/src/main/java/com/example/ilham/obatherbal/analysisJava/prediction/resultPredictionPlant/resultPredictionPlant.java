@@ -1,15 +1,12 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.resultPredictionPlant;
 
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.ilham.obatherbal.MainActivity;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsModel;
 
 import java.util.ArrayList;
 

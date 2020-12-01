@@ -36,7 +36,7 @@
             />
 
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@id/chooseCompound"
             android:id="@+id/recyclerview_predictCompound"
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_marginTop="10dp"
             android:scrollbars="vertical"
             >
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
 

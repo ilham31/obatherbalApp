@@ -1,6 +1,6 @@
 package com.example.ilham.obatherbal.analysisJava.comparison.chooseJamu;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class jamuModelComparison {
     private String id,nama;

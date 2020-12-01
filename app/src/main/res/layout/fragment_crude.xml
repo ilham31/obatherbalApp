@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
 
         >
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarCrude"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -41,8 +41,8 @@
                 android:ellipsize="end"
                 android:focusableInTouchMode="false"
                 />
-        </android.support.v7.widget.Toolbar>
-        <android.support.v7.widget.RecyclerView
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_crude"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,7 +52,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             >
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
         <ProgressBar
             android:id="@+id/loadCrude"
             android:layout_width="wrap_content"

@@ -1,10 +1,11 @@
 package com.example.ilham.obatherbal.analysisJava.prediction.resultPredictionCompound;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,8 +18,8 @@ import com.example.ilham.obatherbal.analysisJava.prediction.resultPredictionPlan
 import java.util.ArrayList;
 
 public class resultPredictionCompound extends AppCompatActivity {
-    TextView result,textCompound;
-    String method;
+    TextView result,textCompound, diseaseDescriptionTextView;
+    String method,diseaseDesc, disease;
     ImageView back,successPredictCompound;
     RecyclerView recyclerView;
     ArrayList<String> idCompound;
@@ -33,15 +34,18 @@ public class resultPredictionCompound extends AppCompatActivity {
         result = (TextView)findViewById(R.id.predictResultCompound);
         method = args.getString("methodPredict");
         idCompound = (ArrayList<String>) args.getStringArrayList("compoundName");
+        disease = args.getString("disease");
+        diseaseDesc = args.getString("descDisease");
         back = (ImageView) findViewById(R.id.backpresspredictresultCompound);
         successPredictCompound = (ImageView) findViewById(R.id.successPredictCompound);
+        diseaseDescriptionTextView = (TextView) findViewById(R.id.diseaseDesctiptionCompound);
         textCompound = (TextView)findViewById(R.id.texttextCompound);
         if (success)
         {
             successPredictCompound.setImageResource(R.drawable.compoundpredict);
             Log.d("result", "plantttt"+String.valueOf(idCompound));
-            result.setText("The compounds that you choose can cure cough with 90% accuracy using method "+method);
-
+            result.setText("The compounds that you choose can cure " + disease +"using method "+method);
+            diseaseDescriptionTextView.setText(diseaseDesc);
             recyclerView = (RecyclerView)findViewById(R.id.compoundPredictResult);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

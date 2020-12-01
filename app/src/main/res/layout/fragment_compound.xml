@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarCompound"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -39,11 +39,11 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 />
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
 
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/toolbarCompound"
                 android:id="@+id/recyclerview_compound"
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 >
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
         <ProgressBar
             android:id="@+id/loadCompound"

@@ -2,7 +2,7 @@ package com.example.ilham.obatherbal.herbalJava;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.util.Linkify;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -25,14 +24,9 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.crudeJava.detailCrude;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -132,7 +126,6 @@ public class tabDiseaseHerbal extends Fragment {
 //                                Toast.LENGTH_LONG).show();
                     }
                 });
-
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }
@@ -180,7 +173,6 @@ public class tabDiseaseHerbal extends Fragment {
 //                                Toast.LENGTH_LONG).show();
                     }
                 });
-
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -235,7 +227,6 @@ public class tabDiseaseHerbal extends Fragment {
 //                                Toast.LENGTH_LONG).show();
                     }
                 });
-
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }

@@ -3,9 +3,9 @@ package com.example.ilham.obatherbal.analysisJava.prediction.chooseCompound;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -30,7 +30,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.R;
-import com.example.ilham.obatherbal.analysisJava.prediction.chooseHerbs.herbsModel;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPredictionCompound;
 import com.example.ilham.obatherbal.analysisJava.prediction.chooseMethodCompound.chooseMethodCompound;
 
@@ -180,7 +179,7 @@ public class chooseCompound extends Fragment {
     }
     //mengambil data senyawa
     private void getDataCompound() {
-        String url = "http://www.mocky.io/v2/5cce4f3f300000d30d52c2d4";
+        String url = "http://117.53.45.222:3003/jamu/api/compound/getlist";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
@@ -194,9 +193,9 @@ public class chooseCompound extends Fragment {
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 compoundPredictModels.add(
                                         new compoundPredictModel(
-                                                String.valueOf(i),
-                                                jsonObject.getString("Compounds"),
-                                                jsonObject.getString("Part of Plant")
+                                                jsonObject.getString("_id"),
+                                                jsonObject.getString("cname"),
+                                                jsonObject.getString("compound_id")
 
                                         )
                                 );

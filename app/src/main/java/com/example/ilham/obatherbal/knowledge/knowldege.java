@@ -1,12 +1,10 @@
 package com.example.ilham.obatherbal.knowledge;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.ilham.obatherbal.AboutKMSJamu;
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.knowledge.explicit.explicit;
-import com.example.ilham.obatherbal.knowledge.tacit.tacit;
 
 
 /**

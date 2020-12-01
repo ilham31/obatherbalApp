@@ -4,11 +4,11 @@ package com.example.ilham.obatherbal.crudeJava;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.ilham.obatherbal.MySingleton;
 import com.example.ilham.obatherbal.OnLoadMoreListener;
@@ -228,6 +227,7 @@ public class crude extends Fragment {
                         if(activity != null && isAdded())
                         {
                             String message = null;
+                            Log.d(TAG, "onerror "  +error.networkResponse + error.getMessage() + error.toString() + error.getCause());
                             if (error instanceof NetworkError) {
                                 message = "Cannot connect to Internet...Please check your connection!";
                             } else if (error instanceof ServerError) {
@@ -246,7 +246,6 @@ public class crude extends Fragment {
                         }
                     }
                 });
-
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjectRequest);
 
     }

@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".analysisJava.prediction.resultPredictionCompound.resultPredictionCompound">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/backpresspredictresultCompound"
-        />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/backpresspredictresultCompound"
+            />
         <ImageView
             android:id="@+id/successPredictCompound"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_above="@id/textResultCompound"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_below="@id/backpresspredictresultCompound"
             />
         <LinearLayout
             android:id="@+id/textResultCompound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_centerVertical="true"
-
+            android:layout_below="@+id/successPredictCompound"
             >
             <TextView
                 android:layout_gravity="center_horizontal"
@@ -52,6 +56,15 @@
                 android:layout_marginLeft="10dp"
                 />
 
+            <TextView
+                android:id="@+id/diseaseDesctiptionCompound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
 
         </LinearLayout>
         <TextView
@@ -63,13 +76,13 @@
             android:text="Compound :"
             android:layout_marginLeft="10dp"/>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_below="@id/texttextCompound"
             android:id="@+id/compoundPredictResult"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="24dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-
-</RelativeLayout>
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+</ScrollView>

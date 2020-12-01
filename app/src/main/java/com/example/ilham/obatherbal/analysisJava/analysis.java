@@ -5,12 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ilham.obatherbal.R;
 import com.example.ilham.obatherbal.analysisJava.prediction.steppersPrediction;
@@ -59,10 +58,8 @@ public class analysis extends Fragment {
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(getActivity(), "This feature will available soon",
-                                    Toast.LENGTH_LONG).show();
-//                            Intent intent = new Intent(getActivity(),steppersPredictionCompound.class);
-//                            startActivity(intent);
+                            Intent intent = new Intent(getActivity(),steppersPredictionCompound.class);
+                            startActivity(intent);
                         }
                     }
                 });
